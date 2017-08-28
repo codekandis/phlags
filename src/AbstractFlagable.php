@@ -87,7 +87,7 @@ namespace CodeKandis\Phlags
          * @return mixed The value of the undefined member.
          * @throws UnsupportedOperationException Accessing undefined members is not supported.
          */
-        public function __get( string $memberName ): mixed
+        public function __get( string $memberName )
         {
             throw new UnsupportedOperationException( 'Accessing undefined members is not supported.' );
         }
