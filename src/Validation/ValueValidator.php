@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare( strict_types = 1 );
 
 namespace CodeKandis\Phlags\Validation
 {
@@ -22,7 +22,7 @@ namespace CodeKandis\Phlags\Validation
 		public function validate( FlagableInterface $flagable, int $maxValue, $value ): ValidationResultInterface
 		{
 			$errorMessages = [];
-			if ( $value instanceof $flagable === false && (is_int( $value ) === false || $value < 0) )
+			if ( $value instanceof $flagable === false && ( is_int( $value ) === false || $value < 0 ) )
 			{
 				$errorMessages[] = sprintf(
 					"Invalid type in value. Unsigned 'int' or instance of '%s' expected.",

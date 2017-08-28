@@ -3,19 +3,19 @@
 namespace CodeKandis\Phlags\Tests\Fixtures
 {
 
-    use CodeKandis\Phlags\AbstractFlagable;
+	use CodeKandis\Phlags\AbstractFlagable;
 
-    /**
-     * Represents a test fixture of an flagable.
-     * @package codekandis\phlags
-     * @author  Christian Ramelow <info@codekandis.net>
-     */
-    class ValidPermissions extends AbstractFlagable
-    {
-        public const DIRECTORY = 1;
+	/**
+	 * Represents a test fixture of an flagable.
+	 * @package codekandis\phlags
+	 * @author  Christian Ramelow <info@codekandis.net>
+	 */
+	class ValidPermissions extends AbstractFlagable
+	{
+		public const DIRECTORY = 1;
 
-        public const UREAD     = 2;
+		public const UREAD     = 2;
 
-        public const UWRITE    = 4;
-    }
+		public const UWRITE    = 4;
+	}
 }
