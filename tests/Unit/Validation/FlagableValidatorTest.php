@@ -56,10 +56,16 @@ namespace CodeKandis\Phlags\Tests\Unit\Validation
 				[
 					'flagableClassName' => InvalidPermissions::class,
 					'errorMessages'     => [
-						"Duplicate flag '2' in 'CodeKandis\Phlags\Tests\Fixtures\InvalidPermissions::UREAD_2'.",
-						"Invalid value '5' in flag in 'CodeKandis\Phlags\Tests\Fixtures\InvalidPermissions::UEXECUTE'. Flag must be a power of 2.",
+						sprintf( "Duplicate flag '2' in '%s::%s'.", InvalidPermissions::class, 'UREAD_2' ),
+						sprintf(
+							"Invalid value '5' in flag in '%s::%s'. Flag must be a power of 2.",
+							InvalidPermissions::class,
+							UEXECUTE
+						),
+						sprintf( "Missing flag with value '%d' in '%s'.", 4, InvalidPermissions::class ),
+						sprintf( "Missing flag with value '%d' in '%s'.", 16, InvalidPermissions::class ),
 					],
-					'maxValue'          => 7,
+					'maxValue'          => 43,
 					'succeeded'         => false,
 					'failed'            => true,
 				],

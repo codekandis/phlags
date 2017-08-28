@@ -18,8 +18,10 @@ namespace CodeKandis\Phlags\Tests\Fixtures
 
 		public const UREAD_2   = 2;
 
-		public const UWRITE    = 4;
-
 		public const UEXECUTE  = 5;
+
+		public const GREAD     = 8;
+
+		public const GEXECUTE  = 32;
 	}
 }

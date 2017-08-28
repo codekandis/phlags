@@ -4,7 +4,6 @@ namespace CodeKandis\Phlags\Tests
 {
 
 	use CodeKandis\Phlags\AbstractFlagable;
-	use CodeKandis\Phlags\Exceptions\InvalidValueException;
 	use CodeKandis\Phlags\Exceptions\UnsupportedOperationException;
 	use CodeKandis\Phlags\Tests\Fixtures\ValidPermissions;
 	use PHPUnit\Framework\TestCase;
