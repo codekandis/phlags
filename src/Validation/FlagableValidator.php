@@ -8,6 +8,7 @@ namespace CodeKandis\Phlags\Validation
 
 	/**
 	 * Represents the validator of all flagables.
+	 *
 	 * @package codekandis\phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
@@ -58,6 +59,18 @@ namespace CodeKandis\Phlags\Validation
 				}
 				$validatedFlags[] = $flagValue;
 				$maxValue         |= $flagValue;
+			}
+			for ( $n = 1; 0 | $n <= $maxValue; $n *= 2 )
+			{
+				if ( ( $n & $maxValue ) === 0 )
+				{
+					$errorMessages[] =
+						sprintf(
+							"Missing flag with value '%s' in '%s'.",
+							$n,
+							$flagableClassName
+						);
+				}
 			}
 
 			return new FlagableValidationResult( $errorMessages, $maxValue );
