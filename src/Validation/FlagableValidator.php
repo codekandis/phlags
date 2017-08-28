@@ -34,7 +34,7 @@ namespace CodeKandis\Phlags\Validation
 			$validatedFlags = [];
 			foreach ( $flags as $flagName => $flagValue )
 			{
-				if ( in_array( $flagValue, $validatedFlags ) === true )
+				if ( in_array( $flagValue, $validatedFlags, true ) === true )
 				{
 					$errorMessages[] =
 						sprintf( "Duplicate flag '%s' in '%s::%s'.", $flagValue, $flagableClassName, $flagName );
