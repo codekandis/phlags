@@ -24,7 +24,7 @@ namespace CodeKandis\Phlags\Validation
             $reflectedClass = null;
             try
             {
-                $reflectedClass = @new \ReflectionClass( $flagableClassName );
+                $reflectedClass = new \ReflectionClass( $flagableClassName );
             }
             catch ( \ReflectionException $exception )
             {
