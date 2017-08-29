@@ -56,7 +56,7 @@ namespace CodeKandis\Phlags
 		final public function __construct( $value = self::NONE )
 		{
 			static::validateFlagable();
-			static::$_valueValidator = static::$_valueValidator ?? new ValueValidator();
+			self::$_valueValidator = self::$_valueValidator ?? new ValueValidator();
 			$this->set( $value );
 		}
 
@@ -179,7 +179,7 @@ namespace CodeKandis\Phlags
 		 */
 		private function validateValue( $value ): void
 		{
-			$validationResult = static::$_valueValidator->validate( $this, self::$_maxValue, $value );
+			$validationResult = self::$_valueValidator->validate( $this, self::$_maxValue, $value );
 			if ( $validationResult->failed() === true )
 			{
 				throw ( new InvalidValueException( 'Invalid value.' ) )->withErrorMessages(
