@@ -5,7 +5,6 @@ namespace CodeKandis\Phlags
 
 	/**
 	 * Represents the interface of all flagable classes.
-	 *
 	 * @package codekandis\phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
@@ -50,8 +49,8 @@ namespace CodeKandis\Phlags
 		public function set( $value ): self;
 
 		/**
-		 * Removes a flag.
-		 * @param int|FlagableInterface $value The flag to remove.
+		 * Unsets a flag.
+		 * @param int|FlagableInterface $value The flag to unset.
 		 * @return self
 		 */
 		public function unset( $value ): self;

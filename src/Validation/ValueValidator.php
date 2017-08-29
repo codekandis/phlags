@@ -9,7 +9,6 @@ namespace CodeKandis\Phlags\Validation
 
 	/**
 	 * Represents the validator of all flagables.
-	 *
 	 * @package codekandis\phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
