@@ -1,77 +1,163 @@
-# phlags
+# CodeKandis / Phlags
 
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.1-8892BF.svg?style=flat-square)](https://php.net/)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/b5d47b55-216f-4247-ad41-902dc0f8ac44/mini.png)](https://insight.sensiolabs.com/projects/b5d47b55-216f-4247-ad41-902dc0f8ac44)
 
-With Phlags you can declare flagable enums to provide a type with varying and multiple states.
+With Phlags you can declare flagable enums to provide types with varying and multiple states. While depending on binary operations Phlags provides high performance and reliabilty.
+
+## Index
+
+* [Index](#index)
+    * [How to use](#how-to-use)
+        * [Declaration](#declaration)
+        * [Instantiation](#instantiation)
+        * [Reading](#reading)
+        * [Determination](#determination)
+        * [Manipulation](#manipulation)
+        * [Fluent Manipulation](#fluent-manipulation)
+    * [General hints](#general-hints)
+    * [Validation](#validation)
+        * [Flagables](#flagables)
+        * [Values](#values)
 
 ## How to use
 
-Declare a class extending the flagable base class. All constants must be declared with an unsigned integer in a power of 2.
+**Example: Simple permissions in a file system**
+
+### Declaration
+
+Declare a class extending the flagable base class `AbstractFlagable`.
 
 ```php
-class Permissions extends FlagableAbstract
+class Permissions extends AbstractFlagable
 {
-        public const DIRECTORY = 1;
-        public const UREAD     = 2;
-        public const UWRITE    = 4;
-        public const UEXECUTE  = 8;
-        public const GREAD     = 16;
-        public const GWRITE    = 32;
-        public const GEXECUTE  = 64;
-        public const OREAD     = 128;
-        public const OWRITE    = 256;
-        public const OEXECUTE  = 512;
+    public const READ     = 1;
+    public const WRITE    = 2;
+    public const EXECUTE  = 4;
 }
 ```
 
-**First:** In the context of manipulating the flagable the following values are meant to be equal and can be passed to all methods of the flagable.
-
-```php
-1
-Permissions::DIRECTORY
-new Permissions( 1 )
-new Permissions( Permission::DIRECTORY )
-```
+### Instantiation
 
 You can easily instantiate your flagable in several ways.
 
 ```php
-// with the default flag 'Permissions::NONE'
+// with the default flag 'Permissions::NONE' (inherited from `FlagableInterface::NONE`)
 $permissions = new Permissions();
 
 // or with a single flag
-$permissions = new Permissions( Permissions::DIRECTORY );
+$permissions = new Permissions( Permissions::READ );
 
 // or with multiple flags
-$permissions = new Permissions( Permissions::DIRECTORY | Permissions::UREAD );
+$permissions = new Permissions( Permissions::READ | Permissions::WRITE );
 
 // or with another flagable
-$permissionsA = new Permissions( Permissions::DIRECTORY );
-$permissionsB = new Permissions( $permissionsA );
+$permissions = new Permissions( new Permissions( Permissions::READ ) );
 ```
 
-You can check, if one or more specific flags have been set.
+### Reading
+
+You can read the value of the flagable in 2 several ways.
 
 ```php
-$permissions = new Permissions( Permissions::DIRECTORY | Permissions::UREAD );
-$permissions->has( Permissions::DIRECTORY );   // true
-$permissions->has( Permissions::UREAD );       // true
-$permissions->has( Permissions::UWRITE );      // false
+$permissions = new Permissions( Permissions::READ );
+echo $permissions->getValue();    // 1
+echo $permissions();              // 1
 ```
+
+### Determination
+
+You can determine, if one or more specific flags have been set.
+
+```php
+$permissions = new Permissions( Permissions::READ | Permissions::WRITE );
+$permissions->has( Permissions::READ );       // true
+$permissions->has( Permissions::WRITE );      // true
+$permissions->has( Permissions::EXECUTE );    // false
+```
+
+### Manipulation
 
 You can set, unset and switch flags.
 
 ```php
-$permissions = new Permissions( );
-$permissions->set( Permissions::DIRECTORY );
-$permissions->unset( Permissions::DIRECTORY );
-$permissions->switch( Permissions::DIRECTORY );
+$permissions = new Permissions();
+$permissions->set( Permissions::READ );
+$permissions->unset( Permissions::READ );
+$permissions->switch( Permissions::READ );
 ```
 
-You can retreive the value of the flagable in 2 several ways.
+### Fluent Manipulation
+
+The base class `AbstractFlagable` implements the fluent interface. So the manipulation of the flagable can be chained.
 
 ```php
-$permissions = new Permissions( Permissions::DIRECTORY );
-echo $permissions->getValue();   // 1
-echo $permissions();             // 1
+$permissions = new Permissions();
+$permissions->set( Permissions::READ )
+            ->unset( Permissions::READ )
+            ->switch( Permissions::READ )
+            ->has( Permissions::READ );      // true
+```
+
+## General Hints
+
+In the context of manipulating the flagable the following values are supposed to be equal and can similarly passed to all methods of the flagable.
+
+```php
+1
+Permissions::READ
+new Permissions( 1 )
+new Permissions( Permission::READ )
+```
+
+In the other hand the type restriction of PHP does not allow any combination of an integer value with a flagable.
+
+```php
+new Permission( 1 | new Permissions( READ ) )
+```
+
+## Validation
+
+All flagables have to pass a one-time validation and all values passed to any manipulation and determination method has to pass a validation on every call.
+
+### Flagables
+
+While instantiating your very first flagable your flagable has to pass a one-time validation as follows
+
+* all declared constants are an `unsigned integer`
+* all constants are a power of 2
+* there's no duplicates of any of the constant values
+* there's no missing values, e. g. a flagable with a flags set `1, 2, 8` ist invalid, while the flag `4` is missing
+
+If the flagable does not pass the validation an `InvalidFlagableException` will be thrown and you can retreive an array of detailed error messages of the validation as follows
+
+```php
+try
+{
+    $permissions = new Permissions();
+}
+catch ( InvalidFlagableException $e )
+{
+  $errorMessages = $e->getErrorMessages();
+}
+```
+
+### Values
+
+Any value passed to the flagable has to pass a validation as follows
+
+* it's an `unsigned integer` or is an flagable with an identic type as the type of the called flagable
+* it does not exceeds the maximum flag value of the called flagable
+
+If the value does not pass the validation an `InvalidValueException` will be thrown and you can retreive an array of detailed error messages of the validation as follows
+
+```php
+try
+{
+    $permissions->set( $value );
+}
+catch ( InvalidValueException $e )
+{
+  $errorMessages = $e->getErrorMessages();
+}
 ```
