@@ -12,7 +12,7 @@ namespace CodeKandis\Phlags
 
 	/**
 	 * Class AbstractFlags
-	 * @package Represents the base claa of all flagable classes.
+	 * @package Represents the base class of all flagable classes.
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	abstract class AbstractFlagable implements FlagableInterface
@@ -30,22 +30,28 @@ namespace CodeKandis\Phlags
 		protected static $_validationException;
 
 		/**
+		 * Stores the reflected flags of the flagable.
+		 * @var array
+		 */
+		protected static $_reflectedFlags;
+
+		/**
 		 * Stores the maximum value of the flagable.
 		 * @var int
 		 */
 		protected static $_maxValue = self::NONE;
 
 		/**
-		 * Stores the current value of the flagable.
-		 * @var int
-		 */
-		private $_value;
-
-		/**
 		 * Stores the value validator of the flagable.
 		 * @var ValueValidatorInterface
 		 */
 		protected static $_valueValidator;
+
+		/**
+		 * Stores the current value of the flagable.
+		 * @var int
+		 */
+		private $_value;
 
 		/**
 		 * Constructor method.
@@ -55,6 +61,7 @@ namespace CodeKandis\Phlags
 		 */
 		final public function __construct( $value = self::NONE )
 		{
+			static::initializeReflectedFlags();
 			static::validateFlagable();
 			self::$_valueValidator = self::$_valueValidator ?? new ValueValidator();
 			$this->set( $value );
@@ -128,6 +135,21 @@ namespace CodeKandis\Phlags
 		}
 
 		/**
+		 * Initialized the reflected flags for validation and stringifying.
+		 */
+		public static function initializeReflectedFlags()
+		{
+			try
+			{
+				static::$_reflectedFlags = ( new \ReflectionClass( static::class ) )->getConstants();
+				asort( static::$_reflectedFlags );
+			}
+			catch ( \ReflectionException $exception )
+			{
+			}
+		}
+
+		/**
 		 * Validates the flagable
 		 * @throws InvalidFlagableException The flagable is invalid.
 		 */
@@ -138,7 +160,8 @@ namespace CodeKandis\Phlags
 				throw static::$_validationException;
 			}
 			static::$_hasBeenValidated = true;
-			$validationResult          = ( new FlagableValidator() )->validate( static::class );
+			$validationResult          =
+				( new FlagableValidator() )->validate( static::class, static::$_reflectedFlags );
 			if ( $validationResult->failed() === true )
 			{
 				throw ( new InvalidFlagableException( 'Invalid flagable.' ) )->withErrorMessages(

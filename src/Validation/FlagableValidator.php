@@ -8,7 +8,6 @@ namespace CodeKandis\Phlags\Validation
 
 	/**
 	 * Represents the validator of all flagables.
-	 *
 	 * @package codekandis\phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
@@ -18,19 +17,10 @@ namespace CodeKandis\Phlags\Validation
 		 * {@inheritdoc}
 		 * @see FlagableValidatorInterface::validate()
 		 */
-		public function validate( string $flagableClassName ): FlagableValidationResultInterface
+		public function validate( string $flagableClassName, array $flags ): FlagableValidationResultInterface
 		{
 			$errorMessages  = [];
 			$maxValue       = 0;
-			$reflectedClass = null;
-			try
-			{
-				$reflectedClass = new \ReflectionClass( $flagableClassName );
-			}
-			catch ( \ReflectionException $exception )
-			{
-			}
-			$flags          = $reflectedClass->getConstants();
 			$validatedFlags = [];
 			foreach ( $flags as $flagName => $flagValue )
 			{
