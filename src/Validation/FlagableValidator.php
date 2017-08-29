@@ -17,12 +17,12 @@ namespace CodeKandis\Phlags\Validation
 		 * {@inheritdoc}
 		 * @see FlagableValidatorInterface::validate()
 		 */
-		public function validate( string $flagableClassName, array $flags ): FlagableValidationResultInterface
+		public function validate( string $flagableClassName, array $reflectedFlags ): FlagableValidationResultInterface
 		{
 			$errorMessages  = [];
 			$maxValue       = 0;
 			$validatedFlags = [];
-			foreach ( $flags as $flagName => $flagValue )
+			foreach ( $reflectedFlags as $flagName => $flagValue )
 			{
 				if ( in_array( $flagValue, $validatedFlags, true ) === true )
 				{

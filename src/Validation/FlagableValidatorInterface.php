@@ -16,10 +16,10 @@ namespace CodeKandis\Phlags\Validation
 		 * Validates the flagable.
 		 *
 		 * @param string $flagableClassName The class name of the flagable to validate.
-		 * @param array  $flagableClassName The flags of the flagable to validate.
+		 * @param array  $reflectedFlags    The reflected flags of the flagable to validate.
 		 *
 		 * @return FlagableValidationResultInterface The result of the flagable validation.
 		 */
-		public function validate( string $flagableClassName, array $flags ): FlagableValidationResultInterface;
+		public function validate( string $flagableClassName, array $reflectedFlags ): FlagableValidationResultInterface;
 	}
 }
