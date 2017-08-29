@@ -161,7 +161,31 @@ namespace CodeKandis\Phlags
 		 */
 		public function __toString(): string
 		{
-			return (string)$this->_value;
+			$flagsSetNames = [];
+			$flags         = [];
+			try
+			{
+				$flags = ( new \ReflectionClass( static::class ) )->getConstants();
+				asort( $flags );
+				$flags = array_flip( $flags );
+				foreach ( $flags as $flagValue => $flagName )
+				{
+					if ( $flagValue !== 0 && ( $this->_value & $flagValue ) === $flagValue )
+					{
+						$flagsSetNames[] = $flagName;
+					}
+				}
+			}
+			catch ( \ReflectionException $exception )
+			{
+			}
+
+			return (string)( empty( $flagsSetNames ) === true
+				? $flags[ static::NONE ]
+				: implode(
+					'|',
+					$flagsSetNames
+				) );
 		}
 
 		/**

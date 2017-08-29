@@ -15,6 +15,7 @@ With Phlags you can declare flagable enums to provide types with varying and mul
         * [Determination](#determination)
         * [Manipulation](#manipulation)
         * [Fluent Manipulation](#fluent-manipulation)
+        * [String Representation](#string-representation)
     * [General hints](#general-hints)
     * [Validation](#validation)
         * [Flagables](#flagables)
@@ -97,6 +98,24 @@ $permissions->set( Permissions::READ )
             ->unset( Permissions::READ )
             ->switch( Permissions::READ )
             ->has( Permissions::READ );      // true
+```
+
+### String Representation
+
+A flagable can stringified in different ways with different outputs.
+
+```php
+$permissions = new Permissions();
+(string)$permissions->getValue();    // 0
+(string)$permissions();              // 0
+(string)$permissions;                // NONE
+$permissions->__toString();          // NONE
+
+$permissions = new Permissions( PERMISSIONS::READ | PERMISSIONS::EXECUTE );
+(string)$permissions->getValue();    // 5
+(string)$permissions();              // 5
+(string)$permissions;                // READ|EXECUTE
+$permissions->__toString();          // READ|EXECUTE
 ```
 
 ## General Hints
