@@ -1,4 +1,4 @@
-<?php declare( strict_types = 1 );
+<?php declare(strict_types=1);
 
 namespace CodeKandis\Phlags\Validation
 {
@@ -20,24 +20,35 @@ namespace CodeKandis\Phlags\Validation
 		 */
 		public function validate( FlagableInterface $flagable, int $maxValue, $value ): ValidationResultInterface
 		{
-			$errorMessages = [];
-			if ( $value instanceof $flagable === false && ( is_int( $value ) === false || $value < 0 ) )
+			if ( $value instanceof $flagable )
 			{
-				$errorMessages[] = sprintf(
-					"Invalid type in value. Unsigned 'int' or instance of '%s' expected.",
-					get_class( $flagable )
+				return new ValueValidationResult( [] );
+			}
+			if ( is_int( $value ) === false || $value < 0 )
+			{
+				return new ValueValidationResult(
+					[
+						sprintf(
+							"Invalid type in value. Unsigned 'int' or instance of '%s' expected.",
+							get_class( $flagable )
+						),
+					]
 				);
 			}
-			if ( is_int( $value ) && $value > $maxValue )
+			if ( $value > $maxValue )
 			{
-				$errorMessages[] = sprintf(
-					"The value '%s' exceeds the maximum flag value of '%s'.",
-					(string)$value,
-					(string)$maxValue
+				return new ValueValidationResult(
+					[
+						sprintf(
+							"The value '%s' exceeds the maximum flag value of '%s'.",
+							(string)$value,
+							(string)$maxValue
+						),
+					]
 				);
 			}
 
-			return new ValueValidationResult( $errorMessages );
+			return new ValueValidationResult( [] );
 		}
 	}
 }
