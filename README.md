@@ -1,25 +1,27 @@
 # CodeKandis / Phlags
 
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.1-8892BF.svg?style=flat-square)](https://php.net/)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/b5d47b55-216f-4247-ad41-902dc0f8ac44/mini.png)](https://insight.sensiolabs.com/projects/b5d47b55-216f-4247-ad41-902dc0f8ac44)
+[![Minimum PHP Version][php-version-badge]](https://php.net/)
+[![SensioLabs Insight][sensio-labs-insight-badge]](http://insight.sensiolabs.com/projects/b5d47b55-216f-4247-ad41-902dc0f8ac44)
+
+[![Version][version-badge]][changelog]
+[![License][license-badge]][license]
 
 With Phlags you can declare flagable enums to provide types with varying and multiple states. While depending on binary operations Phlags provides high performance and reliabilty.
 
 ## Index
 
-* [Index](#index)
-    * [How to use](#how-to-use)
-        * [Declaration](#declaration)
-        * [Instantiation](#instantiation)
-        * [Reading](#reading)
-        * [Determination](#determination)
-        * [Manipulation](#manipulation)
-        * [Fluent Manipulation](#fluent-manipulation)
-        * [String Representation](#string-representation)
-    * [General hints](#general-hints)
-    * [Validation](#validation)
-        * [Flagables](#flagables)
-        * [Values](#values)
+* [How to use](#how-to-use)
+    * [Declaration](#declaration)
+    * [Instantiation](#instantiation)
+    * [Reading](#reading)
+    * [Determination](#determination)
+    * [Manipulation](#manipulation)
+    * [Fluent Manipulation](#fluent-manipulation)
+    * [String Representation](#string-representation)
+* [General hints](#general-hints)
+* [Validation](#validation)
+    * [Flagables](#flagables)
+    * [Values](#values)
 
 ## How to use
 
@@ -40,7 +42,7 @@ class Permissions extends AbstractFlagable
 
 ### Instantiation
 
-You can easily instantiate your flagable in several ways.
+You can easily instantiate your flagable in different ways.
 
 ```php
 // with the default flag 'Permissions::NONE' (inherited from `FlagableInterface::NONE`)
@@ -58,7 +60,7 @@ $permissions = new Permissions( new Permissions( Permissions::READ ) );
 
 ### Reading
 
-You can read the value of the flagable in 2 several ways.
+You can read the value of the flagable in 2 different ways.
 
 ```php
 $permissions = new Permissions( Permissions::READ );
@@ -68,7 +70,7 @@ echo $permissions();              // 1
 
 ### Determination
 
-You can determine, if one or more specific flags have been set.
+You can determine if one or more specific flags have been set.
 
 ```php
 $permissions = new Permissions( Permissions::READ | Permissions::WRITE );
@@ -137,18 +139,16 @@ new Permission( 1 | new Permissions( READ ) )
 
 ## Validation
 
-All flagables have to pass a one-time validation and all values passed to any manipulation and determination method has to pass a validation on every call.
-
 ### Flagables
 
-While instantiating your very first flagable your flagable has to pass a one-time validation as follows
+While instantiating your very first flagable your flagable has to pass a one-time validation.
 
 * all declared constants are an `unsigned integer`
 * all constants are a power of 2
 * there's no duplicates of any of the constant values
 * there's no missing values, e. g. a flagable with a flags set `1, 2, 8` ist invalid, while the flag `4` is missing
 
-If the flagable does not pass the validation an `InvalidFlagableException` will be thrown and you can retreive an array of detailed error messages of the validation as follows
+If the flagable does not pass the validation an `InvalidFlagableException` will be thrown and you can retreive an array of detailed error messages of the validation.
 
 ```php
 try
@@ -157,18 +157,18 @@ try
 }
 catch ( InvalidFlagableException $e )
 {
-  $errorMessages = $e->getErrorMessages();
+    $errorMessages = $e->getErrorMessages();
 }
 ```
 
 ### Values
 
-Any value passed to the flagable has to pass a validation as follows
+A flag value passed to the methods of the flagable has to pass a validation on every method call.
 
 * it's an `unsigned integer` or is an flagable with an identic type as the type of the called flagable
 * it does not exceeds the maximum flag value of the called flagable
 
-If the value does not pass the validation an `InvalidValueException` will be thrown and you can retreive an array of detailed error messages of the validation as follows
+If the value does not pass the validation an `InvalidValueException` will be thrown and you can retreive an array of detailed error messages of the validation.
 
 ```php
 try
@@ -177,6 +177,13 @@ try
 }
 catch ( InvalidValueException $e )
 {
-  $errorMessages = $e->getErrorMessages();
+    $errorMessages = $e->getErrorMessages();
 }
 ```
+
+[php-version-badge]: https://img.shields.io/badge/php-%3E%3D%207.1-8892BF.svg?style=flat-square
+[sensio-labs-insight-badge]: https://insight.sensiolabs.com/projects/b5d47b55-216f-4247-ad41-902dc0f8ac44/mini.png
+[version-badge]: https://img.shields.io/badge/version-1.0.0-blue.svg
+[changelog]: ./CHANGELOG.md
+[license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[license]: ./LICENSE
