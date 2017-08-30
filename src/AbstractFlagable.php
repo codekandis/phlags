@@ -325,5 +325,26 @@ namespace CodeKandis\Phlags
 
 			return $this;
 		}
+
+		/**
+		 * {@inheritdoc}
+		 * @see FlagableInterface::getIterator()
+		 */
+		public function getIterator(): iterable
+		{
+			if ( $this->_value === static::NONE )
+			{
+				yield new static();
+
+				return;
+			}
+			foreach ( static::$_reflectedFlags as $reflectedFlagValue )
+			{
+				if ( static::NONE !== $reflectedFlagValue && $this->unvalidatedHas( $reflectedFlagValue ) === true )
+				{
+					yield new static( $reflectedFlagValue );
+				}
+			}
+		}
 	}
 }

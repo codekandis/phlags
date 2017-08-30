@@ -8,7 +8,7 @@ namespace CodeKandis\Phlags
 	 * @package codekandis\phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
-	interface FlagableInterface
+	interface FlagableInterface extends \IteratorAggregate
 	{
 		/**
 		 * Stores the default flag.
@@ -61,5 +61,11 @@ namespace CodeKandis\Phlags
 		 * @return self
 		 */
 		public function switch( $value ): self;
+
+		/**
+		 * Generates a list of all flags set in the flagable, each as a new flagable.
+		 * @return iterable|FlagableInterface[] The list of all flags set in the flagable, each as a new flagable.
+		 */
+		public function getIterator(): iterable;
 	}
 }
