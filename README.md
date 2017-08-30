@@ -1,27 +1,38 @@
 # CodeKandis / Phlags
 
-[![Minimum PHP Version][php-version-badge]](https://php.net/)
-[![SensioLabs Insight][sensio-labs-insight-badge]](http://insight.sensiolabs.com/projects/b5d47b55-216f-4247-ad41-902dc0f8ac44)
+[![Minimum PHP Version][xtlink-php-version-badge]][xtlink-php-net]
+[![SensioLabs Insight][xtlink-sensiolabs-insight-badge]][xtlink-sensiolabs-insight]
 
-[![Version][version-badge]][changelog]
-[![License][license-badge]][license]
+[![Version][xtlink-version-badge]][srclink-changelog]
+[![License][xtlink-license-badge]][srclink-license]
 
 With Phlags you can declare flagable enums to provide types with varying and multiple states. While depending on binary operations Phlags provides high performance and reliabilty.
 
 ## Index
 
+* [Installation](#installation)
 * [How to use](#how-to-use)
     * [Declaration](#declaration)
+    * [General hints](#general-hints)
     * [Instantiation](#instantiation)
     * [Reading](#reading)
     * [Determination](#determination)
     * [Manipulation](#manipulation)
     * [Fluent Manipulation](#fluent-manipulation)
     * [String Representation](#string-representation)
-* [General hints](#general-hints)
+    * [Traitful Extensions](#traitful-extensions)
+        * [Conditional Manipulation](#conditional-manipulation)
 * [Validation](#validation)
     * [Flagables](#flagables)
     * [Values](#values)
+
+## Installation
+
+Install the latest version with
+
+```bash
+$ composer require codekandis/phlags
+```
 
 ## How to use
 
@@ -29,7 +40,7 @@ With Phlags you can declare flagable enums to provide types with varying and mul
 
 ### Declaration
 
-Declare a class extending the flagable base class `AbstractFlagable`.
+Declare a class extending the flagable base class [`AbstractFlagable`][srclink-abstract-flagable].
 
 ```php
 class Permissions extends AbstractFlagable
@@ -38,6 +49,23 @@ class Permissions extends AbstractFlagable
     public const WRITE    = 2;
     public const EXECUTE  = 4;
 }
+```
+
+### General Hints
+
+In the context of manipulating the flagable the following values are supposed to be equal and can similarly passed to all methods of the flagable.
+
+```php
+1
+Permissions::READ
+new Permissions( 1 )
+new Permissions( Permission::READ )
+```
+
+In the other hand the type restriction of PHP does not allow any combination of an integer value with a flagable.
+
+```php
+new Permission( 1 | new Permissions( READ ) )
 ```
 
 ### Instantiation
@@ -88,18 +116,19 @@ $permissions = new Permissions();
 $permissions->set( Permissions::READ );
 $permissions->unset( Permissions::READ );
 $permissions->switch( Permissions::READ );
+$permissions->has( Permissions::READ );    // true
 ```
 
 ### Fluent Manipulation
 
-The base class `AbstractFlagable` implements the fluent interface. So the manipulation of the flagable can be chained.
+The base class [`AbstractFlagable`][srclink-abstract-flagable] implements the fluent interface. So the manipulation of the flagable can be chained.
 
 ```php
 $permissions = new Permissions();
 $permissions->set( Permissions::READ )
             ->unset( Permissions::READ )
             ->switch( Permissions::READ )
-            ->has( Permissions::READ );      // true
+            ->has( Permissions::READ );    // true
 ```
 
 ### String Representation
@@ -120,21 +149,37 @@ $permissions = new Permissions( PERMISSIONS::READ | PERMISSIONS::EXECUTE );
 $permissions->__toString();          // READ|EXECUTE
 ```
 
-## General Hints
+### Traitful Extensions
 
-In the context of manipulating the flagable the following values are supposed to be equal and can similarly passed to all methods of the flagable.
+To keep the simplicity and performance Phlags provides [`Traitful Extensions`][srclink-traitful-extensions]. Instead of implementing a complex and heavyweight inheritance you can combine the extensions of your choice to the flagable of your needs.
 
 ```php
-1
-Permissions::READ
-new Permissions( 1 )
-new Permissions( Permission::READ )
+class Permissions extends AbstractFlagable
+{
+    use SomeTraitfulExtension;
+
+    public const READ     = 1;
+    public const WRITE    = 2;
+    public const EXECUTE  = 4;
+}
 ```
 
-In the other hand the type restriction of PHP does not allow any combination of an integer value with a flagable.
+#### Conditional Manipulation
+
+— [`ConditionalManipulationTrait`][srclink-conditional-manipulation-trait]
+
+The Conditional Manipulation provides you with methods to set, unset and switch a flag value while a passed statement must evaluate to true.
 
 ```php
-new Permission( 1 | new Permissions( READ ) )
+$pathToFile = '/some-random-file.txt';
+$permissions = new Permissions();
+$permissions->ifSet( Permissions::DIRECTORY, is_dir( $pathToFile ) );
+$permissions->has( Permissions::DIRECTORY );    // false
+
+$pathToFile = '/some-random-directory/';
+$permissions = new Permissions();
+$permissions->ifSet( Permissions::DIRECTORY, is_dir( $pathToDirectory ) );
+$permissions->has( Permissions::DIRECTORY );    // true
 ```
 
 ## Validation
@@ -148,7 +193,7 @@ While instantiating your very first flagable your flagable has to pass a one-tim
 * there's no duplicates of any of the constant values
 * there's no missing values, e. g. a flagable with a flags set `1, 2, 8` ist invalid, while the flag `4` is missing
 
-If the flagable does not pass the validation an `InvalidFlagableException` will be thrown and you can retreive an array of detailed error messages of the validation.
+If the flagable does not pass the validation an [`InvalidFlagableException`][srclink-invalid-flagable-exception] will be thrown and you can retreive an array of detailed error messages of the validation.
 
 ```php
 try
@@ -168,7 +213,7 @@ A flag value passed to the methods of the flagable has to pass a validation on e
 * it's an `unsigned integer` or is an flagable with an identic type as the type of the called flagable
 * it does not exceeds the maximum flag value of the called flagable
 
-If the value does not pass the validation an `InvalidValueException` will be thrown and you can retreive an array of detailed error messages of the validation.
+If the value does not pass the validation an [`InvalidValueException`][srclink-invalid-value-exception] will be thrown and you can retreive an array of detailed error messages of the validation.
 
 ```php
 try
@@ -181,9 +226,20 @@ catch ( InvalidValueException $e )
 }
 ```
 
-[php-version-badge]: https://img.shields.io/badge/php-%3E%3D%207.1-8892BF.svg?style=flat-square
-[sensio-labs-insight-badge]: https://insight.sensiolabs.com/projects/b5d47b55-216f-4247-ad41-902dc0f8ac44/mini.png
-[version-badge]: https://img.shields.io/badge/version-1.0.0-blue.svg
-[changelog]: ./CHANGELOG.md
-[license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
-[license]: ./LICENSE
+
+
+[xtlink-php-version-badge]: https://img.shields.io/badge/php-%3E%3D%207.1-8892BF.svg?style=flat-square
+[xtlink-php-net]: https://php.net
+[xtlink-sensiolabs-insight-badge]: https://insight.sensiolabs.com/projects/b5d47b55-216f-4247-ad41-902dc0f8ac44/mini.png
+[xtlink-sensiolabs-insight]: http://insight.sensiolabs.com/projects/b5d47b55-216f-4247-ad41-902dc0f8ac44
+
+[xtlink-version-badge]: https://img.shields.io/badge/version-1.0.0-blue.svg
+[xtlink-license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
+
+[srclink-changelog]: ./CHANGELOG.md
+[srclink-license]: ./LICENSE
+[srclink-abstract-flagable]: ./src/AbstractFlagable.php
+[srclink-invalid-flagable-exception]: ./src/Exceptions/InvalidFlagableException.php
+[srclink-invalid-value-exception]: ./src/Exceptions/InvalidValueException.php
+[srclink-traitful-extensions]: ./src/TraitfulExtensions
+[srclink-conditional-manipulation-trait]: ./src/TraitfulExtensions/ConditionalManipulationTrait.php
