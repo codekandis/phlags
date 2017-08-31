@@ -1,11 +1,12 @@
 {
-    "name": "codecandis/phlags",
+    "name": "codekandis/phlags",
     "description": "Introduces the possibility to use flagable enums in PHP.",
     "keywords": [
         "php",
         "enums",
         "flags",
-        "flagable"
+        "flagable",
+        "flagable-enums"
     ],
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -13,7 +14,9 @@
     "authors": [
         {
             "name": "Christian Ramelow",
-            "email": "info@codekandis.net"
+            "email": "info@codekandis.net",
+            "homepage": "http://codekandis.net",
+            "role": "Developer"
         }
     ],
     "support": {
