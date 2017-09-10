@@ -72,7 +72,7 @@ namespace CodeKandis\Phlags
 		 * @param string $memberName Gets the name of the undefined member.
 		 * @return bool false while accessing undefined members is not supported.
 		 */
-		public function __isset( string $memberName ): bool
+		final public function __isset( string $memberName ): bool
 		{
 			return false;
 		}
@@ -83,7 +83,7 @@ namespace CodeKandis\Phlags
 		 * @return mixed The value of the undefined member.
 		 * @throws UnsupportedOperationException Accessing undefined members is not supported.
 		 */
-		public function __unset( string $memberName ): void
+		final public function __unset( string $memberName ): void
 		{
 			throw new UnsupportedOperationException( 'Accessing undefined members is not supported.' );
 		}
@@ -94,7 +94,7 @@ namespace CodeKandis\Phlags
 		 * @return mixed The value of the undefined member.
 		 * @throws UnsupportedOperationException Accessing undefined members is not supported.
 		 */
-		public function __get( string $memberName )
+		final public function __get( string $memberName )
 		{
 			throw new UnsupportedOperationException( 'Accessing undefined members is not supported.' );
 		}
@@ -103,9 +103,10 @@ namespace CodeKandis\Phlags
 		 * Sets an undefined member.
 		 * @param string $memberName The name of the undefined member.
 		 * @param mixed  $value      The value to set.
+		 * @return void
 		 * @throws UnsupportedOperationException Accessing undefined members is not supported.
 		 */
-		public function __set( string $memberName, $value ): void
+		final public function __set( string $memberName, $value ): void
 		{
 			throw new UnsupportedOperationException( 'Accessing undefined members is not supported.' );
 		}
@@ -117,7 +118,7 @@ namespace CodeKandis\Phlags
 		 * @return mixed The return value of the undefined method.
 		 * @throws UnsupportedOperationException Accessing undefined methods is not supported.
 		 */
-		public function __call( string $methodName, array $arguments )
+		final public function __call( string $methodName, array $arguments )
 		{
 			throw new UnsupportedOperationException( 'Accessing undefined methods is not supported.' );
 		}
@@ -129,15 +130,54 @@ namespace CodeKandis\Phlags
 		 * @return mixed The return value of the undefined static method.
 		 * @throws UnsupportedOperationException Accessing undefined methods is not supported.
 		 */
-		public static function __callStatic( string $methodName, array $arguments )
+		final public static function __callStatic( string $methodName, array $arguments )
 		{
 			throw new UnsupportedOperationException( 'Accessing undefined methods is not supported.' );
 		}
 
 		/**
-		 * Initialized the reflected flags for validation and stringifying.
+		 * {@inheritdoc}
+		 * @see FlagableInterface::__toString()
 		 */
-		public static function initializeReflectedFlags()
+		final public function __toString(): string
+		{
+			$flagsSetNames = [];
+			foreach ( static::$_reflectedFlags as $reflectedFlagName => $reflectedFlagValue )
+			{
+				if ( $reflectedFlagValue !== 0 && ( $this->_value & $reflectedFlagValue ) === $reflectedFlagValue )
+				{
+					$flagsSetNames[] = $reflectedFlagName;
+				}
+			}
+
+			return (string) ( empty( $flagsSetNames ) === true
+				? 'NONE'
+				: implode( '|', $flagsSetNames ) );
+		}
+
+		/**
+		 * {@inheritdoc}
+		 * @see FlagableInterface::__invoke()
+		 */
+		final public function __invoke(): int
+		{
+			return $this->getValue();
+		}
+
+		/**
+		 * {@inheritdoc}
+		 * @see FlagableInterface::getValue()
+		 */
+		final public function getValue(): int
+		{
+			return $this->_value;
+		}
+
+		/**
+		 * Initialized the reflected flags for validation and stringifying.
+		 * @return void
+		 */
+		private static function initializeReflectedFlags(): void
 		{
 			try
 			{
@@ -151,6 +191,7 @@ namespace CodeKandis\Phlags
 
 		/**
 		 * Validates the flagable
+		 * @return void
 		 * @throws InvalidFlagableException The flagable is invalid.
 		 */
 		private static function validateFlagable(): void
@@ -160,68 +201,26 @@ namespace CodeKandis\Phlags
 				throw static::$_validationException;
 			}
 			static::$_hasBeenValidated = true;
-			$validationResult          =
-				( new FlagableValidator() )->validate( static::class, static::$_reflectedFlags );
+			$validationResult          = ( new FlagableValidator )->validate( static::class, static::$_reflectedFlags );
 			if ( $validationResult->failed() === true )
 			{
-				throw ( new InvalidFlagableException( 'Invalid flagable.' ) )->withErrorMessages(
-					$validationResult->getErrorMessages()
-				);
+				throw ( new InvalidFlagableException( 'Invalid flagable.' ) )->withErrorMessages( $validationResult->getErrorMessages() );
 			}
 			static::$_maxValue = $validationResult->getMaxValue();
 		}
 
 		/**
-		 * @see FlagableInterface::getValue()
-		 */
-		public function getValue(): int
-		{
-			return $this->_value;
-		}
-
-		/**
-		 * @see FlagableInterface::__toString()
-		 */
-		public function __toString(): string
-		{
-			$flagsSetNames = [];
-			foreach ( static::$_reflectedFlags as $reflectedFlagName => $reflectedFlagValue )
-			{
-				if ( $reflectedFlagValue !== 0 && ( $this->_value & $reflectedFlagValue ) === $reflectedFlagValue )
-				{
-					$flagsSetNames[] = $reflectedFlagName;
-				}
-			}
-
-			return (string)( empty( $flagsSetNames ) === true
-				? 'NONE'
-				: implode(
-					'|',
-					$flagsSetNames
-				) );
-		}
-
-		/**
-		 * @see FlagableInterface::__invoke()
-		 */
-		public function __invoke(): int
-		{
-			return $this->getValue();
-		}
-
-		/**
 		 * Validates a value.
 		 * @param int|FlagableInterface $value The value to validate.
+		 * @return void
 		 * @throws InvalidValueException The value is invalid.
 		 */
 		private function validateValue( $value ): void
 		{
-			$validationResult = self::$_valueValidator->validate( $this, self::$_maxValue, $value );
+			$validationResult = self::$_valueValidator->validate( $this, static::$_reflectedFlags, self::$_maxValue, $value );
 			if ( $validationResult->failed() === true )
 			{
-				throw ( new InvalidValueException( 'Invalid value.' ) )->withErrorMessages(
-					$validationResult->getErrorMessages()
-				);
+				throw ( new InvalidValueException( 'Invalid value.' ) )->withErrorMessages( $validationResult->getErrorMessages() );
 			}
 		}
 
@@ -232,7 +231,28 @@ namespace CodeKandis\Phlags
 		 */
 		private function getExtractedValue( $value ): int
 		{
-			return is_int( $value ) === true ? $value : $value->getValue();
+			if ( is_int( $value ) === true )
+			{
+				return $value;
+			}
+			if ( is_string( $value ) === true )
+			{
+				$extractedValue = FlagableInterface::NONE;
+				$explodedValues = explode( '|', $value );
+				foreach ( $explodedValues as $explodedValue )
+				{
+					if ( ctype_digit( $explodedValue ) === false )
+					{
+						$extractedValue |= static::$_reflectedFlags[ $explodedValue ];
+						continue;
+					}
+					$extractedValue |= (int) $explodedValue;
+				}
+
+				return $extractedValue;
+			}
+
+			return $value->getValue();
 		}
 
 		/**
@@ -280,7 +300,7 @@ namespace CodeKandis\Phlags
 		 * @see FlagableInterface::has()
 		 * @throws InvalidValueException The value is invalid.
 		 */
-		public function has( $value ): bool
+		final public function has( $value ): bool
 		{
 			$this->validateValue( $value );
 
@@ -292,7 +312,7 @@ namespace CodeKandis\Phlags
 		 * @see FlagableInterface::set()
 		 * @throws InvalidValueException The value is invalid.
 		 */
-		public function set( $value ): FlagableInterface
+		final public function set( $value ): FlagableInterface
 		{
 			$this->validateValue( $value );
 			$this->unvalidatedSet( $this->getExtractedValue( $value ) );
@@ -305,7 +325,7 @@ namespace CodeKandis\Phlags
 		 * @see FlagableInterface::unset()
 		 * @throws InvalidValueException The value is invalid.
 		 */
-		public function unset( $value ): FlagableInterface
+		final public function unset( $value ): FlagableInterface
 		{
 			$this->validateValue( $value );
 			$this->unvalidatedUnset( $this->getExtractedValue( $value ) );
@@ -318,7 +338,7 @@ namespace CodeKandis\Phlags
 		 * @see FlagableInterface::switch()
 		 * @throws InvalidValueException The value is invalid.
 		 */
-		public function switch( $value ): FlagableInterface
+		final public function switch( $value ): FlagableInterface
 		{
 			$this->validateValue( $value );
 			$this->unvalidatedSwitch( $this->getExtractedValue( $value ) );
@@ -330,11 +350,11 @@ namespace CodeKandis\Phlags
 		 * {@inheritdoc}
 		 * @see FlagableInterface::getIterator()
 		 */
-		public function getIterator(): iterable
+		final public function getIterator(): iterable
 		{
 			if ( $this->_value === static::NONE )
 			{
-				yield new static();
+				yield new static;
 
 				return;
 			}
