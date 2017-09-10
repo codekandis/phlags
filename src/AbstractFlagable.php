@@ -21,19 +21,19 @@ namespace CodeKandis\Phlags
 		 * Stores if the flagable has been validated.
 		 * @var bool
 		 */
-		protected static $_hasBeenValidated = false;
+		protected static $hasBeenValidated = false;
 
 		/**
 		 * Stores the thrown exception of the validation of the flagable.
 		 * @var InvalidFlagableException
 		 */
-		protected static $_validationException;
+		protected static $validationException;
 
 		/**
 		 * Stores the reflected flags of the flagable.
 		 * @var array
 		 */
-		protected static $_reflectedFlags;
+		protected static $reflectedFlags;
 
 		/**
 		 * Stores the maximum value of the flagable.
@@ -45,13 +45,13 @@ namespace CodeKandis\Phlags
 		 * Stores the value validator of the flagable.
 		 * @var ValueValidatorInterface
 		 */
-		protected static $_valueValidator;
+		protected static $valueValidator;
 
 		/**
 		 * Stores the current value of the flagable.
 		 * @var int
 		 */
-		private $_value;
+		private $value;
 
 		/**
 		 * Constructor method.
@@ -63,7 +63,7 @@ namespace CodeKandis\Phlags
 		{
 			static::initializeReflectedFlags();
 			static::validateFlagable();
-			self::$_valueValidator = self::$_valueValidator ?? new ValueValidator();
+			self::$valueValidator = self::$valueValidator ?? new ValueValidator();
 			$this->set( $value );
 		}
 
@@ -142,9 +142,9 @@ namespace CodeKandis\Phlags
 		final public function __toString(): string
 		{
 			$flagsSetNames = [];
-			foreach ( static::$_reflectedFlags as $reflectedFlagName => $reflectedFlagValue )
+			foreach ( static::$reflectedFlags as $reflectedFlagName => $reflectedFlagValue )
 			{
-				if ( $reflectedFlagValue !== 0 && ( $this->_value & $reflectedFlagValue ) === $reflectedFlagValue )
+				if ( $reflectedFlagValue !== 0 && ( $this->value & $reflectedFlagValue ) === $reflectedFlagValue )
 				{
 					$flagsSetNames[] = $reflectedFlagName;
 				}
@@ -170,7 +170,7 @@ namespace CodeKandis\Phlags
 		 */
 		final public function getValue(): int
 		{
-			return $this->_value;
+			return $this->value;
 		}
 
 		/**
@@ -181,8 +181,8 @@ namespace CodeKandis\Phlags
 		{
 			try
 			{
-				static::$_reflectedFlags = ( new \ReflectionClass( static::class ) )->getConstants();
-				asort( static::$_reflectedFlags );
+				static::$reflectedFlags = ( new \ReflectionClass( static::class ) )->getConstants();
+				asort( static::$reflectedFlags );
 			}
 			catch ( \ReflectionException $exception )
 			{
@@ -196,12 +196,12 @@ namespace CodeKandis\Phlags
 		 */
 		private static function validateFlagable(): void
 		{
-			if ( static::$_hasBeenValidated === true && static::$_validationException !== null )
+			if ( static::$hasBeenValidated === true && static::$validationException !== null )
 			{
-				throw static::$_validationException;
+				throw static::$validationException;
 			}
-			static::$_hasBeenValidated = true;
-			$validationResult          = ( new FlagableValidator )->validate( static::class, static::$_reflectedFlags );
+			static::$hasBeenValidated = true;
+			$validationResult         = ( new FlagableValidator )->validate( static::class, static::$reflectedFlags );
 			if ( $validationResult->failed() === true )
 			{
 				throw ( new InvalidFlagableException( 'Invalid flagable.' ) )->withErrorMessages( $validationResult->getErrorMessages() );
@@ -217,7 +217,7 @@ namespace CodeKandis\Phlags
 		 */
 		private function validateValue( $value ): void
 		{
-			$validationResult = self::$_valueValidator->validate( $this, static::$_reflectedFlags, self::$_maxValue, $value );
+			$validationResult = self::$valueValidator->validate( $this, static::$reflectedFlags, self::$_maxValue, $value );
 			if ( $validationResult->failed() === true )
 			{
 				throw ( new InvalidValueException( 'Invalid value.' ) )->withErrorMessages( $validationResult->getErrorMessages() );
@@ -243,7 +243,7 @@ namespace CodeKandis\Phlags
 				{
 					if ( ctype_digit( $explodedValue ) === false )
 					{
-						$extractedValue |= static::$_reflectedFlags[ $explodedValue ];
+						$extractedValue |= static::$reflectedFlags[ $explodedValue ];
 						continue;
 					}
 					$extractedValue |= (int) $explodedValue;
@@ -262,7 +262,7 @@ namespace CodeKandis\Phlags
 		 */
 		private function unvalidatedHas( int $value ): bool
 		{
-			return ( $this->_value & $value ) === $value;
+			return ( $this->value & $value ) === $value;
 		}
 
 		/**
@@ -272,7 +272,7 @@ namespace CodeKandis\Phlags
 		 */
 		private function unvalidatedSet( int $value ): void
 		{
-			$this->_value |= $value;
+			$this->value |= $value;
 		}
 
 		/**
@@ -282,7 +282,7 @@ namespace CodeKandis\Phlags
 		 */
 		private function unvalidatedUnset( int $value ): void
 		{
-			$this->_value &= ~$value;
+			$this->value &= ~$value;
 		}
 
 		/**
@@ -292,7 +292,7 @@ namespace CodeKandis\Phlags
 		 */
 		private function unvalidatedSwitch( int $value ): void
 		{
-			$this->_value ^= $value;
+			$this->value ^= $value;
 		}
 
 		/**
@@ -352,13 +352,13 @@ namespace CodeKandis\Phlags
 		 */
 		final public function getIterator(): iterable
 		{
-			if ( $this->_value === static::NONE )
+			if ( $this->value === static::NONE )
 			{
 				yield new static;
 
 				return;
 			}
-			foreach ( static::$_reflectedFlags as $reflectedFlagValue )
+			foreach ( static::$reflectedFlags as $reflectedFlagValue )
 			{
 				if ( static::NONE !== $reflectedFlagValue && $this->unvalidatedHas( $reflectedFlagValue ) === true )
 				{

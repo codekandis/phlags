@@ -14,7 +14,7 @@ namespace CodeKandis\Phlags\Validation\Results
 		 * Stores the error messages of the flag value validation.
 		 * @var string[]
 		 */
-		private $_errorMessages;
+		private $errorMessages;
 
 		/**
 		 * Constructor method.
@@ -22,7 +22,7 @@ namespace CodeKandis\Phlags\Validation\Results
 		 */
 		public function __construct( array $errorMessages )
 		{
-			$this->_errorMessages = $errorMessages;
+			$this->errorMessages = $errorMessages;
 		}
 
 		/**
@@ -31,7 +31,7 @@ namespace CodeKandis\Phlags\Validation\Results
 		 */
 		public function getErrorMessages(): array
 		{
-			return $this->_errorMessages;
+			return $this->errorMessages;
 		}
 
 		/**
@@ -40,7 +40,7 @@ namespace CodeKandis\Phlags\Validation\Results
 		 */
 		public function succeeded(): bool
 		{
-			return $this->_errorMessages === [];
+			return $this->errorMessages === [];
 		}
 
 		/**
@@ -49,7 +49,7 @@ namespace CodeKandis\Phlags\Validation\Results
 		 */
 		public function failed(): bool
 		{
-			return $this->_errorMessages !== [];
+			return $this->errorMessages !== [];
 		}
 	}
 }

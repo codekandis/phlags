@@ -14,13 +14,13 @@ namespace CodeKandis\Phlags\Validation\Results
 		 * Stores the error messages of the flagable validation.
 		 * @var string[]
 		 */
-		private $_errorMessages;
+		private $errorMessages;
 
 		/**
 		 * Stores the maximum value of the flagable.
 		 * @var int
 		 */
-		private $_maxValue;
+		private $maxValue;
 
 		/**
 		 * Constructor method.
@@ -29,8 +29,8 @@ namespace CodeKandis\Phlags\Validation\Results
 		 */
 		public function __construct( array $errorMessages, int $maxValue )
 		{
-			$this->_errorMessages = $errorMessages;
-			$this->_maxValue      = $maxValue;
+			$this->errorMessages = $errorMessages;
+			$this->maxValue      = $maxValue;
 		}
 
 		/**
@@ -39,7 +39,7 @@ namespace CodeKandis\Phlags\Validation\Results
 		 */
 		public function getErrorMessages(): array
 		{
-			return $this->_errorMessages;
+			return $this->errorMessages;
 		}
 
 		/**
@@ -48,7 +48,7 @@ namespace CodeKandis\Phlags\Validation\Results
 		 */
 		public function getMaxValue(): int
 		{
-			return $this->_maxValue;
+			return $this->maxValue;
 		}
 
 		/**
@@ -57,7 +57,7 @@ namespace CodeKandis\Phlags\Validation\Results
 		 */
 		public function succeeded(): bool
 		{
-			return $this->_errorMessages === [];
+			return $this->errorMessages === [];
 		}
 
 		/**
@@ -66,7 +66,7 @@ namespace CodeKandis\Phlags\Validation\Results
 		 */
 		public function failed(): bool
 		{
-			return $this->_errorMessages !== [];
+			return $this->errorMessages !== [];
 		}
 	}
 }

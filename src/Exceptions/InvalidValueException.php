@@ -14,7 +14,7 @@ namespace CodeKandis\Phlags\Exceptions
 		 * Stores the error messages of the exception.
 		 * @var string[]
 		 */
-		private $_errorMessages = [];
+		private $errorMessages = [];
 
 		/**
 		 * {@inheritdoc}
@@ -22,7 +22,7 @@ namespace CodeKandis\Phlags\Exceptions
 		 */
 		public function getErrorMessages(): array
 		{
-			return $this->_errorMessages;
+			return $this->errorMessages;
 		}
 
 		/**
@@ -31,7 +31,7 @@ namespace CodeKandis\Phlags\Exceptions
 		 */
 		public function withErrorMessages( array $errorMessages ): ErrorMessagesExceptionInterface
 		{
-			$this->_errorMessages = $errorMessages;
+			$this->errorMessages = $errorMessages;
 
 			return $this;
 		}
