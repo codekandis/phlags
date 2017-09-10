@@ -15,8 +15,8 @@ namespace CodeKandis\Phlags\TraitfulExtensions
 
 		/**
 		 * Sets a flag.
-		 * @param int|FlagableInterface $value     The flag to set.
-		 * @param bool                  $condition true if the value can be set, false otherwise.
+		 * @param int|string|FlagableInterface $value     The flag to set.
+		 * @param bool                         $condition true if the value can be set, false otherwise.
 		 * @return self
 		 */
 		public function ifSet( $value, bool $condition ): self
@@ -31,8 +31,8 @@ namespace CodeKandis\Phlags\TraitfulExtensions
 
 		/**
 		 * Unsets a flag.
-		 * @param int|FlagableInterface $value     The flag to unset.
-		 * @param bool                  $condition true if the value can be unset, false otherwise.
+		 * @param int|string|FlagableInterface $value     The flag to unset.
+		 * @param bool                         $condition true if the value can be unset, false otherwise.
 		 * @return self
 		 */
 		public function ifUnset( $value, bool $condition ): self
@@ -47,8 +47,8 @@ namespace CodeKandis\Phlags\TraitfulExtensions
 
 		/**
 		 * Switches a flag.
-		 * @param int|FlagableInterface $value     The flag to switch.
-		 * @param bool                  $condition true if the value can be switched, false otherwise.
+		 * @param int|string|FlagableInterface $value     The flag to switch.
+		 * @param bool                         $condition true if the value can be switched, false otherwise.
 		 * @return self
 		 */
 		public function ifSwitch( $value, bool $condition ): self
