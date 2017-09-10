@@ -5,7 +5,7 @@ namespace CodeKandis\Phlags\Exceptions
 
 	/**
 	 * Represents an exception if a value passed to the flagable is invalid.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	class InvalidValueException extends \RuntimeException implements ErrorMessagesExceptionInterface

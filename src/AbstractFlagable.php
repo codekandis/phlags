@@ -12,7 +12,7 @@ namespace CodeKandis\Phlags
 
 	/**
 	 * Represents the base class of all flagable classes.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	abstract class AbstractFlagable implements FlagableInterface

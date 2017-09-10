@@ -5,7 +5,7 @@ namespace CodeKandis\Phlags\Exceptions
 
 	/**
 	 * Represents an exception if the validation of the flagable has been failed.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	class InvalidFlagableException extends \LogicException implements ErrorMessagesExceptionInterface

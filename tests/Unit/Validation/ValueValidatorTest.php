@@ -10,7 +10,7 @@ namespace CodeKandis\Phlags\Tests\Unit\Validation
 
 	/**
 	 * Represents the test case for the class 'CodeKandis\Phlags\Validation\ValueValidator'.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	class ValueValidatorTest extends TestCase

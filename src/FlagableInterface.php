@@ -5,7 +5,7 @@ namespace CodeKandis\Phlags
 
 	/**
 	 * Represents the interface of all flagable classes.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	interface FlagableInterface extends \IteratorAggregate

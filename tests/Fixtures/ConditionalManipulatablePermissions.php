@@ -8,7 +8,7 @@ namespace CodeKandis\Phlags\Tests\Fixtures
 
 	/**
 	 * Represents a test fixture of a conditional manipulatable flagable.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	class ConditionalManipulatablePermissions extends AbstractFlagable

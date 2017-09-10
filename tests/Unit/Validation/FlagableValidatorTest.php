@@ -11,7 +11,7 @@ namespace CodeKandis\Phlags\Tests\Unit\Validation
 
 	/**
 	 * Represents the test case for the class 'CodeKandis\Phlags\Validation\FlagableValidator'.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	class FlagableValidatorTest extends TestCase

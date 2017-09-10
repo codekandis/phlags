@@ -7,7 +7,7 @@ namespace CodeKandis\Phlags\Tests\Fixtures
 
 	/**
 	 * Represents an invalid test fixture of a flagable.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	class InvalidPermissions extends AbstractFlagable

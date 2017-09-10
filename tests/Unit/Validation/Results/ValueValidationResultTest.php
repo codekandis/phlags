@@ -8,7 +8,7 @@ namespace CodeKandis\Phlags\Tests\Unit\Validation\Results
 
 	/**
 	 * Represents the test case for the class 'CodeKandis\Phlags\Validation\FlagableValidationResult'.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	final class ValueValidationResultTest extends TestCase

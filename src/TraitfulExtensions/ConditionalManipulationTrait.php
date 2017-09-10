@@ -7,7 +7,7 @@ namespace CodeKandis\Phlags\TraitfulExtensions
 
 	/**
 	 * Represents a traitful feature to manipulate a flagable while a passed condition is true.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	trait ConditionalManipulationTrait

@@ -11,7 +11,7 @@ namespace CodeKandis\Phlags\Tests
 
 	/**
 	 * Represents the test case for the class 'CodeKandis\Phlags\AbstractFlagable'.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	final class AbstractFlagableTest extends TestCase

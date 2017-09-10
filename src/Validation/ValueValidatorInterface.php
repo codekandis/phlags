@@ -8,7 +8,7 @@ namespace CodeKandis\Phlags\Validation
 
 	/**
 	 * Represents the interface of all validators validating if a value is a valid flag.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	interface ValueValidatorInterface

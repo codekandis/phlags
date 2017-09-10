@@ -8,7 +8,7 @@ namespace CodeKandis\Phlags\Tests\Unit\Exceptions
 
 	/**
 	 * Represents the test case for the class 'CodeKandis\Phlags\Exceptions\InvalidFlagableException'.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	final class InvalidFlagableExceptionTest extends TestCase

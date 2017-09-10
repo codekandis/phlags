@@ -5,7 +5,7 @@ namespace CodeKandis\Phlags\Exceptions
 
 	/**
 	 * Represents an exception if an invalid member has been accessed.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	class UnsupportedOperationException extends \LogicException

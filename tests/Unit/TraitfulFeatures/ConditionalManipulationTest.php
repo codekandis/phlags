@@ -10,7 +10,7 @@ namespace CodeKandis\Phlags\Tests\Unit\TraitfulExtensions
 
 	/**
 	 * Represents the test case for the trait 'CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationTrait'.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	final class ConditionalManipulationTest extends TestCase

@@ -5,7 +5,7 @@ namespace CodeKandis\Phlags\Validation\Results
 
 	/**
 	 * Represents the validation result of the value validation.
-	 * @package codekandis\phlags
+	 * @package codekandis/phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	class ValueValidationResult implements ValidationResultInterface
