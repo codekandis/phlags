@@ -15,11 +15,12 @@ namespace CodeKandis\Phlags\Validation
 	{
 		/**
 		 * Validates the value.
-		 * @param FlagableInterface     $flagable The flagable the value must be an instance of, if its an integer.
-		 * @param int                   $maxValue The maximum value of the flagable.
-		 * @param int|FlagableInterface $value    The value to validate.
+		 * @param FlagableInterface     $flagable       The flagable the value must be an instance of, if its an integer.
+		 * @param array                 $reflectedFlags The reflected flags of the flagable.
+		 * @param int                   $maxValue       The maximum value of the flagable.
+		 * @param int|FlagableInterface $value          The value to validate.
 		 * @return ValidationResultInterface The result of the value validation.
 		 */
-		public function validate( FlagableInterface $flagable, int $maxValue, $value ): ValidationResultInterface;
+		public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maxValue, $value ): ValidationResultInterface;
 	}
 }
