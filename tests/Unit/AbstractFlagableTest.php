@@ -18,70 +18,43 @@ namespace CodeKandis\Phlags\Tests
 	{
 		/**
 		 * Tests if the flagable is working as expected.
-		 * @param string $flagableClassName The class name of the flagable to instantiate.
-		 * @param int    $initialValue      The initial value of the flagable.
-		 * @param string $string_1          The first string representation of the flagable.
-		 * @param int    $setValue_1        The first value to set.
-		 * @param int    $setResult_1       The flagable value after the first set.
-		 * @param string $string_2          The second string representation of the flagable.
-		 * @param int    $hasValue_1        The first value to check if it is set.
-		 * @param int    $hasValue_2        The second value to check if it is set.
-		 * @param int    $setValue_2        The second value to set.
-		 * @param int    $setResult_2       The flagable value after the second set.
-		 * @param string $string_3          The third string representation of the flagable.
-		 * @param int    $hasValue_3        The third value to check if it is set.
-		 * @param int    $hasValue_4        The fourth value to check if it is set.
-		 * @param int    $hasValue_5        The fifth value to check if it is set.
-		 * @param int    $notHasValue_1     The first value to check if it is not set.
-		 * @param int    $unsetValue        The value to unset.
-		 * @param int    $unsetResult       The flagable value after the unset.
-		 * @param string $string_4          The fourth string representation of the flagable.
-		 * @param int    $hasValue_6        The sixth value to check if it is set.
-		 * @param int    $hasValue_7        The seventh value to check if it is set.
-		 * @param int    $notHasValue_2     The second value to check if it is not set.
-		 * @param int    $switchValue_1     The first value to switch.
-		 * @param int    $switchResult_1    The flagable value after the first switch.
-		 * @param string $string_5          The fifth string representation of the flagable.
-		 * @param int    $switchValue_2     The second value to switch.
-		 * @param int    $switchResult_2    The flagable value after the second switch.
-		 * @param string $string_6          The sixth string representation of the flagable.
+		 * @param string                       $flagableClassName The class name of the flagable to instantiate.
+		 * @param int|string|FlagableInterface $initialValue      The initial value of the flagable.
+		 * @param int                          $initialResult     The flagable value after the instantiation.
+		 * @param string                       $string_1          The first string representation of the flagable.
+		 * @param int|string|FlagableInterface $setValue_1        The first value to set.
+		 * @param int                          $setResult_1       The flagable value after the first set.
+		 * @param string                       $string_2          The second string representation of the flagable.
+		 * @param int|string|FlagableInterface $hasValue_1        The first value to check if it is set.
+		 * @param int|string|FlagableInterface $hasValue_2        The second value to check if it is set.
+		 * @param int|string|FlagableInterface $setValue_2        The second value to set.
+		 * @param int                          $setResult_2       The flagable value after the second set.
+		 * @param string                       $string_3          The third string representation of the flagable.
+		 * @param int|string|FlagableInterface $hasValue_3        The third value to check if it is set.
+		 * @param int|string|FlagableInterface $hasValue_4        The fourth value to check if it is set.
+		 * @param int|string|FlagableInterface $hasValue_5        The fifth value to check if it is set.
+		 * @param int|string|FlagableInterface $notHasValue_1     The first value to check if it is not set.
+		 * @param int|string|FlagableInterface $unsetValue        The value to unset.
+		 * @param int                          $unsetResult       The flagable value after the unset.
+		 * @param string                       $string_4          The fourth string representation of the flagable.
+		 * @param int|string|FlagableInterface $hasValue_6        The sixth value to check if it is set.
+		 * @param int|string|FlagableInterface $hasValue_7        The seventh value to check if it is set.
+		 * @param int|string|FlagableInterface $notHasValue_2     The second value to check if it is not set.
+		 * @param int|string|FlagableInterface $switchValue_1     The first value to switch.
+		 * @param int                          $switchResult_1    The flagable value after the first switch.
+		 * @param string                       $string_5          The fifth string representation of the flagable.
+		 * @param int|string|FlagableInterface $switchValue_2     The second value to switch.
+		 * @param int                          $switchResult_2    The flagable value after the second switch.
+		 * @param string                       $string_6          The sixth string representation of the flagable.
 		 * @dataProvider abstractFlagableDataProvider
 		 */
-		public function testsAllMethods(
-			string $flagableClassName,
-			int $initialValue,
-			string $string_1,
-			int $setValue_1,
-			int $setResult_1,
-			string $string_2,
-			int $hasValue_1,
-			int $hasValue_2,
-			int $setValue_2,
-			int $setResult_2,
-			string $string_3,
-			int $hasValue_3,
-			int $hasValue_4,
-			int $hasValue_5,
-			int $notHasValue_1,
-			int $unsetValue,
-			int $unsetResult,
-			string $string_4,
-			int $hasValue_6,
-			int $hasValue_7,
-			int $notHasValue_2,
-			int $switchValue_1,
-			int $switchResult_1,
-			string $string_5,
-			int $switchValue_2,
-			int $switchResult_2,
-			string $string_6
-		): void
+		public function testsAllMethods( string $flagableClassName, $initialValue, int $initialResult, string $string_1, $setValue_1, int $setResult_1, string $string_2, $hasValue_1, $hasValue_2, $setValue_2, int $setResult_2, string $string_3, $hasValue_3, $hasValue_4, $hasValue_5, $notHasValue_1, $unsetValue, int $unsetResult, string $string_4, $hasValue_6, $hasValue_7, $notHasValue_2, $switchValue_1, int $switchResult_1, string $string_5, $switchValue_2, int $switchResult_2, string $string_6 ): void
 		{
 			/* @var AbstractFlagable $flagable */
 			$flagable = new $flagableClassName( $initialValue );
-			$this->assertEquals( $initialValue, $flagable() );
-			$this->assertEquals( $initialValue, $flagable->getValue() );
-			$this->assertTrue( $flagable->has( $initialValue ) );
+			$this->assertEquals( $initialResult, $flagable() );
+			$this->assertEquals( $initialResult, $flagable->getValue() );
+			$this->assertTrue( $flagable->has( $initialResult ) );
 			$this->assertEquals( $string_1, $flagable->__toString() );
 			$flagable->set( $setValue_1 );
 			$this->assertEquals( $setResult_1, $flagable() );
@@ -129,6 +102,7 @@ namespace CodeKandis\Phlags\Tests
 				[
 					'flagableClassName' => ValidPermissions::class,
 					'initialValue'      => ValidPermissions::NONE,
+					'initialResult'     => ValidPermissions::NONE,
 					'string_1'          => 'NONE',
 					'setValue_1'        => ValidPermissions::DIRECTORY,
 					'setResult_1'       => ValidPermissions::DIRECTORY,
@@ -155,6 +129,66 @@ namespace CodeKandis\Phlags\Tests
 					'switchResult_2'    => ValidPermissions::UREAD,
 					'string_6'          => 'UREAD',
 				],
+				[
+					'flagableClassName' => ValidPermissions::class,
+					'initialValue'      => new ValidPermissions( ValidPermissions::NONE ),
+					'initialResult'     => ValidPermissions::NONE,
+					'string_1'          => 'NONE',
+					'setValue_1'        => new ValidPermissions( ValidPermissions::DIRECTORY ),
+					'setResult_1'       => ValidPermissions::DIRECTORY,
+					'string_2'          => 'DIRECTORY',
+					'hasValue_1'        => new ValidPermissions( ValidPermissions::NONE ),
+					'hasValue_2'        => new ValidPermissions( ValidPermissions::DIRECTORY ),
+					'setValue_2'        => new ValidPermissions( ValidPermissions::UREAD ),
+					'setResult_2'       => ValidPermissions::DIRECTORY | ValidPermissions::UREAD,
+					'string_3'          => 'DIRECTORY|UREAD',
+					'hasValue_3'        => new ValidPermissions( ValidPermissions::NONE ),
+					'hasValue_4'        => new ValidPermissions( ValidPermissions::DIRECTORY ),
+					'hasValue_5'        => new ValidPermissions( ValidPermissions::UREAD ),
+					'notHasValue_1'     => new ValidPermissions( ValidPermissions::UWRITE ),
+					'unsetValue'        => new ValidPermissions( ValidPermissions::DIRECTORY ),
+					'unsetResult'       => ValidPermissions::UREAD,
+					'string_4'          => 'UREAD',
+					'hasValue_6'        => new ValidPermissions( ValidPermissions::NONE ),
+					'hasValue_7'        => new ValidPermissions( ValidPermissions::UREAD ),
+					'notHasValue_2'     => new ValidPermissions( ValidPermissions::DIRECTORY ),
+					'switchValue_1'     => new ValidPermissions( ValidPermissions::UWRITE ),
+					'switchResult_1'    => ValidPermissions::UREAD | ValidPermissions::UWRITE,
+					'string_5'          => 'UREAD|UWRITE',
+					'switchValue_2'     => new ValidPermissions( ValidPermissions::UWRITE ),
+					'switchResult_2'    => ValidPermissions::UREAD,
+					'string_6'          => 'UREAD',
+				],
+				[
+					'flagableClassName' => ValidPermissions::class,
+					'initialValue'      => 'NONE',
+					'initialResult'     => ValidPermissions::NONE,
+					'string_1'          => 'NONE',
+					'setValue_1'        => 'DIRECTORY',
+					'setResult_1'       => ValidPermissions::DIRECTORY,
+					'string_2'          => 'DIRECTORY',
+					'hasValue_1'        => 'NONE',
+					'hasValue_2'        => 'DIRECTORY',
+					'setValue_2'        => 'UREAD',
+					'setResult_2'       => ValidPermissions::DIRECTORY | ValidPermissions::UREAD,
+					'string_3'          => 'DIRECTORY|UREAD',
+					'hasValue_3'        => 'NONE',
+					'hasValue_4'        => 'DIRECTORY',
+					'hasValue_5'        => 'UREAD',
+					'notHasValue_1'     => 'UWRITE',
+					'unsetValue'        => 'DIRECTORY',
+					'unsetResult'       => ValidPermissions::UREAD,
+					'string_4'          => 'UREAD',
+					'hasValue_6'        => 'NONE',
+					'hasValue_7'        => 'UREAD',
+					'notHasValue_2'     => 'DIRECTORY',
+					'switchValue_1'     => 'UWRITE',
+					'switchResult_1'    => ValidPermissions::UREAD | ValidPermissions::UWRITE,
+					'string_5'          => 'UREAD|UWRITE',
+					'switchValue_2'     => 'UWRITE',
+					'switchResult_2'    => ValidPermissions::UREAD,
+					'string_6'          => 'UREAD',
+				],
 			];
 		}
 
@@ -165,15 +199,11 @@ namespace CodeKandis\Phlags\Tests
 		 * @param string $exceptionClassName The class name of the expected exception.
 		 * @dataProvider unsupportedOperationsDataProvider
 		 */
-		public function testsUnsupportedOperations(
-			string $flagableClassName,
-			string $memberName,
-			string $exceptionClassName
-		): void
+		public function testsUnsupportedOperations( string $flagableClassName, string $memberName, string $exceptionClassName ): void
 		{
 			$this->expectException( $exceptionClassName );
 			$flagableClassName::$memberName();
-			$flagable = new $flagableClassName();
+			$flagable = new $flagableClassName;
 			$flagable->$memberName();
 			isset( $flagable->$memberName );
 			unset( $flagable->$memberName );
@@ -197,8 +227,7 @@ namespace CodeKandis\Phlags\Tests
 		}
 
 		/**
-		 * Tests if iterating a flagable returns a generated list of flagables each one initialized with a flag set in
-		 * the iterated flagable.
+		 * Tests if iterating a flagable returns a generated list of flagables each one initialized with a flag set in the iterated flagable.
 		 * @param string $flagableClassName The class name of the flagable to test.
 		 * @param array  $flags             The flags of the initialization of the flagable and to expect after the
 		 *                                  iteration.
