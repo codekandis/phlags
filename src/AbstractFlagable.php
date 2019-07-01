@@ -11,8 +11,8 @@ namespace CodeKandis\Phlags
 	use CodeKandis\Phlags\Validation\ValueValidatorInterface;
 
 	/**
-	 * Class AbstractFlags
-	 * @package Represents the base class of all flagable classes.
+	 * Represents the base class of all flagable classes.
+	 * @package codekandis\phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	abstract class AbstractFlagable implements FlagableInterface
