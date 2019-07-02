@@ -44,7 +44,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	 * Stores the maximum value of the flagable.
 	 * @var int
 	 */
-	protected static $_maxValue = self::NONE;
+	protected static $maxValue = self::NONE;
 
 	/**
 	 * Stores the value validator of the flagable.
@@ -204,7 +204,7 @@ abstract class AbstractFlagable implements FlagableInterface
 		{
 			throw ( new InvalidFlagableException( 'Invalid flagable.' ) )->withErrorMessages( $validationResult->getErrorMessages() );
 		}
-		static::$_maxValue = $validationResult->getMaxValue();
+		static::$maxValue = $validationResult->getMaxValue();
 	}
 
 	/**
@@ -214,7 +214,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	 */
 	private function validateValue( $value ): void
 	{
-		$validationResult = self::$valueValidator->validate( $this, static::$reflectedFlags, self::$_maxValue, $value );
+		$validationResult = self::$valueValidator->validate( $this, static::$reflectedFlags, self::$maxValue, $value );
 		if ( $validationResult->failed() === true )
 		{
 			throw ( new InvalidValueException( 'Invalid value.' ) )->withErrorMessages( $validationResult->getErrorMessages() );
