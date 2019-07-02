@@ -26,15 +26,7 @@ class FlagableValidatorTest extends TestCase
 	 * @param bool $failed The fail state of the validiation.
 	 * @dataProvider flagableDataProvider
 	 */
-	public function testsProperValidation(
-		string $validationResultClassName,
-		string $flagableClassName,
-		array $reflectedFlags,
-		array $errorMessages,
-		int $maxValue,
-		bool $succeeded,
-		bool $failed
-	): void
+	public function testsProperValidation( string $validationResultClassName, string $flagableClassName, array $reflectedFlags, array $errorMessages, int $maxValue, bool $succeeded, bool $failed ): void
 	{
 		$validationResult = ( new FlagableValidator() )->validate( $flagableClassName, $reflectedFlags );
 		$this->assertInstanceOf( $validationResultClassName, $validationResult );
