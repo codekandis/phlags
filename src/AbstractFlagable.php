@@ -150,13 +150,13 @@ abstract class AbstractFlagable implements FlagableInterface
 		 */
 		foreach ( static::$reflectedFlags as $reflectedFlagName => $reflectedFlagValue )
 		{
-			if ( $reflectedFlagValue !== 0 && ( $this->value & $reflectedFlagValue ) === $reflectedFlagValue )
+			if ( 0 !== $reflectedFlagValue && ( $this->value & $reflectedFlagValue ) === $reflectedFlagValue )
 			{
 				$flagsSetNames[] = $reflectedFlagName;
 			}
 		}
 
-		return empty( $flagsSetNames ) === true
+		return true === empty( $flagsSetNames )
 			? 'NONE'
 			: implode( '|', $flagsSetNames );
 	}
@@ -198,13 +198,13 @@ abstract class AbstractFlagable implements FlagableInterface
 	 */
 	private static function validateFlagable(): void
 	{
-		if ( static::$hasBeenValidated === true && static::$validationException !== null )
+		if ( true === static::$hasBeenValidated && null !== static::$validationException )
 		{
 			throw static::$validationException;
 		}
 		static::$hasBeenValidated = true;
 		$validationResult         = ( new FlagableValidator )->validate( static::class, static::$reflectedFlags );
-		if ( $validationResult->failed() === true )
+		if ( true === $validationResult->failed() )
 		{
 			throw ( new InvalidFlagableException( 'Invalid flagable.' ) )->withErrorMessages( $validationResult->getErrorMessages() );
 		}
@@ -219,7 +219,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	private function validateValue( $value ): void
 	{
 		$validationResult = self::$valueValidator->validate( $this, static::$reflectedFlags, self::$maxValue, $value );
-		if ( $validationResult->failed() === true )
+		if ( true === $validationResult->failed() )
 		{
 			throw ( new InvalidValueException( 'Invalid value.' ) )->withErrorMessages( $validationResult->getErrorMessages() );
 		}
@@ -232,11 +232,11 @@ abstract class AbstractFlagable implements FlagableInterface
 	 */
 	private function getExtractedValue( $value ): int
 	{
-		if ( is_int( $value ) === true )
+		if ( true === is_int( $value ) )
 		{
 			return $value;
 		}
-		if ( is_string( $value ) === true )
+		if ( true === is_string( $value ) )
 		{
 			$extractedValue = FlagableInterface::NONE;
 			/**
@@ -244,7 +244,7 @@ abstract class AbstractFlagable implements FlagableInterface
 			 */
 			foreach ( explode( '|', $value ) as $explodedValue )
 			{
-				if ( ctype_digit( $explodedValue ) === false )
+				if ( false === ctype_digit( $explodedValue ) )
 				{
 					$extractedValue |= static::$reflectedFlags[ $explodedValue ];
 					continue;
@@ -347,7 +347,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	 */
 	final public function getIterator(): iterable
 	{
-		if ( $this->value === static::NONE )
+		if ( static::NONE === $this->value )
 		{
 			yield new static;
 
@@ -358,7 +358,7 @@ abstract class AbstractFlagable implements FlagableInterface
 		 */
 		foreach ( static::$reflectedFlags as $reflectedFlagValue )
 		{
-			if ( static::NONE !== $reflectedFlagValue && $this->unvalidatedHas( $reflectedFlagValue ) === true )
+			if ( static::NONE !== $reflectedFlagValue && true === $this->unvalidatedHas( $reflectedFlagValue ) )
 			{
 				yield new static( $reflectedFlagValue );
 			}

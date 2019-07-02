@@ -18,7 +18,7 @@ trait ConditionalManipulationTrait
 	 */
 	public function ifSet( $value, bool $condition ): self
 	{
-		if ( $condition === true )
+		if ( true === $condition )
 		{
 			$this->set( $value );
 		}
@@ -34,7 +34,7 @@ trait ConditionalManipulationTrait
 	 */
 	public function ifUnset( $value, bool $condition ): self
 	{
-		if ( $condition === true )
+		if ( true === $condition )
 		{
 			$this->unset( $value );
 		}
@@ -50,7 +50,7 @@ trait ConditionalManipulationTrait
 	 */
 	public function ifSwitch( $value, bool $condition ): self
 	{
-		if ( $condition === true )
+		if ( true === $condition )
 		{
 			$this->switch( $value );
 		}

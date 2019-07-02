@@ -28,19 +28,19 @@ class FlagableValidator implements FlagableValidatorInterface
 		 */
 		foreach ( $reflectedFlags as $flagName => $flagValue )
 		{
-			if ( in_array( $flagValue, $validatedFlags, true ) === true )
+			if ( true === in_array( $flagValue, $validatedFlags, true ) )
 			{
 				$errorMessages[] =
 					sprintf( "Duplicate flag '%s' in '%s::%s'.", $flagValue, $flagableClassName, $flagName );
 				continue;
 			}
-			if ( is_int( $flagValue ) === false || $flagValue < 0 )
+			if ( false === is_int( $flagValue ) || 0 > $flagValue )
 			{
 				$errorMessages[] =
 					sprintf( "Invalid type in '%s::%s'. Unsigned 'int' expected.", $flagableClassName, $flagName );
 				continue;
 			}
-			if ( ( $flagValue & ( $flagValue - 1 ) ) !== 0 )
+			if ( 0 !== ( $flagValue & ( $flagValue - 1 ) ) )
 			{
 				$errorMessages[] =
 					sprintf(
@@ -56,7 +56,7 @@ class FlagableValidator implements FlagableValidatorInterface
 		}
 		for ( $n = 1; 0 | $n <= $maxValue; $n *= 2 )
 		{
-			if ( ( $n & $maxValue ) === 0 )
+			if ( 0 === ( $n & $maxValue ) )
 			{
 				$errorMessages[] =
 					sprintf(
