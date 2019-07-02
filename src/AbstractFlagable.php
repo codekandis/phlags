@@ -53,7 +53,7 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * Constructor method.
-	 * @param int|FlagableInterface $value The initial value of the flagable.
+	 * @param int|string|FlagableInterface $value The initial value of the flagable.
 	 * @throws InvalidFlagableException The flagable is invalid.
 	 * @throws InvalidValueException The value is invalid.
 	 */
@@ -209,7 +209,7 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * Validates a value.
-	 * @param int|FlagableInterface $value The value to validate.
+	 * @param int|string|FlagableInterface $value The value to validate.
 	 * @return void
 	 * @throws InvalidValueException The value is invalid.
 	 */
