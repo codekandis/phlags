@@ -4,12 +4,12 @@ namespace CodeKandis\Phlags\Validation\Results;
 /**
  * Represents the validation result of the value validation.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 class ValueValidationResult implements ValidationResultInterface
 {
 	/**
-	 * Stores the error messages of the flag value validation.
+	 * Stores the error messages of the value validation.
 	 * @var string[]
 	 */
 	private $errorMessages;
@@ -25,7 +25,6 @@ class ValueValidationResult implements ValidationResultInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @see ValidationResultInterface::getErrorMessages()
 	 */
 	public function getErrorMessages(): array
 	{
@@ -34,7 +33,6 @@ class ValueValidationResult implements ValidationResultInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @see ValidationResultInterface::succeeded()
 	 */
 	public function succeeded(): bool
 	{
@@ -43,7 +41,6 @@ class ValueValidationResult implements ValidationResultInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @see ValidationResultInterface::failed()
 	 */
 	public function failed(): bool
 	{

@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Represents the test case for the class 'CodeKandis\Phlags\Validation\ValueValidator'.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 class ValueValidatorTest extends TestCase
 {
@@ -17,12 +17,12 @@ class ValueValidatorTest extends TestCase
 	 * Tests if the flagable validator is working as expected.
 	 * @param string $validationResultClassName The class name of the validation result.
 	 * @param string $flagableClassName The class name of the flagable to validate.
-	 * @param array  $reflectedFlags The reflected flags of the flagable.
-	 * @param int    $maxValue The maximum value of the flagable.
-	 * @param mixed  $value The value to validate.
-	 * @param array  $errorMessages The error messages of the validation.
-	 * @param bool   $succeeded The success state of the validation.
-	 * @param bool   $failed The fail state of the validiation.
+	 * @param array $reflectedFlags The reflected flags of the flagable.
+	 * @param int $maxValue The maximum value of the flagable.
+	 * @param mixed $value The value to validate.
+	 * @param array $errorMessages The error messages of the validation.
+	 * @param bool $succeeded The success state of the validation.
+	 * @param bool $failed The fail state of the validiation.
 	 * @dataProvider valuesAndResultsDataProvider
 	 */
 	public function testsProperValidation( string $validationResultClassName, string $flagableClassName, array $reflectedFlags, int $maxValue, $value, array $errorMessages, bool $succeeded, bool $failed ): void

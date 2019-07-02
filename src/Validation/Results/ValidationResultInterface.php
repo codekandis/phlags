@@ -2,9 +2,9 @@
 namespace CodeKandis\Phlags\Validation\Results;
 
 /**
- * Represents interface of all validation results.
+ * Represents the interface of all validation results.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 interface ValidationResultInterface
 {

@@ -6,7 +6,7 @@ use RuntimeException;
 /**
  * Represents an exception if a value passed to the flagable is invalid.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 class InvalidValueException extends RuntimeException implements ErrorMessagesExceptionInterface
 {
@@ -18,7 +18,6 @@ class InvalidValueException extends RuntimeException implements ErrorMessagesExc
 
 	/**
 	 * {@inheritdoc}
-	 * @see ErrorMessagesExceptionInterface::getErrorMessages()
 	 */
 	public function getErrorMessages(): array
 	{
@@ -27,7 +26,6 @@ class InvalidValueException extends RuntimeException implements ErrorMessagesExc
 
 	/**
 	 * {@inheritdoc}
-	 * @see ErrorMessagesExceptionInterface::withErrorMessages()
 	 */
 	public function withErrorMessages( array $errorMessages ): ErrorMessagesExceptionInterface
 	{

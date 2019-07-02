@@ -6,7 +6,7 @@ use IteratorAggregate;
 /**
  * Represents the interface of all flagable classes.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 interface FlagableInterface extends IteratorAggregate
 {
@@ -23,8 +23,8 @@ interface FlagableInterface extends IteratorAggregate
 	public function __toString(): string;
 
 	/**
-	 * Gets the value of the flagable.
-	 * @return int The value of the flagable.
+	 * Gets the current value of the flagable.
+	 * @return int The current value of the flagable.
 	 */
 	public function __invoke(): int;
 
@@ -63,9 +63,9 @@ interface FlagableInterface extends IteratorAggregate
 	public function switch( $value ): self;
 
 	/**
+	 * {@inheritdoc}
 	 * Generates a list of all flags set in the flagable, each as a new flagable.
-	 * @return iterable|FlagableInterface[] The list of all flags set in the flagable, each as a new
-	 *                                             flagable.
+	 * @return iterable|FlagableInterface[] The list of all flags set in the flagable, each as a new flagable.
 	 */
 	public function getIterator(): iterable;
 }

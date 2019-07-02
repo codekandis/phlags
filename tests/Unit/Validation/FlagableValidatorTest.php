@@ -11,7 +11,7 @@ use function sprintf;
 /**
  * Represents the test case for the class 'CodeKandis\Phlags\Validation\FlagableValidator'.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 class FlagableValidatorTest extends TestCase
 {
@@ -19,11 +19,11 @@ class FlagableValidatorTest extends TestCase
 	 * Tests if the flagable validator is working as expected.
 	 * @param string $validationResultClassName The class name of the validation result.
 	 * @param string $flagableClassName The class name of the flagable to validate.
-	 * @param array  $reflectedFlags The reflected flags of the flagable to validate.
-	 * @param array  $errorMessages The error messages of the validation.
-	 * @param int    $maxValue The maximum value of the flagable.
-	 * @param bool   $succeeded The success state of the validation.
-	 * @param bool   $failed The fail state of the validiation.
+	 * @param array $reflectedFlags The reflected flags of the flagable to validate.
+	 * @param array $errorMessages The error messages of the validation.
+	 * @param int $maxValue The maximum value of the flagable.
+	 * @param bool $succeeded The success state of the validation.
+	 * @param bool $failed The fail state of the validiation.
 	 * @dataProvider flagableDataProvider
 	 */
 	public function testsProperValidation(

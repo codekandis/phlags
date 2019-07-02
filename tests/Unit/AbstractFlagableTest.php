@@ -10,40 +10,40 @@ use PHPUnit\Framework\TestCase;
 /**
  * Represents the test case for the class 'CodeKandis\Phlags\AbstractFlagable'.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 final class AbstractFlagableTest extends TestCase
 {
 	/**
 	 * Tests if the flagable is working as expected.
-	 * @param string                       $flagableClassName The class name of the flagable to instantiate.
+	 * @param string $flagableClassName The class name of the flagable to instantiate.
 	 * @param int|string|FlagableInterface $initialValue The initial value of the flagable.
-	 * @param int                          $initialResult The flagable value after the instantiation.
-	 * @param string                       $string_1 The first string representation of the flagable.
+	 * @param int $initialResult The flagable value after the instantiation.
+	 * @param string $string_1 The first string representation of the flagable.
 	 * @param int|string|FlagableInterface $setValue_1 The first value to set.
-	 * @param int                          $setResult_1 The flagable value after the first set.
-	 * @param string                       $string_2 The second string representation of the flagable.
+	 * @param int $setResult_1 The flagable value after the first set.
+	 * @param string $string_2 The second string representation of the flagable.
 	 * @param int|string|FlagableInterface $hasValue_1 The first value to check if it is set.
 	 * @param int|string|FlagableInterface $hasValue_2 The second value to check if it is set.
 	 * @param int|string|FlagableInterface $setValue_2 The second value to set.
-	 * @param int                          $setResult_2 The flagable value after the second set.
-	 * @param string                       $string_3 The third string representation of the flagable.
+	 * @param int $setResult_2 The flagable value after the second set.
+	 * @param string $string_3 The third string representation of the flagable.
 	 * @param int|string|FlagableInterface $hasValue_3 The third value to check if it is set.
 	 * @param int|string|FlagableInterface $hasValue_4 The fourth value to check if it is set.
 	 * @param int|string|FlagableInterface $hasValue_5 The fifth value to check if it is set.
 	 * @param int|string|FlagableInterface $notHasValue_1 The first value to check if it is not set.
 	 * @param int|string|FlagableInterface $unsetValue The value to unset.
-	 * @param int                          $unsetResult The flagable value after the unset.
-	 * @param string                       $string_4 The fourth string representation of the flagable.
+	 * @param int $unsetResult The flagable value after the unset.
+	 * @param string $string_4 The fourth string representation of the flagable.
 	 * @param int|string|FlagableInterface $hasValue_6 The sixth value to check if it is set.
 	 * @param int|string|FlagableInterface $hasValue_7 The seventh value to check if it is set.
 	 * @param int|string|FlagableInterface $notHasValue_2 The second value to check if it is not set.
 	 * @param int|string|FlagableInterface $switchValue_1 The first value to switch.
-	 * @param int                          $switchResult_1 The flagable value after the first switch.
-	 * @param string                       $string_5 The fifth string representation of the flagable.
+	 * @param int $switchResult_1 The flagable value after the first switch.
+	 * @param string $string_5 The fifth string representation of the flagable.
 	 * @param int|string|FlagableInterface $switchValue_2 The second value to switch.
-	 * @param int                          $switchResult_2 The flagable value after the second switch.
-	 * @param string                       $string_6 The sixth string representation of the flagable.
+	 * @param int $switchResult_2 The flagable value after the second switch.
+	 * @param string $string_6 The sixth string representation of the flagable.
 	 * @dataProvider abstractFlagableDataProvider
 	 */
 	public function testsAllMethods( string $flagableClassName, $initialValue, int $initialResult, string $string_1, $setValue_1, int $setResult_1, string $string_2, $hasValue_1, $hasValue_2, $setValue_2, int $setResult_2, string $string_3, $hasValue_3, $hasValue_4, $hasValue_5, $notHasValue_1, $unsetValue, int $unsetResult, string $string_4, $hasValue_6, $hasValue_7, $notHasValue_2, $switchValue_1, int $switchResult_1, string $string_5, $switchValue_2, int $switchResult_2, string $string_6 ): void
@@ -227,8 +227,7 @@ final class AbstractFlagableTest extends TestCase
 	/**
 	 * Tests if iterating a flagable returns a generated list of flagables each one initialized with a flag set in the iterated flagable.
 	 * @param string $flagableClassName The class name of the flagable to test.
-	 * @param array  $flags The flags of the initialization of the flagable and to expect after the
-	 *                                  iteration.
+	 * @param array $flags The flags of the initialization of the flagable and to expect after the iteration.
 	 * @dataProvider iteratedFlagsDataProvider
 	 */
 	public function testsIteration( string $flagableClassName, array $flags ): void
@@ -249,6 +248,10 @@ final class AbstractFlagableTest extends TestCase
 		$this->assertEquals( $flags, $iteratedFlags );
 	}
 
+	/**
+	 * Provides the data to test the iteration of flags.
+	 * @return array The data sets.
+	 */
 	public function iteratedFlagsDataProvider(): array
 	{
 		return [

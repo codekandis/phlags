@@ -4,7 +4,7 @@ namespace CodeKandis\Phlags\Exceptions;
 /**
  * Represents the interface of all exceptions with error messages.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 interface ErrorMessagesExceptionInterface
 {

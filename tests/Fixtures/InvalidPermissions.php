@@ -6,7 +6,7 @@ use CodeKandis\Phlags\AbstractFlagable;
 /**
  * Represents an invalid test fixture of a flagable.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 class InvalidPermissions extends AbstractFlagable
 {

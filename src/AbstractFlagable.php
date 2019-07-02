@@ -7,6 +7,7 @@ use CodeKandis\Phlags\Exceptions\UnsupportedOperationException;
 use CodeKandis\Phlags\Validation\FlagableValidator;
 use CodeKandis\Phlags\Validation\ValueValidator;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
+use ReflectionClass;
 use ReflectionException;
 use function asort;
 use function explode;
@@ -17,7 +18,7 @@ use function is_string;
 /**
  * Represents the base class of all flagable classes.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 abstract class AbstractFlagable implements FlagableInterface
 {
@@ -72,7 +73,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	}
 
 	/**
-	 * Determines if a undefined member has been set.
+	 * Determines if an undefined member has been set.
 	 * @param string $memberName Gets the name of the undefined member.
 	 * @return bool false while accessing undefined members is not supported.
 	 */
@@ -84,7 +85,6 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Unsets an undefined member.
 	 * @param string $memberName The name of the undefined member.
-	 * @return mixed The value of the undefined member.
 	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
 	 */
 	final public function __unset( string $memberName ): void
@@ -107,7 +107,6 @@ abstract class AbstractFlagable implements FlagableInterface
 	 * Sets an undefined member.
 	 * @param string $memberName The name of the undefined member.
 	 * @param mixed $value The value to set.
-	 * @return void
 	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
 	 */
 	final public function __set( string $memberName, $value ): void
@@ -141,7 +140,6 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @see FlagableInterface::__toString()
 	 */
 	final public function __toString(): string
 	{
@@ -161,7 +159,6 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @see FlagableInterface::__invoke()
 	 */
 	final public function __invoke(): int
 	{
@@ -170,7 +167,6 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @see FlagableInterface::getValue()
 	 */
 	final public function getValue(): int
 	{
@@ -178,14 +174,13 @@ abstract class AbstractFlagable implements FlagableInterface
 	}
 
 	/**
-	 * Initialized the reflected flags for validation and stringifying.
-	 * @return void
+	 * Initializes the reflected flags for validation and stringification.
 	 */
 	private static function initializeReflectedFlags(): void
 	{
 		try
 		{
-			static::$reflectedFlags = ( new \ReflectionClass( static::class ) )->getConstants();
+			static::$reflectedFlags = ( new ReflectionClass( static::class ) )->getConstants();
 			asort( static::$reflectedFlags );
 		}
 		catch ( ReflectionException $exception )
@@ -194,8 +189,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	}
 
 	/**
-	 * Validates the flagable
-	 * @return void
+	 * Validates the flagable.
 	 * @throws InvalidFlagableException The flagable is invalid.
 	 */
 	private static function validateFlagable(): void
@@ -216,7 +210,6 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Validates a value.
 	 * @param int|string|FlagableInterface $value The value to validate.
-	 * @return void
 	 * @throws InvalidValueException The value is invalid.
 	 */
 	private function validateValue( $value ): void
@@ -230,8 +223,8 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * Gets the extracted value of a value.
-	 * @param mixed $value The value to transform.
-	 * @return int The transformed value.
+	 * @param mixed $value The value to extract.
+	 * @return int The extracted value.
 	 */
 	private function getExtractedValue( $value ): int
 	{
@@ -272,7 +265,6 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Sets a flag.
 	 * @param int $value The flag to set.
-	 * @return void
 	 */
 	private function unvalidatedSet( int $value ): void
 	{
@@ -282,7 +274,6 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Unsets a flag.
 	 * @param int $value The flag to unset.
-	 * @return void
 	 */
 	private function unvalidatedUnset( int $value ): void
 	{
@@ -292,7 +283,6 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Switches a flag.
 	 * @param int $value The flag to switch.
-	 * @return void
 	 */
 	private function unvalidatedSwitch( int $value ): void
 	{
@@ -302,7 +292,6 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 * @throws InvalidValueException The value is invalid.
-	 * @see FlagableInterface::has()
 	 */
 	final public function has( $value ): bool
 	{
@@ -314,7 +303,6 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 * @throws InvalidValueException The value is invalid.
-	 * @see FlagableInterface::set()
 	 */
 	final public function set( $value ): FlagableInterface
 	{
@@ -327,7 +315,6 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 * @throws InvalidValueException The value is invalid.
-	 * @see FlagableInterface::unset()
 	 */
 	final public function unset( $value ): FlagableInterface
 	{
@@ -340,7 +327,6 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 * @throws InvalidValueException The value is invalid.
-	 * @see FlagableInterface::switch()
 	 */
 	final public function switch( $value ): FlagableInterface
 	{
@@ -352,7 +338,6 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @see FlagableInterface::getIterator()
 	 */
 	final public function getIterator(): iterable
 	{

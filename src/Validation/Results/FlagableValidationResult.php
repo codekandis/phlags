@@ -4,7 +4,7 @@ namespace CodeKandis\Phlags\Validation\Results;
 /**
  * Represents the validation result of the flagable validation.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 class FlagableValidationResult implements FlagableValidationResultInterface
 {
@@ -23,7 +23,7 @@ class FlagableValidationResult implements FlagableValidationResultInterface
 	/**
 	 * Constructor method.
 	 * @param string[] $errorMessages The error messages of the flagable validation.
-	 * @param int      $maxValue The maximum value of the flagable.
+	 * @param int $maxValue The maximum value of the flagable.
 	 */
 	public function __construct( array $errorMessages, int $maxValue )
 	{
@@ -33,7 +33,6 @@ class FlagableValidationResult implements FlagableValidationResultInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @see ValidationResultInterface::getErrorMessages()
 	 */
 	public function getErrorMessages(): array
 	{
@@ -42,7 +41,6 @@ class FlagableValidationResult implements FlagableValidationResultInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @see FlagableValidationResultInterface::getMaxValue()
 	 */
 	public function getMaxValue(): int
 	{
@@ -51,7 +49,6 @@ class FlagableValidationResult implements FlagableValidationResultInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @see ValidationResultInterface::succeeded()
 	 */
 	public function succeeded(): bool
 	{
@@ -60,7 +57,6 @@ class FlagableValidationResult implements FlagableValidationResultInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @see ValidationResultInterface::failed()
 	 */
 	public function failed(): bool
 	{

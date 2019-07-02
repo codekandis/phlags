@@ -15,13 +15,12 @@ use function sprintf;
 /**
  * Represents the validator of all flagables.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 final class ValueValidator implements ValueValidatorInterface
 {
 	/**
 	 * {@inheritdoc}
-	 * @see ValueValidatorInterface::validate()
 	 */
 	public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maxValue, $value ): ValidationResultInterface
 	{

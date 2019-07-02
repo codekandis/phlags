@@ -7,7 +7,7 @@ use CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationTrait;
 /**
  * Represents a test fixture of a conditional manipulatable flagable.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 class ConditionalManipulatablePermissions extends AbstractFlagable
 {

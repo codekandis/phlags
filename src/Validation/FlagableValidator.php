@@ -10,13 +10,12 @@ use function sprintf;
 /**
  * Represents the validator of all flagables.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 class FlagableValidator implements FlagableValidatorInterface
 {
 	/**
 	 * {@inheritdoc}
-	 * @see FlagableValidatorInterface::validate()
 	 */
 	public function validate( string $flagableClassName, array $reflectedFlags ): FlagableValidationResultInterface
 	{
