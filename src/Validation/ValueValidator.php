@@ -18,58 +18,64 @@ final class ValueValidator implements ValueValidatorInterface
 	 */
 	public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maxValue, $value ): ValidationResultInterface
 	{
-		if ( $value instanceof $flagable )
+		$errorMessages = [];
+
+		if ( false === $value instanceof $flagable )
 		{
-			return new ValueValidationResult( [] );
-		}
-		$isString = is_string( $value );
-		$isInt    = is_int( $value );
-		if ( $isString === false && ( $isInt === false || $value < 0 ) )
-		{
-			return new ValueValidationResult(
-				[
-					sprintf( "Invalid type in value '%s'. Unsigned 'int', 'string' or instance of '%s' expected.", (string) $value, get_class( $flagable ) ),
-				]
-			);
-		}
-		if ( $isString === true )
-		{
-			$explodedValues = explode( '|', $value );
-			$errorMessages  = [];
-			foreach ( $explodedValues as $explodedValue )
+			$isString = is_string( $value );
+			$isInt    = is_int( $value );
+			if ( false === $isString && ( false === $isInt || 0 > $value ) )
 			{
-				if ( ctype_digit( $explodedValue ) === false )
+				$errorMessages[] = sprintf(
+					"Invalid type in value '%s'. Unsigned 'int', 'string' or instance of '%s' expected.",
+					(string) $value,
+					get_class( $flagable )
+				);
+			}
+			else if ( true === $isString )
+			{
+				foreach ( explode( '|', $value ) as $explodedValue )
 				{
-					if ( is_numeric( $explodedValue ) )
+					if ( false === ctype_digit( $explodedValue ) )
 					{
-						$errorMessages[] = sprintf( "Invalid type in stringified value '%s'. Unsigned 'int' or flag name of flagable '%s' expected.", (string) $explodedValue, get_class( $flagable ) );
-						continue;
+						if ( true === is_numeric( $explodedValue ) )
+						{
+							$errorMessages[] = sprintf(
+								"Invalid type in stringified value '%s'. Unsigned 'int' or flag name of flagable '%s' expected.",
+								(string) $explodedValue,
+								get_class( $flagable )
+							);
+							continue;
+						}
+						if ( false === array_key_exists( $explodedValue, $reflectedFlags ) )
+						{
+							$errorMessages[] = sprintf(
+								"The value '%s' cannot be resolved to a flag value.",
+								$explodedValue
+							);
+							continue;
+						}
 					}
-					if ( array_key_exists( $explodedValue, $reflectedFlags ) === false )
+					if ( $maxValue < (int) $explodedValue )
 					{
-						$errorMessages[] = sprintf( "The value '%s' cannot be resolved to a flag value.", $explodedValue );
-						continue;
+						$errorMessages[] = sprintf(
+							"The value '%s' exceeds the maximum flag value of '%s'.",
+							(string) $explodedValue,
+							(string) $maxValue
+						);
 					}
 				}
-				if ( (int) $explodedValue > $maxValue )
-				{
-					$errorMessages[] = sprintf( "The value '%s' exceeds the maximum flag value of '%s'.", (string) $explodedValue, (string) $maxValue );
-				}
 			}
-			if ( empty( $errorMessages ) === false )
+			else if ( $maxValue < $value )
 			{
-				return new ValueValidationResult( $errorMessages );
+				$errorMessages[] = sprintf(
+					"The value '%s' exceeds the maximum flag value of '%s'.",
+					(string) $value,
+					(string) $maxValue
+				);
 			}
-		}
-		if ( $value > $maxValue )
-		{
-			return new ValueValidationResult(
-				[
-					sprintf( "The value '%s' exceeds the maximum flag value of '%s'.", (string) $value, (string) $maxValue ),
-				]
-			);
 		}
 
-		return new ValueValidationResult( [] );
+		return new ValueValidationResult( $errorMessages );
 	}
 }
