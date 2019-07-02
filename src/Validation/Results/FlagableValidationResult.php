@@ -1,72 +1,69 @@
 <?php declare( strict_types = 1 );
+namespace CodeKandis\Phlags\Validation\Results;
 
-namespace CodeKandis\Phlags\Validation\Results
+/**
+ * Represents the validation result of the flagable validation.
+ * @package codekandis/phlags
+ * @author  Christian Ramelow <info@codekandis.net>
+ */
+class FlagableValidationResult implements FlagableValidationResultInterface
 {
+	/**
+	 * Stores the error messages of the flagable validation.
+	 * @var string[]
+	 */
+	private $errorMessages;
 
 	/**
-	 * Represents the validation result of the flagable validation.
-	 * @package codekandis/phlags
-	 * @author  Christian Ramelow <info@codekandis.net>
+	 * Stores the maximum value of the flagable.
+	 * @var int
 	 */
-	class FlagableValidationResult implements FlagableValidationResultInterface
+	private $maxValue;
+
+	/**
+	 * Constructor method.
+	 * @param string[] $errorMessages The error messages of the flagable validation.
+	 * @param int      $maxValue The maximum value of the flagable.
+	 */
+	public function __construct( array $errorMessages, int $maxValue )
 	{
-		/**
-		 * Stores the error messages of the flagable validation.
-		 * @var string[]
-		 */
-		private $errorMessages;
+		$this->errorMessages = $errorMessages;
+		$this->maxValue      = $maxValue;
+	}
 
-		/**
-		 * Stores the maximum value of the flagable.
-		 * @var int
-		 */
-		private $maxValue;
+	/**
+	 * {@inheritdoc}
+	 * @see ValidationResultInterface::getErrorMessages()
+	 */
+	public function getErrorMessages(): array
+	{
+		return $this->errorMessages;
+	}
 
-		/**
-		 * Constructor method.
-		 * @param string[] $errorMessages The error messages of the flagable validation.
-		 * @param int      $maxValue      The maximum value of the flagable.
-		 */
-		public function __construct( array $errorMessages, int $maxValue )
-		{
-			$this->errorMessages = $errorMessages;
-			$this->maxValue      = $maxValue;
-		}
+	/**
+	 * {@inheritdoc}
+	 * @see FlagableValidationResultInterface::getMaxValue()
+	 */
+	public function getMaxValue(): int
+	{
+		return $this->maxValue;
+	}
 
-		/**
-		 * {@inheritdoc}
-		 * @see ValidationResultInterface::getErrorMessages()
-		 */
-		public function getErrorMessages(): array
-		{
-			return $this->errorMessages;
-		}
+	/**
+	 * {@inheritdoc}
+	 * @see ValidationResultInterface::succeeded()
+	 */
+	public function succeeded(): bool
+	{
+		return $this->errorMessages === [];
+	}
 
-		/**
-		 * {@inheritdoc}
-		 * @see FlagableValidationResultInterface::getMaxValue()
-		 */
-		public function getMaxValue(): int
-		{
-			return $this->maxValue;
-		}
-
-		/**
-		 * {@inheritdoc}
-		 * @see ValidationResultInterface::succeeded()
-		 */
-		public function succeeded(): bool
-		{
-			return $this->errorMessages === [];
-		}
-
-		/**
-		 * {@inheritdoc}
-		 * @see ValidationResultInterface::failed()
-		 */
-		public function failed(): bool
-		{
-			return $this->errorMessages !== [];
-		}
+	/**
+	 * {@inheritdoc}
+	 * @see ValidationResultInterface::failed()
+	 */
+	public function failed(): bool
+	{
+		return $this->errorMessages !== [];
 	}
 }
