@@ -3,6 +3,9 @@ namespace CodeKandis\Phlags\Validation;
 
 use CodeKandis\Phlags\Validation\Results\FlagableValidationResult;
 use CodeKandis\Phlags\Validation\Results\FlagableValidationResultInterface;
+use function in_array;
+use function is_int;
+use function sprintf;
 
 /**
  * Represents the validator of all flagables.

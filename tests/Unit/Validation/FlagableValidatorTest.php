@@ -6,6 +6,7 @@ use CodeKandis\Phlags\Tests\Fixtures\ValidPermissions;
 use CodeKandis\Phlags\Validation\FlagableValidator;
 use CodeKandis\Phlags\Validation\Results\FlagableValidationResult;
 use PHPUnit\Framework\TestCase;
+use function sprintf;
 
 /**
  * Represents the test case for the class 'CodeKandis\Phlags\Validation\FlagableValidator'.

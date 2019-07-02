@@ -7,6 +7,12 @@ use CodeKandis\Phlags\Exceptions\UnsupportedOperationException;
 use CodeKandis\Phlags\Validation\FlagableValidator;
 use CodeKandis\Phlags\Validation\ValueValidator;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
+use ReflectionException;
+use function asort;
+use function explode;
+use function implode;
+use function is_int;
+use function is_string;
 
 /**
  * Represents the base class of all flagable classes.
@@ -100,7 +106,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Sets an undefined member.
 	 * @param string $memberName The name of the undefined member.
-	 * @param mixed  $value The value to set.
+	 * @param mixed $value The value to set.
 	 * @return void
 	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
 	 */
@@ -112,7 +118,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Calls an undefined method.
 	 * @param string $methodName The name of the undefined method.
-	 * @param array  $arguments The passed arguments.
+	 * @param array $arguments The passed arguments.
 	 * @return mixed The return value of the undefined method.
 	 * @throws UnsupportedOperationException Accessing undefined methods is not supported.
 	 */
@@ -124,7 +130,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Calls an undefined static method.
 	 * @param string $methodName The name of the undefined static method.
-	 * @param array  $arguments The passed arguments.
+	 * @param array $arguments The passed arguments.
 	 * @return mixed The return value of the undefined static method.
 	 * @throws UnsupportedOperationException Accessing undefined methods is not supported.
 	 */
@@ -182,7 +188,7 @@ abstract class AbstractFlagable implements FlagableInterface
 			static::$reflectedFlags = ( new \ReflectionClass( static::class ) )->getConstants();
 			asort( static::$reflectedFlags );
 		}
-		catch ( \ReflectionException $exception )
+		catch ( ReflectionException $exception )
 		{
 		}
 	}

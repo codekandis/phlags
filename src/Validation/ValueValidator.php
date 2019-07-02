@@ -4,6 +4,13 @@ namespace CodeKandis\Phlags\Validation;
 use CodeKandis\Phlags\FlagableInterface;
 use CodeKandis\Phlags\Validation\Results\ValidationResultInterface;
 use CodeKandis\Phlags\Validation\Results\ValueValidationResult;
+use function array_key_exists;
+use function explode;
+use function get_class;
+use function is_int;
+use function is_numeric;
+use function is_string;
+use function sprintf;
 
 /**
  * Represents the validator of all flagables.
