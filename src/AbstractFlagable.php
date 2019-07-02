@@ -144,6 +144,10 @@ abstract class AbstractFlagable implements FlagableInterface
 	final public function __toString(): string
 	{
 		$flagsSetNames = [];
+		/**
+		 * @var string $reflectedFlagName
+		 * @var int $reflectedFlagValue
+		 */
 		foreach ( static::$reflectedFlags as $reflectedFlagName => $reflectedFlagValue )
 		{
 			if ( $reflectedFlagValue !== 0 && ( $this->value & $reflectedFlagValue ) === $reflectedFlagValue )
@@ -152,9 +156,9 @@ abstract class AbstractFlagable implements FlagableInterface
 			}
 		}
 
-		return (string) ( empty( $flagsSetNames ) === true
+		return empty( $flagsSetNames ) === true
 			? 'NONE'
-			: implode( '|', $flagsSetNames ) );
+			: implode( '|', $flagsSetNames );
 	}
 
 	/**
@@ -236,6 +240,9 @@ abstract class AbstractFlagable implements FlagableInterface
 		{
 			$extractedValue = FlagableInterface::NONE;
 			$explodedValues = explode( '|', $value );
+			/**
+			 * @var string $explodedValue
+			 */
 			foreach ( $explodedValues as $explodedValue )
 			{
 				if ( ctype_digit( $explodedValue ) === false )
@@ -347,6 +354,9 @@ abstract class AbstractFlagable implements FlagableInterface
 
 			return;
 		}
+		/**
+		 * @var int $reflectedFlagValue
+		 */
 		foreach ( static::$reflectedFlags as $reflectedFlagValue )
 		{
 			if ( static::NONE !== $reflectedFlagValue && $this->unvalidatedHas( $reflectedFlagValue ) === true )

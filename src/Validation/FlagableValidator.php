@@ -22,6 +22,10 @@ class FlagableValidator implements FlagableValidatorInterface
 		$errorMessages  = [];
 		$maxValue       = 0;
 		$validatedFlags = [];
+		/**
+		 * @var string $flagName
+		 * @var int $flagValue
+		 */
 		foreach ( $reflectedFlags as $flagName => $flagValue )
 		{
 			if ( in_array( $flagValue, $validatedFlags, true ) === true )

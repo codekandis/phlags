@@ -233,13 +233,18 @@ final class AbstractFlagableTest extends TestCase
 	public function testsIteration( string $flagableClassName, array $flags ): void
 	{
 		$initialValue = $flagableClassName::NONE;
+		/**
+		 * @var int $flag
+		 */
 		foreach ( $flags as $flag )
 		{
 			$initialValue |= $flag;
 		}
 		$flagable      = new $flagableClassName( $initialValue );
 		$iteratedFlags = [];
-		/* @var FlagableInterface $iteratedFlag */
+		/**
+		 * @var FlagableInterface $iteratedFlag
+		 */
 		foreach ( $flagable as $iteratedFlag )
 		{
 			$this->assertInstanceOf( $flagableClassName, $iteratedFlag );

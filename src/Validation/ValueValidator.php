@@ -40,6 +40,9 @@ final class ValueValidator implements ValueValidatorInterface
 			}
 			else if ( true === $isString )
 			{
+				/**
+				 * @var string $explodedValue
+				 */
 				foreach ( explode( '|', $value ) as $explodedValue )
 				{
 					if ( false === ctype_digit( $explodedValue ) )
@@ -48,7 +51,7 @@ final class ValueValidator implements ValueValidatorInterface
 						{
 							$errorMessages[] = sprintf(
 								"Invalid type in stringified value '%s'. Unsigned 'int' or flag name of flagable '%s' expected.",
-								(string) $explodedValue,
+								$explodedValue,
 								get_class( $flagable )
 							);
 							continue;
@@ -66,7 +69,7 @@ final class ValueValidator implements ValueValidatorInterface
 					{
 						$errorMessages[] = sprintf(
 							"The value '%s' exceeds the maximum flag value of '%s'.",
-							(string) $explodedValue,
+							$explodedValue,
 							(string) $maxValue
 						);
 					}
