@@ -1,63 +1,46 @@
 {
-    "name": "codekandis/phlags",
-    "description": "Introduces the possibility to use flagable enums in PHP.",
-    "keywords": [
-        "php",
-        "enums",
-        "flags",
-        "flagable",
-        "flagable-enums"
-    ],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Christian Ramelow",
-            "email": "info@codekandis.net",
-            "homepage": "http://codekandis.net",
-            "role": "Developer"
-        }
-    ],
-    "support": {
-        "email": "info@codekandis.net",
-        "issues": "https://github.com/codekandis/phlags/issues",
-        "docs": "https://github.com/codekandis/phlags/blob/master/README.md",
-        "source": "https://github.com/codekandis/phlags/tree/master"
-    },
-    "require": {
-        "php": ">=7.1"
-    },
-    "require-dev": {
-        "roave/security-advisories": "dev-master",
-        "tm/tooly-composer-script": "^1.0"
-    },
-    "repositories": {
-    },
-    "autoload": {
-        "psr-4": {
-            "CodeKandis\\Phlags\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "CodeKandis\\Phlags\\Tests\\": "tests/"
-        }
-    },
-    "extra": {
-        "tools": {
-            "phpunit": {
-                "url": "https://phar.phpunit.de/phpunit-6.3.phar",
-                "only-dev": true
-            },
-            "phpmetrics": {
-                "url": "https://github.com/phpmetrics/PhpMetrics/releases/download/v2.2.0/phpmetrics.phar",
-                "only-dev": true
-            }
-        }
-    },
-    "scripts": {
-        "post-install-cmd": "Tooly\\ScriptHandler::installPharTools",
-        "post-update-cmd": "Tooly\\ScriptHandler::installPharTools"
-    }
+	"name": "codekandis/phlags",
+	"description": "Introduces the possibility to use flagable enums in PHP.",
+	"keywords": [
+		"php",
+		"flags",
+		"flagable",
+		"enums"
+	],
+	"minimum-stability": "stable",
+	"prefer-stable": true,
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Christian Ramelow",
+			"email": "info@codekandis.net",
+			"homepage": "http://codekandis.net",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"email": "info@codekandis.net",
+		"issues": "https://github.com/codekandis/phlags/issues",
+		"docs": "https://github.com/codekandis/phlags/blob/master/README.md",
+		"source": "https://github.com/codekandis/phlags/tree/master"
+	},
+	"require": {
+		"php": "^7.3"
+	},
+	"require-dev": {
+		"roave/security-advisories": "dev-master",
+		"sensiolabs/security-checker": "^6",
+		"phpunit/phpunit": "^8",
+		"phpmetrics/phpmetrics": "^2"
+	},
+	"autoload": {
+		"psr-4": {
+			"CodeKandis\\Phlags\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"CodeKandis\\Phlags\\Tests\\": "tests/"
+		}
+	}
 }
