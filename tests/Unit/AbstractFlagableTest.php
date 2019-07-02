@@ -1,5 +1,5 @@
 <?php declare( strict_types = 1 );
-namespace CodeKandis\Phlags\Tests;
+namespace CodeKandis\Phlags\Tests\Unit;
 
 use CodeKandis\Phlags\AbstractFlagable;
 use CodeKandis\Phlags\Exceptions\UnsupportedOperationException;
