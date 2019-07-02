@@ -69,14 +69,26 @@ class FlagableValidatorTest extends TestCase
 					'GEXECUTE'  => 32,
 				],
 				'errorMessages'             => [
-					sprintf( "Duplicate flag '2' in '%s::%s'.", InvalidPermissions::class, 'UREAD_2' ),
+					sprintf(
+						"Duplicate flag '2' in '%s::%s'.",
+						InvalidPermissions::class,
+						'UREAD_2'
+					),
 					sprintf(
 						"Invalid value '5' in flag in '%s::%s'. Flag must be a power of 2.",
 						InvalidPermissions::class,
 						'UEXECUTE'
 					),
-					sprintf( "Missing flag with value '%d' in '%s'.", 4, InvalidPermissions::class ),
-					sprintf( "Missing flag with value '%d' in '%s'.", 16, InvalidPermissions::class ),
+					sprintf(
+						"Missing flag with value '%d' in '%s'.",
+						4,
+						InvalidPermissions::class
+					),
+					sprintf(
+						"Missing flag with value '%d' in '%s'.",
+						16,
+						InvalidPermissions::class
+					),
 				],
 				'maxValue'                  => 43,
 				'succeeded'                 => false,
