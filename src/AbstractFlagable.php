@@ -239,11 +239,10 @@ abstract class AbstractFlagable implements FlagableInterface
 		if ( is_string( $value ) === true )
 		{
 			$extractedValue = FlagableInterface::NONE;
-			$explodedValues = explode( '|', $value );
 			/**
 			 * @var string $explodedValue
 			 */
-			foreach ( $explodedValues as $explodedValue )
+			foreach ( explode( '|', $value ) as $explodedValue )
 			{
 				if ( ctype_digit( $explodedValue ) === false )
 				{
