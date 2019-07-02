@@ -1,12 +1,14 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags;
 
+use IteratorAggregate;
+
 /**
  * Represents the interface of all flagable classes.
  * @package codekandis/phlags
  * @author  Christian Ramelow <info@codekandis.net>
  */
-interface FlagableInterface extends \IteratorAggregate
+interface FlagableInterface extends IteratorAggregate
 {
 	/**
 	 * Stores the default flag.
