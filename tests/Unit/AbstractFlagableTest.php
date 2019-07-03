@@ -52,18 +52,23 @@ final class AbstractFlagableTest extends TestCase
 		 * @var AbstractFlagable $flagable
 		 */
 		$flagable = new $flagableClassName( $initialValue );
+
 		$this->assertEquals( $initialResult, $flagable() );
 		$this->assertEquals( $initialResult, $flagable->getValue() );
 		$this->assertTrue( $flagable->has( $initialResult ) );
 		$this->assertEquals( $string_1, $flagable->__toString() );
+
 		$flagable->set( $setValue_1 );
+
 		$this->assertEquals( $setResult_1, $flagable() );
 		$this->assertEquals( $setResult_1, $flagable->getValue() );
 		$this->assertTrue( $flagable->has( $setResult_1 ) );
 		$this->assertTrue( $flagable->has( $hasValue_1 ) );
 		$this->assertTrue( $flagable->has( $hasValue_2 ) );
 		$this->assertEquals( $string_2, $flagable->__toString() );
+
 		$flagable->set( $setValue_2 );
+
 		$this->assertEquals( $setResult_2, $flagable() );
 		$this->assertEquals( $setResult_2, $flagable->getValue() );
 		$this->assertTrue( $flagable->has( $setResult_2 ) );
@@ -72,7 +77,9 @@ final class AbstractFlagableTest extends TestCase
 		$this->assertTrue( $flagable->has( $hasValue_5 ) );
 		$this->assertFalse( $flagable->has( $notHasValue_1 ) );
 		$this->assertEquals( $string_3, $flagable->__toString() );
+
 		$flagable->unset( $unsetValue );
+
 		$this->assertEquals( $unsetResult, $flagable() );
 		$this->assertEquals( $unsetResult, $flagable->getValue() );
 		$this->assertTrue( $flagable->has( $unsetResult ) );
@@ -80,12 +87,16 @@ final class AbstractFlagableTest extends TestCase
 		$this->assertTrue( $flagable->has( $hasValue_7 ) );
 		$this->assertFalse( $flagable->has( $notHasValue_2 ) );
 		$this->assertEquals( $string_4, $flagable->__toString() );
+
 		$flagable->switch( $switchValue_1 );
+
 		$this->assertEquals( $switchResult_1, $flagable() );
 		$this->assertEquals( $switchResult_1, $flagable->getValue() );
 		$this->assertTrue( $flagable->has( $switchResult_1 ) );
 		$this->assertEquals( $string_5, $flagable->__toString() );
+
 		$flagable->switch( $switchValue_2 );
+
 		$this->assertEquals( $switchResult_2, $flagable() );
 		$this->assertEquals( $switchResult_2, $flagable->getValue() );
 		$this->assertTrue( $flagable->has( $switchResult_2 ) );

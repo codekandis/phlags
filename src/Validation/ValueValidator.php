@@ -30,6 +30,7 @@ final class ValueValidator implements ValueValidatorInterface
 		{
 			$isString = is_string( $value );
 			$isInt    = is_int( $value );
+
 			if ( false === $isString && ( false === $isInt || 0 > $value ) )
 			{
 				$errorMessages[] = sprintf(
@@ -38,6 +39,7 @@ final class ValueValidator implements ValueValidatorInterface
 					get_class( $flagable )
 				);
 			}
+
 			else if ( true === $isString )
 			{
 				/**
@@ -56,6 +58,7 @@ final class ValueValidator implements ValueValidatorInterface
 							);
 							continue;
 						}
+
 						if ( false === array_key_exists( $explodedValue, $reflectedFlags ) )
 						{
 							$errorMessages[] = sprintf(
@@ -65,6 +68,7 @@ final class ValueValidator implements ValueValidatorInterface
 							continue;
 						}
 					}
+
 					if ( $maxValue < (int) $explodedValue )
 					{
 						$errorMessages[] = sprintf(
@@ -75,6 +79,7 @@ final class ValueValidator implements ValueValidatorInterface
 					}
 				}
 			}
+
 			else if ( $maxValue < $value )
 			{
 				$errorMessages[] = sprintf(

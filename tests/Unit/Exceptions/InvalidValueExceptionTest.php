@@ -19,6 +19,7 @@ final class InvalidValueExceptionTest extends TestCase
 	public function testsErrorMessagesStoredCorrectly( array $errorMessages ): void
 	{
 		$exception = ( new InvalidValueException() )->withErrorMessages( $errorMessages );
+
 		$this->assertEquals( $errorMessages, $exception->getErrorMessages() );
 	}
 

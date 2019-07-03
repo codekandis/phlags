@@ -22,6 +22,7 @@ final class FlagableValidationResultTest extends TestCase
 	public function tests( array $errorMessages, int $maxValue, bool $succeeded, bool $failed ): void
 	{
 		$validationResult = new FlagableValidationResult( $errorMessages, $maxValue );
+
 		$this->assertEquals( $errorMessages, $validationResult->getErrorMessages() );
 		$this->assertEquals( $maxValue, $validationResult->getMaxValue() );
 		$this->assertEquals( $succeeded, $validationResult->succeeded() );

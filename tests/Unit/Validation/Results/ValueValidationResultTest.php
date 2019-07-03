@@ -21,6 +21,7 @@ final class ValueValidationResultTest extends TestCase
 	public function tests( array $errorMessages, bool $succeeded, bool $failed ): void
 	{
 		$validationResult = new ValueValidationResult( $errorMessages );
+
 		$this->assertEquals( $errorMessages, $validationResult->getErrorMessages() );
 		$this->assertEquals( $succeeded, $validationResult->succeeded() );
 		$this->assertEquals( $failed, $validationResult->failed() );

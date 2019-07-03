@@ -144,6 +144,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	final public function __toString(): string
 	{
 		$flagsSetNames = [];
+
 		/**
 		 * @var string $reflectedFlagName
 		 * @var int $reflectedFlagValue

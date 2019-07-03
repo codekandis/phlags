@@ -19,6 +19,7 @@ final class InvalidFlagableExceptionTest extends TestCase
 	public function testsErrorMessagesStoredCorrectly( array $errorMessages ): void
 	{
 		$exception = ( new InvalidFlagableException() )->withErrorMessages( $errorMessages );
+
 		$this->assertEquals( $errorMessages, $exception->getErrorMessages() );
 	}
 

@@ -22,6 +22,7 @@ class FlagableValidator implements FlagableValidatorInterface
 		$errorMessages  = [];
 		$maxValue       = 0;
 		$validatedFlags = [];
+
 		/**
 		 * @var string $flagName
 		 * @var int $flagValue
@@ -34,12 +35,14 @@ class FlagableValidator implements FlagableValidatorInterface
 					sprintf( "Duplicate flag '%s' in '%s::%s'.", $flagValue, $flagableClassName, $flagName );
 				continue;
 			}
+
 			if ( false === is_int( $flagValue ) || 0 > $flagValue )
 			{
 				$errorMessages[] =
 					sprintf( "Invalid type in '%s::%s'. Unsigned 'int' expected.", $flagableClassName, $flagName );
 				continue;
 			}
+
 			if ( 0 !== ( $flagValue & ( $flagValue - 1 ) ) )
 			{
 				$errorMessages[] =
@@ -51,9 +54,11 @@ class FlagableValidator implements FlagableValidatorInterface
 					);
 				continue;
 			}
+
 			$validatedFlags[] = $flagValue;
 			$maxValue         |= $flagValue;
 		}
+
 		for ( $n = 1; 0 | $n <= $maxValue; $n *= 2 )
 		{
 			if ( 0 === ( $n & $maxValue ) )

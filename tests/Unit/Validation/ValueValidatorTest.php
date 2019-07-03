@@ -27,8 +27,10 @@ class ValueValidatorTest extends TestCase
 	 */
 	public function testsProperValidation( string $validationResultClassName, string $flagableClassName, array $reflectedFlags, int $maxValue, $value, array $errorMessages, bool $succeeded, bool $failed ): void
 	{
-		$flagable         = new $flagableClassName;
+		$flagable = new $flagableClassName;
+
 		$validationResult = ( new ValueValidator )->validate( $flagable, $reflectedFlags, $maxValue, $value );
+
 		$this->assertInstanceOf( $validationResultClassName, $validationResult );
 		$this->assertEquals( $errorMessages, $validationResult->getErrorMessages() );
 		$this->assertEquals( $succeeded, $validationResult->succeeded() );
