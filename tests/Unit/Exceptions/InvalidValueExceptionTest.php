@@ -30,7 +30,7 @@ final class InvalidValueExceptionTest extends TestCase
 	public function errorMessagesDataProvider(): array
 	{
 		return [
-			[
+			0 => [
 				'errorMessages' => [
 					'foobar',
 					'barfoo',

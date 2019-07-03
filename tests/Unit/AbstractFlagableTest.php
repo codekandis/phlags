@@ -110,7 +110,7 @@ final class AbstractFlagableTest extends TestCase
 	public function abstractFlagableDataProvider(): array
 	{
 		return [
-			[
+			0 => [
 				'flagableClassName' => ValidPermissions::class,
 				'initialValue'      => ValidPermissions::NONE,
 				'initialResult'     => ValidPermissions::NONE,
@@ -140,7 +140,7 @@ final class AbstractFlagableTest extends TestCase
 				'switchResult_2'    => ValidPermissions::UREAD,
 				'string_6'          => 'UREAD',
 			],
-			[
+			1 => [
 				'flagableClassName' => ValidPermissions::class,
 				'initialValue'      => new ValidPermissions( ValidPermissions::NONE ),
 				'initialResult'     => ValidPermissions::NONE,
@@ -170,7 +170,7 @@ final class AbstractFlagableTest extends TestCase
 				'switchResult_2'    => ValidPermissions::UREAD,
 				'string_6'          => 'UREAD',
 			],
-			[
+			2 => [
 				'flagableClassName' => ValidPermissions::class,
 				'initialValue'      => 'NONE',
 				'initialResult'     => ValidPermissions::NONE,
@@ -229,7 +229,7 @@ final class AbstractFlagableTest extends TestCase
 	public function unsupportedOperationsDataProvider(): array
 	{
 		return [
-			[
+			0 => [
 				'flagableClassName'  => ValidPermissions::class,
 				'memberName'         => 'foobar',
 				'exceptionClassName' => UnsupportedOperationException::class,
@@ -276,28 +276,20 @@ final class AbstractFlagableTest extends TestCase
 	public function iteratedFlagsDataProvider(): array
 	{
 		return [
-			[
+			0 => [
 				'flagableClassName' => ValidPermissions::class,
 				'flags'             => [
 					ValidPermissions::DIRECTORY,
 				],
 			],
-			[
-				'flagableClassName' => ValidPermissions::class,
-				'flags'             => [
-					ValidPermissions::DIRECTORY,
-					ValidPermissions::UREAD,
-				],
-			],
-			[
+			1 => [
 				'flagableClassName' => ValidPermissions::class,
 				'flags'             => [
 					ValidPermissions::DIRECTORY,
 					ValidPermissions::UREAD,
-					ValidPermissions::UWRITE,
 				],
 			],
-			[
+			2 => [
 				'flagableClassName' => ValidPermissions::class,
 				'flags'             => [
 					ValidPermissions::DIRECTORY,
@@ -305,14 +297,22 @@ final class AbstractFlagableTest extends TestCase
 					ValidPermissions::UWRITE,
 				],
 			],
-			[
+			3 => [
+				'flagableClassName' => ValidPermissions::class,
+				'flags'             => [
+					ValidPermissions::DIRECTORY,
+					ValidPermissions::UREAD,
+					ValidPermissions::UWRITE,
+				],
+			],
+			4 => [
 				'flagableClassName' => ValidPermissions::class,
 				'flags'             => [
 					ValidPermissions::UREAD,
 					ValidPermissions::UWRITE,
 				],
 			],
-			[
+			5 => [
 				'flagableClassName' => ValidPermissions::class,
 				'flags'             => [
 					ValidPermissions::DIRECTORY,

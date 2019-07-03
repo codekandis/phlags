@@ -40,7 +40,7 @@ class ValueValidatorTest extends TestCase
 	public function valuesAndResultsDataProvider(): array
 	{
 		return [
-			[
+			0  => [
 				'flagableClassName' => ValidPermissions::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
@@ -52,7 +52,7 @@ class ValueValidatorTest extends TestCase
 				'errorMessages'     => [],
 				'expectedSucceeded' => true
 			],
-			[
+			1  => [
 				'flagableClassName' => ValidPermissions::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
@@ -64,7 +64,7 @@ class ValueValidatorTest extends TestCase
 				'errorMessages'     => [],
 				'expectedSucceeded' => true
 			],
-			[
+			2  => [
 				'flagableClassName' => ValidPermissions::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
@@ -76,7 +76,7 @@ class ValueValidatorTest extends TestCase
 				'errorMessages'     => [],
 				'expectedSucceeded' => true
 			],
-			[
+			3  => [
 				'flagableClassName' => ValidPermissions::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
@@ -88,7 +88,7 @@ class ValueValidatorTest extends TestCase
 				'errorMessages'     => [],
 				'expectedSucceeded' => true
 			],
-			[
+			4  => [
 				'flagableClassName' => ValidPermissions::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
@@ -102,7 +102,7 @@ class ValueValidatorTest extends TestCase
 				],
 				'expectedSucceeded' => false
 			],
-			[
+			5  => [
 				'flagableClassName' => ValidPermissions::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
@@ -116,7 +116,7 @@ class ValueValidatorTest extends TestCase
 				],
 				'expectedSucceeded' => false
 			],
-			[
+			6  => [
 				'flagableClassName' => ValidPermissions::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
@@ -130,7 +130,7 @@ class ValueValidatorTest extends TestCase
 				],
 				'expectedSucceeded' => false
 			],
-			[
+			7  => [
 				'flagableClassName' => ValidPermissions::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
@@ -144,7 +144,7 @@ class ValueValidatorTest extends TestCase
 				],
 				'expectedSucceeded' => false
 			],
-			[
+			8  => [
 				'flagableClassName' => ValidPermissions::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
@@ -158,7 +158,7 @@ class ValueValidatorTest extends TestCase
 				],
 				'expectedSucceeded' => false
 			],
-			[
+			9  => [
 				'flagableClassName' => ValidPermissions::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
@@ -172,7 +172,7 @@ class ValueValidatorTest extends TestCase
 				],
 				'expectedSucceeded' => false
 			],
-			[
+			10 => [
 				'flagableClassName' => ValidPermissions::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
@@ -186,7 +186,7 @@ class ValueValidatorTest extends TestCase
 				],
 				'expectedSucceeded' => false
 			],
-			[
+			11 => [
 				'flagableClassName' => ValidPermissions::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,

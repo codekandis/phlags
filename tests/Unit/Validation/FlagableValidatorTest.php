@@ -40,7 +40,7 @@ class FlagableValidatorTest extends TestCase
 	public function flagableDataProvider(): array
 	{
 		return [
-			[
+			0 => [
 				'flagableClassName' => ValidPermissions::class,
 				'reflectedFlags'    => [
 					'NONE'      => 0,
@@ -52,7 +52,7 @@ class FlagableValidatorTest extends TestCase
 				'expectedMaxValue'  => 7,
 				'expectedSucceeded' => true
 			],
-			[
+			1 => [
 				'flagableClassName' => InvalidPermissions::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,

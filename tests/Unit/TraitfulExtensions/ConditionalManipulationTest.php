@@ -96,7 +96,7 @@ final class ConditionalManipulationTest extends TestCase
 	public function validConditionalManipulatableFlagableDataProvider(): array
 	{
 		return [
-			[
+			0 => [
 				'flagableClassName' => ConditionalManipulatablePermissions::class,
 				'setValue_1'        => ConditionalManipulatablePermissions::DIRECTORY,
 				'setCondition_1'    => false,
@@ -126,7 +126,7 @@ final class ConditionalManipulationTest extends TestCase
 				'unsetCondition_2'  => true,
 				'unsetResult_2'     => ConditionalManipulatablePermissions::UWRITE,
 			],
-			[
+			1 => [
 				'flagableClassName' => ConditionalManipulatablePermissions::class,
 				'setValue_1'        => new ConditionalManipulatablePermissions( ConditionalManipulatablePermissions::DIRECTORY ),
 				'setCondition_1'    => false,
@@ -156,7 +156,7 @@ final class ConditionalManipulationTest extends TestCase
 				'unsetCondition_2'  => true,
 				'unsetResult_2'     => ConditionalManipulatablePermissions::UWRITE,
 			],
-			[
+			2 => [
 				'flagableClassName' => ConditionalManipulatablePermissions::class,
 				'setValue_1'        => 'DIRECTORY',
 				'setCondition_1'    => false,
