@@ -2,8 +2,6 @@
 namespace CodeKandis\Phlags\Validation;
 
 use CodeKandis\Phlags\FlagableInterface;
-use CodeKandis\Phlags\Validation\Results\ValidationResultInterface;
-use CodeKandis\Phlags\Validation\Results\ValueValidationResult;
 use function array_key_exists;
 use function explode;
 use function get_class;
@@ -17,14 +15,14 @@ use function sprintf;
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
-final class ValueValidator implements ValueValidatorInterface
+class ValueValidator extends AbstractValidator implements ValueValidatorInterface
 {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maxValue, $value ): ValidationResultInterface
+	public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maxValue, $value ): void
 	{
-		$errorMessages = [];
+		$this->errorMessages = [];
 
 		if ( false === $value instanceof $flagable )
 		{
@@ -33,7 +31,7 @@ final class ValueValidator implements ValueValidatorInterface
 
 			if ( false === $isString && ( false === $isInt || 0 > $value ) )
 			{
-				$errorMessages[] = sprintf(
+				$this->errorMessages[] = sprintf(
 					"Invalid type in value '%s'. Unsigned 'int', 'string' or instance of '%s' expected.",
 					(string) $value,
 					get_class( $flagable )
@@ -51,7 +49,7 @@ final class ValueValidator implements ValueValidatorInterface
 					{
 						if ( true === is_numeric( $explodedValue ) )
 						{
-							$errorMessages[] = sprintf(
+							$this->errorMessages[] = sprintf(
 								"Invalid type in stringified value '%s'. Unsigned 'int' or flag name of flagable '%s' expected.",
 								$explodedValue,
 								get_class( $flagable )
@@ -61,7 +59,7 @@ final class ValueValidator implements ValueValidatorInterface
 
 						if ( false === array_key_exists( $explodedValue, $reflectedFlags ) )
 						{
-							$errorMessages[] = sprintf(
+							$this->errorMessages[] = sprintf(
 								"The value '%s' cannot be resolved to a flag value.",
 								$explodedValue
 							);
@@ -71,7 +69,7 @@ final class ValueValidator implements ValueValidatorInterface
 
 					if ( $maxValue < (int) $explodedValue )
 					{
-						$errorMessages[] = sprintf(
+						$this->errorMessages[] = sprintf(
 							"The value '%s' exceeds the maximum flag value of '%s'.",
 							$explodedValue,
 							(string) $maxValue
@@ -82,14 +80,12 @@ final class ValueValidator implements ValueValidatorInterface
 
 			else if ( $maxValue < $value )
 			{
-				$errorMessages[] = sprintf(
+				$this->errorMessages[] = sprintf(
 					"The value '%s' exceeds the maximum flag value of '%s'.",
 					(string) $value,
 					(string) $maxValue
 				);
 			}
 		}
-
-		return new ValueValidationResult( $errorMessages );
 	}
 }
