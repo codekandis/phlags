@@ -4,7 +4,6 @@ namespace CodeKandis\Phlags\Tests\Unit\Validation;
 use CodeKandis\Phlags\Tests\Fixtures\InvalidPermissions;
 use CodeKandis\Phlags\Tests\Fixtures\ValidPermissions;
 use CodeKandis\Phlags\Validation\FlagableValidator;
-use CodeKandis\Phlags\Validation\Results\FlagableValidationResult;
 use PHPUnit\Framework\TestCase;
 use function sprintf;
 
@@ -17,24 +16,21 @@ class FlagableValidatorTest extends TestCase
 {
 	/**
 	 * Tests if the flagable validator is working as expected.
-	 * @param string $validationResultClassName The class name of the validation result.
 	 * @param string $flagableClassName The class name of the flagable to validate.
 	 * @param array $reflectedFlags The reflected flags of the flagable to validate.
 	 * @param array $errorMessages The error messages of the validation.
-	 * @param int $maxValue The maximum value of the flagable.
-	 * @param bool $succeeded The success state of the validation.
-	 * @param bool $failed The fail state of the validiation.
+	 * @param int $expectedMaxValue The maximum value of the flagable.
+	 * @param bool $expectedSucceeded The success state of the validation.
 	 * @dataProvider flagableDataProvider
 	 */
-	public function testsProperValidation( string $validationResultClassName, string $flagableClassName, array $reflectedFlags, array $errorMessages, int $maxValue, bool $succeeded, bool $failed ): void
+	public function testsProperValidation( string $flagableClassName, array $reflectedFlags, array $errorMessages, int $expectedMaxValue, bool $expectedSucceeded ): void
 	{
-		$validationResult = ( new FlagableValidator() )->validate( $flagableClassName, $reflectedFlags );
+		$validator = new FlagableValidator();
+		$validator->validate( $flagableClassName, $reflectedFlags );
 
-		$this->assertInstanceOf( $validationResultClassName, $validationResult );
-		$this->assertEquals( $errorMessages, $validationResult->getErrorMessages() );
-		$this->assertEquals( $maxValue, $validationResult->getMaxValue() );
-		$this->assertEquals( $succeeded, $validationResult->succeeded() );
-		$this->assertEquals( $failed, $validationResult->failed() );
+		$this->assertEquals( $errorMessages, $validator->getErrorMessages() );
+		$this->assertEquals( $expectedMaxValue, $validator->getMaxValue() );
+		$this->assertEquals( $expectedSucceeded, $validator->succeeded() );
 	}
 
 	/**
@@ -45,23 +41,20 @@ class FlagableValidatorTest extends TestCase
 	{
 		return [
 			[
-				'validationResultClassName' => FlagableValidationResult::class,
-				'flagableClassName'         => ValidPermissions::class,
-				'reflectedFlags'            => [
+				'flagableClassName' => ValidPermissions::class,
+				'reflectedFlags'    => [
 					'NONE'      => 0,
 					'DIRECTORY' => 1,
 					'UREAD'     => 2,
 					'UWRITE'    => 4,
 				],
-				'errorMessages'             => [],
-				'maxValue'                  => 7,
-				'succeeded'                 => true,
-				'failed'                    => false,
+				'errorMessages'     => [],
+				'expectedMaxValue'  => 7,
+				'expectedSucceeded' => true
 			],
 			[
-				'validationResultClassName' => FlagableValidationResult::class,
-				'flagableClassName'         => InvalidPermissions::class,
-				'reflectedFlags'            => [
+				'flagableClassName' => InvalidPermissions::class,
+				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
 					'UREAD_1'   => 2,
 					'UREAD_2'   => 2,
@@ -69,7 +62,7 @@ class FlagableValidatorTest extends TestCase
 					'GREAD'     => 8,
 					'GEXECUTE'  => 32,
 				],
-				'errorMessages'             => [
+				'errorMessages'     => [
 					sprintf(
 						"Duplicate flag '2' in '%s::%s'.",
 						InvalidPermissions::class,
@@ -91,9 +84,8 @@ class FlagableValidatorTest extends TestCase
 						InvalidPermissions::class
 					),
 				],
-				'maxValue'                  => 43,
-				'succeeded'                 => false,
-				'failed'                    => true,
+				'expectedMaxValue'  => 43,
+				'expectedSucceeded' => false
 			],
 		];
 	}
