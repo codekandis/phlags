@@ -204,12 +204,13 @@ abstract class AbstractFlagable implements FlagableInterface
 			throw static::$validationException;
 		}
 		static::$hasBeenValidated = true;
-		$validationResult         = ( new FlagableValidator )->validate( static::class, static::$reflectedFlags );
-		if ( true === $validationResult->failed() )
+		$validator                = new FlagableValidator();
+		$validator->validate( static::class, static::$reflectedFlags );
+		if ( false === $validator->succeeded() )
 		{
-			throw ( new InvalidFlagableException( 'Invalid flagable.' ) )->withErrorMessages( $validationResult->getErrorMessages() );
+			throw ( new InvalidFlagableException( 'Invalid flagable.' ) )->withErrorMessages( $validator->getErrorMessages() );
 		}
-		static::$maxValue = $validationResult->getMaxValue();
+		static::$maxValue = $validator->getMaxValue();
 	}
 
 	/**
