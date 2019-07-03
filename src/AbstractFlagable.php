@@ -232,10 +232,13 @@ abstract class AbstractFlagable implements FlagableInterface
 	 */
 	private function getExtractedValue( $value ): int
 	{
+		$returnValue = null;
+
 		if ( true === is_int( $value ) )
 		{
-			return $value;
+			$returnValue = $value;
 		}
+
 		if ( true === is_string( $value ) )
 		{
 			$extractedValue = FlagableInterface::NONE;
@@ -252,10 +255,10 @@ abstract class AbstractFlagable implements FlagableInterface
 				$extractedValue |= (int) $explodedValue;
 			}
 
-			return $extractedValue;
+			$returnValue = $extractedValue;
 		}
 
-		return $value->getValue();
+		return $returnValue ?? $value->getValue();
 	}
 
 	/**
