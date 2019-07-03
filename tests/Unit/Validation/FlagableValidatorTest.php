@@ -28,9 +28,9 @@ class FlagableValidatorTest extends TestCase
 		$validator = new FlagableValidator();
 		$validator->validate( $flagableClassName, $reflectedFlags );
 
-		$this->assertEquals( $errorMessages, $validator->getErrorMessages() );
-		$this->assertEquals( $expectedMaxValue, $validator->getMaxValue() );
-		$this->assertEquals( $expectedSucceeded, $validator->succeeded() );
+		static::assertEquals( $errorMessages, $validator->getErrorMessages() );
+		static::assertEquals( $expectedMaxValue, $validator->getMaxValue() );
+		static::assertEquals( $expectedSucceeded, $validator->succeeded() );
 	}
 
 	/**

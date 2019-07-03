@@ -20,7 +20,7 @@ final class InvalidFlagableExceptionTest extends TestCase
 	{
 		$exception = ( new InvalidFlagableException() )->withErrorMessages( $errorMessages );
 
-		$this->assertEquals( $errorMessages, $exception->getErrorMessages() );
+		static::assertEquals( $errorMessages, $exception->getErrorMessages() );
 	}
 
 	/**

@@ -20,7 +20,7 @@ final class InvalidValueExceptionTest extends TestCase
 	{
 		$exception = ( new InvalidValueException() )->withErrorMessages( $errorMessages );
 
-		$this->assertEquals( $errorMessages, $exception->getErrorMessages() );
+		static::assertEquals( $errorMessages, $exception->getErrorMessages() );
 	}
 
 	/**

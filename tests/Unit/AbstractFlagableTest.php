@@ -53,54 +53,54 @@ final class AbstractFlagableTest extends TestCase
 		 */
 		$flagable = new $flagableClassName( $initialValue );
 
-		$this->assertEquals( $initialResult, $flagable() );
-		$this->assertEquals( $initialResult, $flagable->getValue() );
-		$this->assertTrue( $flagable->has( $initialResult ) );
-		$this->assertEquals( $string_1, $flagable->__toString() );
+		static::assertEquals( $initialResult, $flagable() );
+		static::assertEquals( $initialResult, $flagable->getValue() );
+		static::assertTrue( $flagable->has( $initialResult ) );
+		static::assertEquals( $string_1, $flagable->__toString() );
 
 		$flagable->set( $setValue_1 );
 
-		$this->assertEquals( $setResult_1, $flagable() );
-		$this->assertEquals( $setResult_1, $flagable->getValue() );
-		$this->assertTrue( $flagable->has( $setResult_1 ) );
-		$this->assertTrue( $flagable->has( $hasValue_1 ) );
-		$this->assertTrue( $flagable->has( $hasValue_2 ) );
-		$this->assertEquals( $string_2, $flagable->__toString() );
+		static::assertEquals( $setResult_1, $flagable() );
+		static::assertEquals( $setResult_1, $flagable->getValue() );
+		static::assertTrue( $flagable->has( $setResult_1 ) );
+		static::assertTrue( $flagable->has( $hasValue_1 ) );
+		static::assertTrue( $flagable->has( $hasValue_2 ) );
+		static::assertEquals( $string_2, $flagable->__toString() );
 
 		$flagable->set( $setValue_2 );
 
-		$this->assertEquals( $setResult_2, $flagable() );
-		$this->assertEquals( $setResult_2, $flagable->getValue() );
-		$this->assertTrue( $flagable->has( $setResult_2 ) );
-		$this->assertTrue( $flagable->has( $hasValue_3 ) );
-		$this->assertTrue( $flagable->has( $hasValue_4 ) );
-		$this->assertTrue( $flagable->has( $hasValue_5 ) );
-		$this->assertFalse( $flagable->has( $notHasValue_1 ) );
-		$this->assertEquals( $string_3, $flagable->__toString() );
+		static::assertEquals( $setResult_2, $flagable() );
+		static::assertEquals( $setResult_2, $flagable->getValue() );
+		static::assertTrue( $flagable->has( $setResult_2 ) );
+		static::assertTrue( $flagable->has( $hasValue_3 ) );
+		static::assertTrue( $flagable->has( $hasValue_4 ) );
+		static::assertTrue( $flagable->has( $hasValue_5 ) );
+		static::assertFalse( $flagable->has( $notHasValue_1 ) );
+		static::assertEquals( $string_3, $flagable->__toString() );
 
 		$flagable->unset( $unsetValue );
 
-		$this->assertEquals( $unsetResult, $flagable() );
-		$this->assertEquals( $unsetResult, $flagable->getValue() );
-		$this->assertTrue( $flagable->has( $unsetResult ) );
-		$this->assertTrue( $flagable->has( $hasValue_6 ) );
-		$this->assertTrue( $flagable->has( $hasValue_7 ) );
-		$this->assertFalse( $flagable->has( $notHasValue_2 ) );
-		$this->assertEquals( $string_4, $flagable->__toString() );
+		static::assertEquals( $unsetResult, $flagable() );
+		static::assertEquals( $unsetResult, $flagable->getValue() );
+		static::assertTrue( $flagable->has( $unsetResult ) );
+		static::assertTrue( $flagable->has( $hasValue_6 ) );
+		static::assertTrue( $flagable->has( $hasValue_7 ) );
+		static::assertFalse( $flagable->has( $notHasValue_2 ) );
+		static::assertEquals( $string_4, $flagable->__toString() );
 
 		$flagable->switch( $switchValue_1 );
 
-		$this->assertEquals( $switchResult_1, $flagable() );
-		$this->assertEquals( $switchResult_1, $flagable->getValue() );
-		$this->assertTrue( $flagable->has( $switchResult_1 ) );
-		$this->assertEquals( $string_5, $flagable->__toString() );
+		static::assertEquals( $switchResult_1, $flagable() );
+		static::assertEquals( $switchResult_1, $flagable->getValue() );
+		static::assertTrue( $flagable->has( $switchResult_1 ) );
+		static::assertEquals( $string_5, $flagable->__toString() );
 
 		$flagable->switch( $switchValue_2 );
 
-		$this->assertEquals( $switchResult_2, $flagable() );
-		$this->assertEquals( $switchResult_2, $flagable->getValue() );
-		$this->assertTrue( $flagable->has( $switchResult_2 ) );
-		$this->assertEquals( $string_6, $flagable->__toString() );
+		static::assertEquals( $switchResult_2, $flagable() );
+		static::assertEquals( $switchResult_2, $flagable->getValue() );
+		static::assertTrue( $flagable->has( $switchResult_2 ) );
+		static::assertEquals( $string_6, $flagable->__toString() );
 	}
 
 	/**
@@ -263,10 +263,10 @@ final class AbstractFlagableTest extends TestCase
 		 */
 		foreach ( $flagable as $iteratedFlag )
 		{
-			$this->assertInstanceOf( $flagableClassName, $iteratedFlag );
+			static::assertInstanceOf( $flagableClassName, $iteratedFlag );
 			$iteratedFlags[] = $iteratedFlag->getValue();
 		}
-		$this->assertEquals( $flags, $iteratedFlags );
+		static::assertEquals( $flags, $iteratedFlags );
 	}
 
 	/**

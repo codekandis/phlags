@@ -54,39 +54,39 @@ final class ConditionalManipulationTest extends TestCase
 
 		$flagable->ifSet( $setValue_1, $setCondition_1 );
 
-		$this->assertEquals( $setResult_1, $flagable->getValue() );
+		static::assertEquals( $setResult_1, $flagable->getValue() );
 
 		$flagable->ifSet( $setValue_2, $setCondition_2 );
 
-		$this->assertEquals( $setResult_2, $flagable->getValue() );
+		static::assertEquals( $setResult_2, $flagable->getValue() );
 
 		$flagable->ifSet( $setValue_3, $setCondition_3 );
 
-		$this->assertEquals( $setResult_3, $flagable->getValue() );
+		static::assertEquals( $setResult_3, $flagable->getValue() );
 
 		$flagable->ifSet( $setValue_4, $setCondition_4 );
 
-		$this->assertEquals( $setResult_4, $flagable->getValue() );
+		static::assertEquals( $setResult_4, $flagable->getValue() );
 
 		$flagable->ifSet( $setValue_5, $setCondition_5 );
 
-		$this->assertEquals( $setResult_5, $flagable->getValue() );
+		static::assertEquals( $setResult_5, $flagable->getValue() );
 
 		$flagable->ifSwitch( $switchValue_1, $switchCondition_1 );
 
-		$this->assertEquals( $switchResult_1, $flagable->getValue() );
+		static::assertEquals( $switchResult_1, $flagable->getValue() );
 
 		$flagable->ifSwitch( $switchValue_2, $switchCondition_2 );
 
-		$this->assertEquals( $switchResult_2, $flagable->getValue() );
+		static::assertEquals( $switchResult_2, $flagable->getValue() );
 
 		$flagable->ifUnset( $unsetValue_1, $unsetCondition_1 );
 
-		$this->assertEquals( $unsetResult_1, $flagable->getValue() );
+		static::assertEquals( $unsetResult_1, $flagable->getValue() );
 
 		$flagable->ifUnset( $unsetValue_2, $unsetCondition_2 );
 
-		$this->assertEquals( $unsetResult_2, $flagable->getValue() );
+		static::assertEquals( $unsetResult_2, $flagable->getValue() );
 	}
 
 	/**

@@ -29,8 +29,8 @@ class ValueValidatorTest extends TestCase
 		$validator = new ValueValidator ();
 		$validator->validate( $flagable, $reflectedFlags, $maxValue, $value );
 
-		$this->assertEquals( $errorMessages, $validator->getErrorMessages() );
-		$this->assertEquals( $expectedSucceeded, $validator->succeeded() );
+		static::assertEquals( $errorMessages, $validator->getErrorMessages() );
+		static::assertEquals( $expectedSucceeded, $validator->succeeded() );
 	}
 
 	/**
