@@ -220,10 +220,10 @@ abstract class AbstractFlagable implements FlagableInterface
 	 */
 	private function validateValue( $value ): void
 	{
-		$validationResult = self::$valueValidator->validate( $this, static::$reflectedFlags, self::$maxValue, $value );
-		if ( true === $validationResult->failed() )
+		self::$valueValidator->validate( $this, static::$reflectedFlags, self::$maxValue, $value );
+		if ( false === self::$valueValidator->succeeded() )
 		{
-			throw ( new InvalidValueException( 'Invalid value.' ) )->withErrorMessages( $validationResult->getErrorMessages() );
+			throw ( new InvalidValueException( 'Invalid value.' ) )->withErrorMessages( self::$valueValidator->getErrorMessages() );
 		}
 	}
 
