@@ -2,7 +2,7 @@
 namespace CodeKandis\Phlags\Tests\Fixtures;
 
 use CodeKandis\Phlags\AbstractFlagable;
-use CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationTrait;
+use CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationExtension;
 
 /**
  * Represents a test fixture of a conditional manipulatable flagable.
@@ -11,7 +11,7 @@ use CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationTrait;
  */
 class ConditionalManipulatablePermissions extends AbstractFlagable
 {
-	use ConditionalManipulationTrait;
+	use ConditionalManipulationExtension;
 
 	public const DIRECTORY = 1;
 
