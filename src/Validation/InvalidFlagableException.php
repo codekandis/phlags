@@ -1,6 +1,7 @@
 <?php declare( strict_types = 1 );
-namespace CodeKandis\Phlags\Exceptions;
+namespace CodeKandis\Phlags\Validation;
 
+use CodeKandis\Phlags\Exceptions\ErrorMessagesExceptionInterface;
 use RuntimeException;
 
 /**
