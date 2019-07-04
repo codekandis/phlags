@@ -48,7 +48,9 @@ final class AbstractFlagableTest extends TestCase
 	 */
 	public function testsAllMethods( string $flagableClassName, $initialValue, int $initialResult, string $string_1, $setValue_1, int $setResult_1, string $string_2, $hasValue_1, $hasValue_2, $setValue_2, int $setResult_2, string $string_3, $hasValue_3, $hasValue_4, $hasValue_5, $notHasValue_1, $unsetValue, int $unsetResult, string $string_4, $hasValue_6, $hasValue_7, $notHasValue_2, $switchValue_1, int $switchResult_1, string $string_5, $switchValue_2, int $switchResult_2, string $string_6 ): void
 	{
-		/* @var AbstractFlagable $flagable */
+		/**
+		 * @var AbstractFlagable $flagable
+		 */
 		$flagable = new $flagableClassName( $initialValue );
 		$this->assertEquals( $initialResult, $flagable() );
 		$this->assertEquals( $initialResult, $flagable->getValue() );
