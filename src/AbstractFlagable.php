@@ -2,7 +2,7 @@
 namespace CodeKandis\Phlags;
 
 use CodeKandis\Phlags\Validation\InvalidFlagableException;
-use CodeKandis\Phlags\Exceptions\InvalidValueException;
+use CodeKandis\Phlags\Validation\InvalidValueException;
 use CodeKandis\Phlags\Exceptions\UnsupportedOperationException;
 use CodeKandis\Phlags\Validation\FlagableValidator;
 use CodeKandis\Phlags\Validation\ValueValidator;
