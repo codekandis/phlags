@@ -9,7 +9,7 @@ use CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationExtension;
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
-class ConditionalManipulatablePermissions extends AbstractFlagable
+class ConditionalManipulatableFlagable extends AbstractFlagable
 {
 	use ConditionalManipulationExtension;
 
