@@ -3,15 +3,15 @@ namespace CodeKandis\Phlags\Tests\Unit\TraitfulExtensions;
 
 use CodeKandis\Phlags\FlagableInterface;
 use CodeKandis\Phlags\Tests\Fixtures\ConditionalManipulatablePermissions;
-use CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationTrait;
+use CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationExtension;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Represents the test case for the trait 'CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationTrait'.
+ * Represents the test case for the trait 'CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationExtension'.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
-final class ConditionalManipulationTest extends TestCase
+final class ConditionalManipulationExtensionTest extends TestCase
 {
 	/**
 	 * Tests if the conditional manipulation methods works as expected.
@@ -48,7 +48,7 @@ final class ConditionalManipulationTest extends TestCase
 	public function testsConditionalManipulation( string $flagableClassName, $setValue_1, bool $setCondition_1, int $setResult_1, $setValue_2, bool $setCondition_2, int $setResult_2, $setValue_3, bool $setCondition_3, int $setResult_3, $setValue_4, bool $setCondition_4, int $setResult_4, $setValue_5, bool $setCondition_5, int $setResult_5, $switchValue_1, bool $switchCondition_1, int $switchResult_1, $switchValue_2, bool $switchCondition_2, int $switchResult_2, $unsetValue_1, bool $unsetCondition_1, int $unsetResult_1, $unsetValue_2, bool $unsetCondition_2, int $unsetResult_2 ): void
 	{
 		/**
-		 * @var ConditionalManipulationTrait $flagable
+		 * @var ConditionalManipulationExtension $flagable
 		 */
 		$flagable = new $flagableClassName;
 
