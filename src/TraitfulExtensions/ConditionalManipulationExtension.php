@@ -8,7 +8,7 @@ use CodeKandis\Phlags\FlagableInterface;
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
-trait ConditionalManipulationTrait
+trait ConditionalManipulationExtension
 {
 	/**
 	 * Sets a flag.
