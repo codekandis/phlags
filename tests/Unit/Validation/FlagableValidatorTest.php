@@ -55,23 +55,23 @@ class FlagableValidatorTest extends TestCase
 			1 => [
 				'flagableClassName' => InvalidFlagable::class,
 				'reflectedFlags'    => [
-					'DIRECTORY' => 1,
-					'UREAD_1'   => 2,
-					'UREAD_2'   => 2,
-					'UEXECUTE'  => 5,
-					'GREAD'     => 8,
-					'GEXECUTE'  => 32,
+					'FLAG_A' => 1,
+					'FLAG_B' => 2,
+					'FLAG_C' => 2,
+					'FLAG_D' => 5,
+					'FLAG_E' => 8,
+					'FLAG_F' => 32,
 				],
 				'errorMessages'     => [
 					sprintf(
 						"Duplicate flag '2' in '%s::%s'.",
 						InvalidFlagable::class,
-						'UREAD_2'
+						'FLAG_C'
 					),
 					sprintf(
 						"Invalid value '5' in flag in '%s::%s'. Flag must be a power of 2.",
 						InvalidFlagable::class,
-						'UEXECUTE'
+						'FLAG_D'
 					),
 					sprintf(
 						"Missing flag with value '%d' in '%s'.",

@@ -10,15 +10,15 @@ use CodeKandis\Phlags\AbstractFlagable;
  */
 class InvalidFlagable extends AbstractFlagable
 {
-	public const DIRECTORY = 1;
+	public const FLAG_A = 1;
 
-	public const UREAD_1   = 2;
+	public const FLAG_B = 2;
 
-	public const UREAD_2   = 2;
+	public const FLAG_C = 2;
 
-	public const UEXECUTE  = 5;
+	public const FLAG_D = 5;
 
-	public const GREAD     = 8;
+	public const FLAG_E = 8;
 
-	public const GEXECUTE  = 32;
+	public const FLAG_F = 32;
 }
