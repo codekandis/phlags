@@ -200,7 +200,7 @@ class ValueValidatorTest extends TestCase
 					"The value 'UEXECUTE' cannot be resolved to a flag value.",
 				],
 				'expectedSucceeded' => false
-			],
+			]
 		];
 	}
 }

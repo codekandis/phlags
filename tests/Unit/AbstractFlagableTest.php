@@ -199,7 +199,7 @@ final class AbstractFlagableTest extends TestCase
 				'switchValue_2'     => 'UWRITE',
 				'switchResult_2'    => ValidPermissions::UREAD,
 				'string_6'          => 'UREAD',
-			],
+			]
 		];
 	}
 
@@ -233,7 +233,7 @@ final class AbstractFlagableTest extends TestCase
 				'flagableClassName'  => ValidPermissions::class,
 				'memberName'         => 'foobar',
 				'exceptionClassName' => UnsupportedOperationException::class,
-			],
+			]
 		];
 	}
 
@@ -280,14 +280,14 @@ final class AbstractFlagableTest extends TestCase
 				'flagableClassName' => ValidPermissions::class,
 				'flags'             => [
 					ValidPermissions::DIRECTORY,
-				],
+				]
 			],
 			1 => [
 				'flagableClassName' => ValidPermissions::class,
 				'flags'             => [
 					ValidPermissions::DIRECTORY,
 					ValidPermissions::UREAD,
-				],
+				]
 			],
 			2 => [
 				'flagableClassName' => ValidPermissions::class,
@@ -295,7 +295,7 @@ final class AbstractFlagableTest extends TestCase
 					ValidPermissions::DIRECTORY,
 					ValidPermissions::UREAD,
 					ValidPermissions::UWRITE,
-				],
+				]
 			],
 			3 => [
 				'flagableClassName' => ValidPermissions::class,
@@ -303,22 +303,22 @@ final class AbstractFlagableTest extends TestCase
 					ValidPermissions::DIRECTORY,
 					ValidPermissions::UREAD,
 					ValidPermissions::UWRITE,
-				],
+				]
 			],
 			4 => [
 				'flagableClassName' => ValidPermissions::class,
 				'flags'             => [
 					ValidPermissions::UREAD,
 					ValidPermissions::UWRITE,
-				],
+				]
 			],
 			5 => [
 				'flagableClassName' => ValidPermissions::class,
 				'flags'             => [
 					ValidPermissions::DIRECTORY,
 					ValidPermissions::UWRITE,
-				],
-			],
+				]
+			]
 		];
 	}
 }

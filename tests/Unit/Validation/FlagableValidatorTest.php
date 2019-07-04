@@ -86,7 +86,7 @@ class FlagableValidatorTest extends TestCase
 				],
 				'expectedMaxValue'  => 43,
 				'expectedSucceeded' => false
-			],
+			]
 		];
 	}
 }

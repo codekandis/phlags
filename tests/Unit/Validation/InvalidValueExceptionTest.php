@@ -34,8 +34,8 @@ final class InvalidValueExceptionTest extends TestCase
 				'errorMessages' => [
 					'foobar',
 					'barfoo',
-				],
-			],
+				]
+			]
 		];
 	}
 }

@@ -185,7 +185,7 @@ final class ConditionalManipulationExtensionTest extends TestCase
 				'unsetValue_2'      => 'DIRECTORY',
 				'unsetCondition_2'  => true,
 				'unsetResult_2'     => ConditionalManipulatablePermissions::UWRITE,
-			],
+			]
 		];
 	}
 }

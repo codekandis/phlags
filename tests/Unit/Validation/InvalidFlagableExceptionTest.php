@@ -34,8 +34,8 @@ final class InvalidFlagableExceptionTest extends TestCase
 				'errorMessages' => [
 					'foobar',
 					'barfoo',
-				],
-			],
+				]
+			]
 		];
 	}
 }
