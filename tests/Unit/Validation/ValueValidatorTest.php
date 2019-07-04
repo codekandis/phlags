@@ -43,57 +43,57 @@ class ValueValidatorTest extends TestCase
 			0  => [
 				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
-					'DIRECTORY' => 1,
-					'UREAD'     => 2,
-					'UWRITE'    => 4,
+					'FLAG_A' => 1,
+					'FLAG_B' => 2,
+					'FLAG_C' => 4,
 				],
 				'maxValue'          => 7,
-				'value'             => ValidFlagable::DIRECTORY,
+				'value'             => ValidFlagable::FLAG_A,
 				'errorMessages'     => [],
 				'expectedSucceeded' => true
 			],
 			1  => [
 				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
-					'DIRECTORY' => 1,
-					'UREAD'     => 2,
-					'UWRITE'    => 4,
+					'FLAG_A' => 1,
+					'FLAG_B' => 2,
+					'FLAG_C' => 4,
 				],
 				'maxValue'          => 7,
-				'value'             => new ValidFlagable( ValidFlagable::DIRECTORY ),
+				'value'             => new ValidFlagable( ValidFlagable::FLAG_A ),
 				'errorMessages'     => [],
 				'expectedSucceeded' => true
 			],
 			2  => [
 				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
-					'DIRECTORY' => 1,
-					'UREAD'     => 2,
-					'UWRITE'    => 4,
+					'FLAG_A' => 1,
+					'FLAG_B' => 2,
+					'FLAG_C' => 4,
 				],
 				'maxValue'          => 7,
-				'value'             => 'DIRECTORY',
+				'value'             => 'FLAG_A',
 				'errorMessages'     => [],
 				'expectedSucceeded' => true
 			],
 			3  => [
 				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
-					'DIRECTORY' => 1,
-					'UREAD'     => 2,
-					'UWRITE'    => 4,
+					'FLAG_A' => 1,
+					'FLAG_B' => 2,
+					'FLAG_C' => 4,
 				],
 				'maxValue'          => 7,
-				'value'             => 'DIRECTORY|UREAD',
+				'value'             => 'FLAG_A|FLAG_B',
 				'errorMessages'     => [],
 				'expectedSucceeded' => true
 			],
 			4  => [
 				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
-					'DIRECTORY' => 1,
-					'UREAD'     => 2,
-					'UWRITE'    => 4,
+					'FLAG_A' => 1,
+					'FLAG_B' => 2,
+					'FLAG_C' => 4,
 				],
 				'maxValue'          => 7,
 				'value'             => 'foobar',
@@ -105,23 +105,23 @@ class ValueValidatorTest extends TestCase
 			5  => [
 				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
-					'DIRECTORY' => 1,
-					'UREAD'     => 2,
-					'UWRITE'    => 4,
+					'FLAG_A' => 1,
+					'FLAG_B' => 2,
+					'FLAG_C' => 4,
 				],
 				'maxValue'          => 7,
-				'value'             => 'DIRECTORY|UEXECUTE',
+				'value'             => 'FLAG_A|FLAG_D',
 				'errorMessages'     => [
-					"The value 'UEXECUTE' cannot be resolved to a flag value.",
+					"The value 'FLAG_D' cannot be resolved to a flag value.",
 				],
 				'expectedSucceeded' => false
 			],
 			6  => [
 				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
-					'DIRECTORY' => 1,
-					'UREAD'     => 2,
-					'UWRITE'    => 4,
+					'FLAG_A' => 1,
+					'FLAG_B' => 2,
+					'FLAG_C' => 4,
 				],
 				'maxValue'          => 7,
 				'value'             => -42,
@@ -133,9 +133,9 @@ class ValueValidatorTest extends TestCase
 			7  => [
 				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
-					'DIRECTORY' => 1,
-					'UREAD'     => 2,
-					'UWRITE'    => 4,
+					'FLAG_A' => 1,
+					'FLAG_B' => 2,
+					'FLAG_C' => 4,
 				],
 				'maxValue'          => 7,
 				'value'             => -42.5,
@@ -147,9 +147,9 @@ class ValueValidatorTest extends TestCase
 			8  => [
 				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
-					'DIRECTORY' => 1,
-					'UREAD'     => 2,
-					'UWRITE'    => 4,
+					'FLAG_A' => 1,
+					'FLAG_B' => 2,
+					'FLAG_C' => 4,
 				],
 				'maxValue'          => 7,
 				'value'             => '-42',
@@ -161,9 +161,9 @@ class ValueValidatorTest extends TestCase
 			9  => [
 				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
-					'DIRECTORY' => 1,
-					'UREAD'     => 2,
-					'UWRITE'    => 4,
+					'FLAG_A' => 1,
+					'FLAG_B' => 2,
+					'FLAG_C' => 4,
 				],
 				'maxValue'          => 7,
 				'value'             => '-42.5',
@@ -175,9 +175,9 @@ class ValueValidatorTest extends TestCase
 			10 => [
 				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
-					'DIRECTORY' => 1,
-					'UREAD'     => 2,
-					'UWRITE'    => 4,
+					'FLAG_A' => 1,
+					'FLAG_B' => 2,
+					'FLAG_C' => 4,
 				],
 				'maxValue'          => 7,
 				'value'             => 42,
@@ -189,15 +189,15 @@ class ValueValidatorTest extends TestCase
 			11 => [
 				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
-					'DIRECTORY' => 1,
-					'UREAD'     => 2,
-					'UWRITE'    => 4,
+					'FLAG_A' => 1,
+					'FLAG_B' => 2,
+					'FLAG_C' => 4,
 				],
 				'maxValue'          => 7,
-				'value'             => 'DIRECTORY|-42|UEXECUTE',
+				'value'             => 'FLAG_A|-42|FLAG_D',
 				'errorMessages'     => [
 					"Invalid type in stringified value '-42'. Unsigned 'int' or flag name of flagable 'CodeKandis\Phlags\Tests\Fixtures\ValidFlagable' expected.",
-					"The value 'UEXECUTE' cannot be resolved to a flag value.",
+					"The value 'FLAG_D' cannot be resolved to a flag value.",
 				],
 				'expectedSucceeded' => false
 			]

@@ -43,10 +43,10 @@ class FlagableValidatorTest extends TestCase
 			0 => [
 				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
-					'NONE'      => 0,
-					'DIRECTORY' => 1,
-					'UREAD'     => 2,
-					'UWRITE'    => 4,
+					'NONE'   => 0,
+					'FLAG_A' => 1,
+					'FLAG_B' => 2,
+					'FLAG_C' => 4,
 				],
 				'errorMessages'     => [],
 				'expectedMaxValue'  => 7,
