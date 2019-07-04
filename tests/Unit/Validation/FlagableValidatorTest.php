@@ -1,7 +1,7 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags\Tests\Unit\Validation;
 
-use CodeKandis\Phlags\Tests\Fixtures\InvalidPermissions;
+use CodeKandis\Phlags\Tests\Fixtures\InvalidFlagable;
 use CodeKandis\Phlags\Tests\Fixtures\ValidFlagable;
 use CodeKandis\Phlags\Validation\FlagableValidator;
 use PHPUnit\Framework\TestCase;
@@ -53,7 +53,7 @@ class FlagableValidatorTest extends TestCase
 				'expectedSucceeded' => true
 			],
 			1 => [
-				'flagableClassName' => InvalidPermissions::class,
+				'flagableClassName' => InvalidFlagable::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
 					'UREAD_1'   => 2,
@@ -65,23 +65,23 @@ class FlagableValidatorTest extends TestCase
 				'errorMessages'     => [
 					sprintf(
 						"Duplicate flag '2' in '%s::%s'.",
-						InvalidPermissions::class,
+						InvalidFlagable::class,
 						'UREAD_2'
 					),
 					sprintf(
 						"Invalid value '5' in flag in '%s::%s'. Flag must be a power of 2.",
-						InvalidPermissions::class,
+						InvalidFlagable::class,
 						'UEXECUTE'
 					),
 					sprintf(
 						"Missing flag with value '%d' in '%s'.",
 						4,
-						InvalidPermissions::class
+						InvalidFlagable::class
 					),
 					sprintf(
 						"Missing flag with value '%d' in '%s'.",
 						16,
-						InvalidPermissions::class
+						InvalidFlagable::class
 					),
 				],
 				'expectedMaxValue'  => 43,
