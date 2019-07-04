@@ -232,6 +232,9 @@ final class AbstractFlagableTest extends TestCase
 	 */
 	public function testsIteration( string $flagableClassName, array $flags ): void
 	{
+		/**
+		 * @var FlagableInterface $flagableClassName
+		 */
 		$initialValue = $flagableClassName::NONE;
 		/**
 		 * @var int $flag
