@@ -1,11 +1,11 @@
 <?php declare( strict_types = 1 );
-namespace CodeKandis\Phlags\Tests\Unit\Exceptions;
+namespace CodeKandis\Phlags\Tests\Unit\Valiation;
 
-use CodeKandis\Phlags\Exceptions\InvalidValueException;
+use CodeKandis\Phlags\Validation\InvalidValueException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Represents the test case for the class 'CodeKandis\Phlags\Exceptions\InvalidValueException'.
+ * Represents the test case for the class 'CodeKandis\Phlags\Validation\InvalidValueException'.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
