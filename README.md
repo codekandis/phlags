@@ -1,10 +1,8 @@
 # CodeKandis / Phlags
 
-[![Minimum PHP Version][xtlink-php-version-badge]][xtlink-php-net]
-[![SensioLabs Insight][xtlink-sensiolabs-insight-badge]][xtlink-sensiolabs-insight]
-
 [![Version][xtlink-version-badge]][srclink-changelog]
 [![License][xtlink-license-badge]][srclink-license]
+[![Minimum PHP Version][xtlink-php-version-badge]][xtlink-php-net]
 
 With Phlags you can declare flagable enums to provide types with varying and multiple states. While depending on binary operations Phlags provides high performance and reliabilty.
 
@@ -77,19 +75,19 @@ You can easily instantiate your flagable in different ways.
 // with the default flag 'Permissions::NONE' (inherited from `FlagableInterface::NONE`)
 $permissions = new Permissions();
 
-// or with a single flag
+// with a single flag
 $permissions = new Permissions( Permissions::READ );
 
-// or with multiple flags
+// with multiple flags
 $permissions = new Permissions( Permissions::READ | Permissions::WRITE );
 
-// or with another flagable
+// with another flagable
 $permissions = new Permissions( new Permissions( Permissions::READ ) );
 
-// or with string representations instead
+// with string representations instead
 $permissions = new ( 'READ' );
 $permissions = new ( 'READ|WRITE' );
-```
+```   
 
 ### Reading
 
@@ -156,7 +154,7 @@ $permissions->__toString();          // READ|EXECUTE
 
 ### Traitful Extensions
 
-To keep the simplicity and performance Phlags provides [`Traitful Extensions`][srclink-traitful-extensions]. Instead of implementing a complex and heavyweight inheritance you can combine the extensions of your choice to the flagable of your needs.
+To keep the simplicity and performance Phlags provides [`Traitful Extensions`][srclink-traitful-extensions]. Instead of implementing a complex and heavyweight inheritance you can combine the extensions of your choice into the flagable of your needs.
 
 ```php
 class Permissions extends AbstractFlagable
@@ -171,7 +169,7 @@ class Permissions extends AbstractFlagable
 
 #### Conditional Manipulation
 
-— [`ConditionalManipulationTrait`][srclink-conditional-manipulation-trait]
+— [`ConditionalManipulationExtension`][srclink-conditional-manipulation-extension]
 
 The Conditional Manipulation provides you with methods to set, unset and switch a flag value while a passed statement must evaluate to true.
 
@@ -195,8 +193,8 @@ While instantiating your very first flagable your flagable has to pass a one-tim
 
 * all declared constants are an `unsigned integer`
 * all constants are a power of 2
-* there's no duplicates of any of the constant values
-* there's no missing values, e. g. a flagable with a flags set `1, 2, 8` ist invalid, while the flag `4` is missing
+* there is no duplicates of any of the constant values
+* there is no missing values, e. g. a flagable with a flags set `1, 2, 8` ist invalid, while the flag `4` is missing
 
 If the flagable does not pass the validation an [`InvalidFlagableException`][srclink-invalid-flagable-exception] will be thrown and you can retreive an array of detailed error messages of the validation.
 
@@ -215,10 +213,9 @@ catch ( InvalidFlagableException $e )
 
 A flag value passed to the methods of the flagable has to pass a validation on every method call.
 
-* it's an one of the following
-    * an `unsigned integer` less or equal than the maximum value of the called flagable
-    * a `string` representation of a flagable with an identic type as the type of the called flagable
-    * a flagable with an identic type as the type of the called flagable
+* it is an `unsigned integer` less or equal than the maximum value of the called flagable
+* it is a `string` representation of a flagable with an identic type as the type of the called flagable
+* it is a flagable with an identic type as the type of the called flagable
 * it does not exceeds the maximum flag value of the called flagable
 
 If the value does not pass the validation an [`InvalidValueException`][srclink-invalid-value-exception] will be thrown and you can retreive an array of detailed error messages of the validation.
@@ -236,18 +233,15 @@ catch ( InvalidValueException $e )
 
 
 
-[xtlink-php-version-badge]: https://img.shields.io/badge/php-%3E%3D%207.1-8892BF.svg?style=flat-square
-[xtlink-php-net]: https://php.net
-[xtlink-sensiolabs-insight-badge]: https://insight.sensiolabs.com/projects/b5d47b55-216f-4247-ad41-902dc0f8ac44/mini.png
-[xtlink-sensiolabs-insight]: http://insight.sensiolabs.com/projects/b5d47b55-216f-4247-ad41-902dc0f8ac44
-
 [xtlink-version-badge]: https://img.shields.io/badge/version-1.2.0-blue.svg
 [xtlink-license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[xtlink-php-version-badge]: https://img.shields.io/badge/php-%3E%3D%207.3-8892BF.svg?style=flat-square
+[xtlink-php-net]: https://php.net
 
 [srclink-changelog]: ./CHANGELOG.md
 [srclink-license]: ./LICENSE
 [srclink-abstract-flagable]: ./src/AbstractFlagable.php
-[srclink-invalid-flagable-exception]: ./src/Exceptions/InvalidFlagableException.php
-[srclink-invalid-value-exception]: ./src/Exceptions/InvalidValueException.php
+[srclink-invalid-flagable-exception]: src/Validation/InvalidFlagableException.php
+[srclink-invalid-value-exception]: src/Validation/InvalidValueException.php
 [srclink-traitful-extensions]: ./src/TraitfulExtensions
-[srclink-conditional-manipulation-trait]: ./src/TraitfulExtensions/ConditionalManipulationTrait.php
+[srclink-conditional-manipulation-extension]: ./src/TraitfulExtensions/ConditionalManipulationExtension.php
