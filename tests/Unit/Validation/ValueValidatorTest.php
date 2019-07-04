@@ -1,7 +1,7 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags\Tests\Unit\Validation;
 
-use CodeKandis\Phlags\Tests\Fixtures\ValidPermissions;
+use CodeKandis\Phlags\Tests\Fixtures\ValidFlagable;
 use CodeKandis\Phlags\Validation\ValueValidator;
 use PHPUnit\Framework\TestCase;
 
@@ -41,31 +41,31 @@ class ValueValidatorTest extends TestCase
 	{
 		return [
 			0  => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
 					'UREAD'     => 2,
 					'UWRITE'    => 4,
 				],
 				'maxValue'          => 7,
-				'value'             => ValidPermissions::DIRECTORY,
+				'value'             => ValidFlagable::DIRECTORY,
 				'errorMessages'     => [],
 				'expectedSucceeded' => true
 			],
 			1  => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
 					'UREAD'     => 2,
 					'UWRITE'    => 4,
 				],
 				'maxValue'          => 7,
-				'value'             => new ValidPermissions( ValidPermissions::DIRECTORY ),
+				'value'             => new ValidFlagable( ValidFlagable::DIRECTORY ),
 				'errorMessages'     => [],
 				'expectedSucceeded' => true
 			],
 			2  => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
 					'UREAD'     => 2,
@@ -77,7 +77,7 @@ class ValueValidatorTest extends TestCase
 				'expectedSucceeded' => true
 			],
 			3  => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
 					'UREAD'     => 2,
@@ -89,7 +89,7 @@ class ValueValidatorTest extends TestCase
 				'expectedSucceeded' => true
 			],
 			4  => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
 					'UREAD'     => 2,
@@ -103,7 +103,7 @@ class ValueValidatorTest extends TestCase
 				'expectedSucceeded' => false
 			],
 			5  => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
 					'UREAD'     => 2,
@@ -117,7 +117,7 @@ class ValueValidatorTest extends TestCase
 				'expectedSucceeded' => false
 			],
 			6  => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
 					'UREAD'     => 2,
@@ -126,12 +126,12 @@ class ValueValidatorTest extends TestCase
 				'maxValue'          => 7,
 				'value'             => -42,
 				'errorMessages'     => [
-					"Invalid type in value '-42'. Unsigned 'int', 'string' or instance of 'CodeKandis\Phlags\Tests\Fixtures\ValidPermissions' expected.",
+					"Invalid type in value '-42'. Unsigned 'int', 'string' or instance of 'CodeKandis\Phlags\Tests\Fixtures\ValidFlagable' expected.",
 				],
 				'expectedSucceeded' => false
 			],
 			7  => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
 					'UREAD'     => 2,
@@ -140,12 +140,12 @@ class ValueValidatorTest extends TestCase
 				'maxValue'          => 7,
 				'value'             => -42.5,
 				'errorMessages'     => [
-					"Invalid type in value '-42.5'. Unsigned 'int', 'string' or instance of 'CodeKandis\Phlags\Tests\Fixtures\ValidPermissions' expected.",
+					"Invalid type in value '-42.5'. Unsigned 'int', 'string' or instance of 'CodeKandis\Phlags\Tests\Fixtures\ValidFlagable' expected.",
 				],
 				'expectedSucceeded' => false
 			],
 			8  => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
 					'UREAD'     => 2,
@@ -154,12 +154,12 @@ class ValueValidatorTest extends TestCase
 				'maxValue'          => 7,
 				'value'             => '-42',
 				'errorMessages'     => [
-					"Invalid type in stringified value '-42'. Unsigned 'int' or flag name of flagable 'CodeKandis\Phlags\Tests\Fixtures\ValidPermissions' expected.",
+					"Invalid type in stringified value '-42'. Unsigned 'int' or flag name of flagable 'CodeKandis\Phlags\Tests\Fixtures\ValidFlagable' expected.",
 				],
 				'expectedSucceeded' => false
 			],
 			9  => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
 					'UREAD'     => 2,
@@ -168,12 +168,12 @@ class ValueValidatorTest extends TestCase
 				'maxValue'          => 7,
 				'value'             => '-42.5',
 				'errorMessages'     => [
-					"Invalid type in stringified value '-42.5'. Unsigned 'int' or flag name of flagable 'CodeKandis\Phlags\Tests\Fixtures\ValidPermissions' expected.",
+					"Invalid type in stringified value '-42.5'. Unsigned 'int' or flag name of flagable 'CodeKandis\Phlags\Tests\Fixtures\ValidFlagable' expected.",
 				],
 				'expectedSucceeded' => false
 			],
 			10 => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
 					'UREAD'     => 2,
@@ -187,7 +187,7 @@ class ValueValidatorTest extends TestCase
 				'expectedSucceeded' => false
 			],
 			11 => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'DIRECTORY' => 1,
 					'UREAD'     => 2,
@@ -196,7 +196,7 @@ class ValueValidatorTest extends TestCase
 				'maxValue'          => 7,
 				'value'             => 'DIRECTORY|-42|UEXECUTE',
 				'errorMessages'     => [
-					"Invalid type in stringified value '-42'. Unsigned 'int' or flag name of flagable 'CodeKandis\Phlags\Tests\Fixtures\ValidPermissions' expected.",
+					"Invalid type in stringified value '-42'. Unsigned 'int' or flag name of flagable 'CodeKandis\Phlags\Tests\Fixtures\ValidFlagable' expected.",
 					"The value 'UEXECUTE' cannot be resolved to a flag value.",
 				],
 				'expectedSucceeded' => false

@@ -4,7 +4,7 @@ namespace CodeKandis\Phlags\Tests\Unit;
 use CodeKandis\Phlags\AbstractFlagable;
 use CodeKandis\Phlags\Exceptions\UnsupportedOperationException;
 use CodeKandis\Phlags\FlagableInterface;
-use CodeKandis\Phlags\Tests\Fixtures\ValidPermissions;
+use CodeKandis\Phlags\Tests\Fixtures\ValidFlagable;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -111,93 +111,93 @@ final class AbstractFlagableTest extends TestCase
 	{
 		return [
 			0 => [
-				'flagableClassName' => ValidPermissions::class,
-				'initialValue'      => ValidPermissions::NONE,
-				'initialResult'     => ValidPermissions::NONE,
+				'flagableClassName' => ValidFlagable::class,
+				'initialValue'      => ValidFlagable::NONE,
+				'initialResult'     => ValidFlagable::NONE,
 				'string_1'          => 'NONE',
-				'setValue_1'        => ValidPermissions::DIRECTORY,
-				'setResult_1'       => ValidPermissions::DIRECTORY,
+				'setValue_1'        => ValidFlagable::DIRECTORY,
+				'setResult_1'       => ValidFlagable::DIRECTORY,
 				'string_2'          => 'DIRECTORY',
-				'hasValue_1'        => ValidPermissions::NONE,
-				'hasValue_2'        => ValidPermissions::DIRECTORY,
-				'setValue_2'        => ValidPermissions::UREAD,
-				'setResult_2'       => ValidPermissions::DIRECTORY | ValidPermissions::UREAD,
+				'hasValue_1'        => ValidFlagable::NONE,
+				'hasValue_2'        => ValidFlagable::DIRECTORY,
+				'setValue_2'        => ValidFlagable::UREAD,
+				'setResult_2'       => ValidFlagable::DIRECTORY | ValidFlagable::UREAD,
 				'string_3'          => 'DIRECTORY|UREAD',
-				'hasValue_3'        => ValidPermissions::NONE,
-				'hasValue_4'        => ValidPermissions::DIRECTORY,
-				'hasValue_5'        => ValidPermissions::UREAD,
-				'notHasValue_1'     => ValidPermissions::UWRITE,
-				'unsetValue'        => ValidPermissions::DIRECTORY,
-				'unsetResult'       => ValidPermissions::UREAD,
+				'hasValue_3'        => ValidFlagable::NONE,
+				'hasValue_4'        => ValidFlagable::DIRECTORY,
+				'hasValue_5'        => ValidFlagable::UREAD,
+				'notHasValue_1'     => ValidFlagable::UWRITE,
+				'unsetValue'        => ValidFlagable::DIRECTORY,
+				'unsetResult'       => ValidFlagable::UREAD,
 				'string_4'          => 'UREAD',
-				'hasValue_6'        => ValidPermissions::NONE,
-				'hasValue_7'        => ValidPermissions::UREAD,
-				'notHasValue_2'     => ValidPermissions::DIRECTORY,
-				'switchValue_1'     => ValidPermissions::UWRITE,
-				'switchResult_1'    => ValidPermissions::UREAD | ValidPermissions::UWRITE,
+				'hasValue_6'        => ValidFlagable::NONE,
+				'hasValue_7'        => ValidFlagable::UREAD,
+				'notHasValue_2'     => ValidFlagable::DIRECTORY,
+				'switchValue_1'     => ValidFlagable::UWRITE,
+				'switchResult_1'    => ValidFlagable::UREAD | ValidFlagable::UWRITE,
 				'string_5'          => 'UREAD|UWRITE',
-				'switchValue_2'     => ValidPermissions::UWRITE,
-				'switchResult_2'    => ValidPermissions::UREAD,
+				'switchValue_2'     => ValidFlagable::UWRITE,
+				'switchResult_2'    => ValidFlagable::UREAD,
 				'string_6'          => 'UREAD',
 			],
 			1 => [
-				'flagableClassName' => ValidPermissions::class,
-				'initialValue'      => new ValidPermissions( ValidPermissions::NONE ),
-				'initialResult'     => ValidPermissions::NONE,
+				'flagableClassName' => ValidFlagable::class,
+				'initialValue'      => new ValidFlagable( ValidFlagable::NONE ),
+				'initialResult'     => ValidFlagable::NONE,
 				'string_1'          => 'NONE',
-				'setValue_1'        => new ValidPermissions( ValidPermissions::DIRECTORY ),
-				'setResult_1'       => ValidPermissions::DIRECTORY,
+				'setValue_1'        => new ValidFlagable( ValidFlagable::DIRECTORY ),
+				'setResult_1'       => ValidFlagable::DIRECTORY,
 				'string_2'          => 'DIRECTORY',
-				'hasValue_1'        => new ValidPermissions( ValidPermissions::NONE ),
-				'hasValue_2'        => new ValidPermissions( ValidPermissions::DIRECTORY ),
-				'setValue_2'        => new ValidPermissions( ValidPermissions::UREAD ),
-				'setResult_2'       => ValidPermissions::DIRECTORY | ValidPermissions::UREAD,
+				'hasValue_1'        => new ValidFlagable( ValidFlagable::NONE ),
+				'hasValue_2'        => new ValidFlagable( ValidFlagable::DIRECTORY ),
+				'setValue_2'        => new ValidFlagable( ValidFlagable::UREAD ),
+				'setResult_2'       => ValidFlagable::DIRECTORY | ValidFlagable::UREAD,
 				'string_3'          => 'DIRECTORY|UREAD',
-				'hasValue_3'        => new ValidPermissions( ValidPermissions::NONE ),
-				'hasValue_4'        => new ValidPermissions( ValidPermissions::DIRECTORY ),
-				'hasValue_5'        => new ValidPermissions( ValidPermissions::UREAD ),
-				'notHasValue_1'     => new ValidPermissions( ValidPermissions::UWRITE ),
-				'unsetValue'        => new ValidPermissions( ValidPermissions::DIRECTORY ),
-				'unsetResult'       => ValidPermissions::UREAD,
+				'hasValue_3'        => new ValidFlagable( ValidFlagable::NONE ),
+				'hasValue_4'        => new ValidFlagable( ValidFlagable::DIRECTORY ),
+				'hasValue_5'        => new ValidFlagable( ValidFlagable::UREAD ),
+				'notHasValue_1'     => new ValidFlagable( ValidFlagable::UWRITE ),
+				'unsetValue'        => new ValidFlagable( ValidFlagable::DIRECTORY ),
+				'unsetResult'       => ValidFlagable::UREAD,
 				'string_4'          => 'UREAD',
-				'hasValue_6'        => new ValidPermissions( ValidPermissions::NONE ),
-				'hasValue_7'        => new ValidPermissions( ValidPermissions::UREAD ),
-				'notHasValue_2'     => new ValidPermissions( ValidPermissions::DIRECTORY ),
-				'switchValue_1'     => new ValidPermissions( ValidPermissions::UWRITE ),
-				'switchResult_1'    => ValidPermissions::UREAD | ValidPermissions::UWRITE,
+				'hasValue_6'        => new ValidFlagable( ValidFlagable::NONE ),
+				'hasValue_7'        => new ValidFlagable( ValidFlagable::UREAD ),
+				'notHasValue_2'     => new ValidFlagable( ValidFlagable::DIRECTORY ),
+				'switchValue_1'     => new ValidFlagable( ValidFlagable::UWRITE ),
+				'switchResult_1'    => ValidFlagable::UREAD | ValidFlagable::UWRITE,
 				'string_5'          => 'UREAD|UWRITE',
-				'switchValue_2'     => new ValidPermissions( ValidPermissions::UWRITE ),
-				'switchResult_2'    => ValidPermissions::UREAD,
+				'switchValue_2'     => new ValidFlagable( ValidFlagable::UWRITE ),
+				'switchResult_2'    => ValidFlagable::UREAD,
 				'string_6'          => 'UREAD',
 			],
 			2 => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'initialValue'      => 'NONE',
-				'initialResult'     => ValidPermissions::NONE,
+				'initialResult'     => ValidFlagable::NONE,
 				'string_1'          => 'NONE',
 				'setValue_1'        => 'DIRECTORY',
-				'setResult_1'       => ValidPermissions::DIRECTORY,
+				'setResult_1'       => ValidFlagable::DIRECTORY,
 				'string_2'          => 'DIRECTORY',
 				'hasValue_1'        => 'NONE',
 				'hasValue_2'        => 'DIRECTORY',
 				'setValue_2'        => 'UREAD',
-				'setResult_2'       => ValidPermissions::DIRECTORY | ValidPermissions::UREAD,
+				'setResult_2'       => ValidFlagable::DIRECTORY | ValidFlagable::UREAD,
 				'string_3'          => 'DIRECTORY|UREAD',
 				'hasValue_3'        => 'NONE',
 				'hasValue_4'        => 'DIRECTORY',
 				'hasValue_5'        => 'UREAD',
 				'notHasValue_1'     => 'UWRITE',
 				'unsetValue'        => 'DIRECTORY',
-				'unsetResult'       => ValidPermissions::UREAD,
+				'unsetResult'       => ValidFlagable::UREAD,
 				'string_4'          => 'UREAD',
 				'hasValue_6'        => 'NONE',
 				'hasValue_7'        => 'UREAD',
 				'notHasValue_2'     => 'DIRECTORY',
 				'switchValue_1'     => 'UWRITE',
-				'switchResult_1'    => ValidPermissions::UREAD | ValidPermissions::UWRITE,
+				'switchResult_1'    => ValidFlagable::UREAD | ValidFlagable::UWRITE,
 				'string_5'          => 'UREAD|UWRITE',
 				'switchValue_2'     => 'UWRITE',
-				'switchResult_2'    => ValidPermissions::UREAD,
+				'switchResult_2'    => ValidFlagable::UREAD,
 				'string_6'          => 'UREAD',
 			]
 		];
@@ -230,7 +230,7 @@ final class AbstractFlagableTest extends TestCase
 	{
 		return [
 			0 => [
-				'flagableClassName'  => ValidPermissions::class,
+				'flagableClassName'  => ValidFlagable::class,
 				'memberName'         => 'foobar',
 				'exceptionClassName' => UnsupportedOperationException::class,
 			]
@@ -277,46 +277,46 @@ final class AbstractFlagableTest extends TestCase
 	{
 		return [
 			0 => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'flags'             => [
-					ValidPermissions::DIRECTORY,
+					ValidFlagable::DIRECTORY,
 				]
 			],
 			1 => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'flags'             => [
-					ValidPermissions::DIRECTORY,
-					ValidPermissions::UREAD,
+					ValidFlagable::DIRECTORY,
+					ValidFlagable::UREAD,
 				]
 			],
 			2 => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'flags'             => [
-					ValidPermissions::DIRECTORY,
-					ValidPermissions::UREAD,
-					ValidPermissions::UWRITE,
+					ValidFlagable::DIRECTORY,
+					ValidFlagable::UREAD,
+					ValidFlagable::UWRITE,
 				]
 			],
 			3 => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'flags'             => [
-					ValidPermissions::DIRECTORY,
-					ValidPermissions::UREAD,
-					ValidPermissions::UWRITE,
+					ValidFlagable::DIRECTORY,
+					ValidFlagable::UREAD,
+					ValidFlagable::UWRITE,
 				]
 			],
 			4 => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'flags'             => [
-					ValidPermissions::UREAD,
-					ValidPermissions::UWRITE,
+					ValidFlagable::UREAD,
+					ValidFlagable::UWRITE,
 				]
 			],
 			5 => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'flags'             => [
-					ValidPermissions::DIRECTORY,
-					ValidPermissions::UWRITE,
+					ValidFlagable::DIRECTORY,
+					ValidFlagable::UWRITE,
 				]
 			]
 		];

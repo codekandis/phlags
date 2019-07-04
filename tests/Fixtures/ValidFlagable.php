@@ -8,7 +8,7 @@ use CodeKandis\Phlags\AbstractFlagable;
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
-class ValidPermissions extends AbstractFlagable
+class ValidFlagable extends AbstractFlagable
 {
 	public const DIRECTORY = 1;
 

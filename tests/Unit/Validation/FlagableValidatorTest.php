@@ -2,7 +2,7 @@
 namespace CodeKandis\Phlags\Tests\Unit\Validation;
 
 use CodeKandis\Phlags\Tests\Fixtures\InvalidPermissions;
-use CodeKandis\Phlags\Tests\Fixtures\ValidPermissions;
+use CodeKandis\Phlags\Tests\Fixtures\ValidFlagable;
 use CodeKandis\Phlags\Validation\FlagableValidator;
 use PHPUnit\Framework\TestCase;
 use function sprintf;
@@ -41,7 +41,7 @@ class FlagableValidatorTest extends TestCase
 	{
 		return [
 			0 => [
-				'flagableClassName' => ValidPermissions::class,
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'NONE'      => 0,
 					'DIRECTORY' => 1,
