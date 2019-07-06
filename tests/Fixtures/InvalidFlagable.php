@@ -21,4 +21,6 @@ class InvalidFlagable extends AbstractFlagable
 	public const FLAG_E = 8;
 
 	public const FLAG_F = 32;
+
+	public const FLAG_G = -42;
 }
