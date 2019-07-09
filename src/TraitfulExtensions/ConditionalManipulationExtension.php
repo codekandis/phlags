@@ -1,8 +1,6 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags\TraitfulExtensions;
 
-use CodeKandis\Phlags\FlagableInterface;
-
 /**
  * Represents a traitful extension to manipulate a flagable while a passed condition is true.
  * @package codekandis/phlags
@@ -11,12 +9,9 @@ use CodeKandis\Phlags\FlagableInterface;
 trait ConditionalManipulationExtension
 {
 	/**
-	 * Sets a flag.
-	 * @param int|string|FlagableInterface $value The flag to set.
-	 * @param bool $condition true if the value can be set, false otherwise.
-	 * @return self
+	 * @see ConditionalManipulationInterface::ifSet()
 	 */
-	public function ifSet( $value, bool $condition ): self
+	public function ifSet( $value, bool $condition ): ConditionalManipulationInterface
 	{
 		if ( true === $condition )
 		{
@@ -27,12 +22,9 @@ trait ConditionalManipulationExtension
 	}
 
 	/**
-	 * Unsets a flag.
-	 * @param int|string|FlagableInterface $value The flag to unset.
-	 * @param bool $condition true if the value can be unset, false otherwise.
-	 * @return self
+	 * @see ConditionalManipulationInterface::ifUnset()
 	 */
-	public function ifUnset( $value, bool $condition ): self
+	public function ifUnset( $value, bool $condition ): ConditionalManipulationInterface
 	{
 		if ( true === $condition )
 		{
@@ -43,12 +35,9 @@ trait ConditionalManipulationExtension
 	}
 
 	/**
-	 * Switches a flag.
-	 * @param int|string|FlagableInterface $value The flag to switch.
-	 * @param bool $condition true if the value can be switched, false otherwise.
-	 * @return self
+	 * @see ConditionalManipulationInterface::ifSwitch()
 	 */
-	public function ifSwitch( $value, bool $condition ): self
+	public function ifSwitch( $value, bool $condition ): ConditionalManipulationInterface
 	{
 		if ( true === $condition )
 		{
