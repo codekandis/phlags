@@ -2,7 +2,6 @@
 namespace CodeKandis\Phlags\Tests;
 
 use function dirname;
-use const __DIR__;
 
 /**
  * Represents the bootstrap script of the unit tests.
