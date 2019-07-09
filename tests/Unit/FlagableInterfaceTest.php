@@ -556,7 +556,7 @@ final class FlagableInterfaceTest extends TestCase
 	}
 
 	/**
-	 * Tests if the expected value will be returned correctly while calling the method `has()`.
+	 * Tests if the passed value will be set correctly while calling the method `set()`.
 	 * @param FlagableInterface $flagable The flagable to test.
 	 * @param int|string|FlagableInterface $valueToSet The value to set.
 	 * @param int $expectedFlagValue The expected flag value.
@@ -661,7 +661,7 @@ final class FlagableInterfaceTest extends TestCase
 	}
 
 	/**
-	 * Tests if the expected value will be returned correctly while calling the method `unset()`.
+	 * Tests if the passed value will be unset correctly while calling the method `unset()`.
 	 * @param FlagableInterface $flagable The flagable to test.
 	 * @param int|string|FlagableInterface $valueToUnset The value to unset.
 	 * @param int $expectedFlagValue The expected flag value.
@@ -791,7 +791,7 @@ final class FlagableInterfaceTest extends TestCase
 	}
 
 	/**
-	 * Tests if the expected value will be returned correctly while calling the method `switch()`.
+	 * Tests if the passed value will be switched correctly while calling the method `switch()`.
 	 * @param FlagableInterface $flagable The flagable to test.
 	 * @param int|string|FlagableInterface $valueToSwitch The value to switch.
 	 * @param int $expectedFlagValue The expected flag value.
