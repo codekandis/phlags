@@ -3,6 +3,7 @@
 [![Version][xtlink-version-badge]][srclink-changelog]
 [![License][xtlink-license-badge]][srclink-license]
 [![Minimum PHP Version][xtlink-php-version-badge]][xtlink-php-net]
+![Code Coverage][xtlink-code-coverage-badge]
 
 With Phlags you can declare flagable enums to provide types with varying and multiple states. While depending on binary operations Phlags provides high performance and reliabilty.
 
@@ -30,7 +31,10 @@ Install the latest version with
 
 ```bash
 $ composer require codekandis/phlags
+
 ```
+
+It is strongly recommended not to use any release of `1.x` anymore due a major bug fixed in `2.0`.
 
 ## How to use
 
@@ -84,10 +88,16 @@ $permissions = new Permissions( Permissions::READ | Permissions::WRITE );
 // with another flagable
 $permissions = new Permissions( new Permissions( Permissions::READ ) );
 
-// with string representations instead
+// with string representations
 $permissions = new ( 'READ' );
 $permissions = new ( 'READ|WRITE' );
-```   
+$permissions = new ( 'READ|WRITE|EXECUTE' );
+
+// with mixed string representations
+$permissions = new ( '1' );
+$permissions = new ( '1|2' );
+$permissions = new ( '1|WRITE|4' );
+```
 
 ### Reading
 
@@ -157,7 +167,7 @@ $permissions->__toString();          // READ|EXECUTE
 To keep the simplicity and performance Phlags provides [`Traitful Extensions`][srclink-traitful-extensions]. Instead of implementing a complex and heavyweight inheritance you can combine the extensions of your choice into the flagable of your needs.
 
 ```php
-class Permissions extends AbstractFlagable
+class Permissions extends AbstractFlagable SomeTraitfulInterface
 {
     use SomeTraitfulExtension;
 
@@ -233,9 +243,10 @@ catch ( InvalidValueException $e )
 
 
 
-[xtlink-version-badge]: https://img.shields.io/badge/version-1.2.0-blue.svg
-[xtlink-license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
-[xtlink-php-version-badge]: https://img.shields.io/badge/php-%3E%3D%207.3-8892BF.svg?style=flat-square
+[xtlink-version-badge]: https://img.shields.io/badge/version-2.0.0-blue.svg
+[xtlink-license-badge]: https://img.shields.io/badge/license-MIT-yellow.svg
+[xtlink-php-version-badge]: https://img.shields.io/badge/php-%3E%3D%207.3-8892BF.svg
+[xtlink-code-coverage-badge]: https://img.shields.io/badge/coverage-100%25-green.svg
 [xtlink-php-net]: https://php.net
 
 [srclink-changelog]: ./CHANGELOG.md
