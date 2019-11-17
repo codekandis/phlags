@@ -5,11 +5,10 @@ namespace CodeKandis\Phlags
 
 	/**
 	 * Represents the interface of all flagable classes.
-	 *
 	 * @package codekandis\phlags
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
-	interface FlagableInterface
+	interface FlagableInterface extends \IteratorAggregate
 	{
 		/**
 		 * Stores the default flag.
@@ -50,8 +49,8 @@ namespace CodeKandis\Phlags
 		public function set( $value ): self;
 
 		/**
-		 * Removes a flag.
-		 * @param int|FlagableInterface $value The flag to remove.
+		 * Unsets a flag.
+		 * @param int|FlagableInterface $value The flag to unset.
 		 * @return self
 		 */
 		public function unset( $value ): self;
@@ -62,5 +61,11 @@ namespace CodeKandis\Phlags
 		 * @return self
 		 */
 		public function switch( $value ): self;
+
+		/**
+		 * Generates a list of all flags set in the flagable, each as a new flagable.
+		 * @return iterable|FlagableInterface[] The list of all flags set in the flagable, each as a new flagable.
+		 */
+		public function getIterator(): iterable;
 	}
 }

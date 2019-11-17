@@ -15,9 +15,9 @@ namespace CodeKandis\Phlags\Validation
 	{
 		/**
 		 * Validates the value.
-		 * @param FlagableInterface $flagable The class name of the flagable.
-		 * @param int               $maxValue The maximum value of the flagable.
-		 * @param mixed             $value    The value to validate.
+		 * @param FlagableInterface     $flagable The flagable the value must be an instance of, if its an integer.
+		 * @param int                   $maxValue The maximum value of the flagable.
+		 * @param int|FlagableInterface $value    The value to validate.
 		 * @return ValidationResultInterface The result of the value validation.
 		 */
 		public function validate( FlagableInterface $flagable, int $maxValue, $value ): ValidationResultInterface;

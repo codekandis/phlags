@@ -5,6 +5,7 @@ namespace CodeKandis\Phlags\Tests
 
 	use CodeKandis\Phlags\AbstractFlagable;
 	use CodeKandis\Phlags\Exceptions\UnsupportedOperationException;
+	use CodeKandis\Phlags\FlagableInterface;
 	use CodeKandis\Phlags\Tests\Fixtures\ValidPermissions;
 	use PHPUnit\Framework\TestCase;
 
@@ -191,6 +192,81 @@ namespace CodeKandis\Phlags\Tests
 					'flagableClassName'  => ValidPermissions::class,
 					'memberName'         => 'foobar',
 					'exceptionClassName' => UnsupportedOperationException::class,
+				],
+			];
+		}
+
+		/**
+		 * Tests if iterating a flagable returns a generated list of flagables each one initialized with a flag set in
+		 * the iterated flagable.
+		 * @param string $flagableClassName The class name of the flagable to test.
+		 * @param array  $flags             The flags of the initialization of the flagable and to expect after the
+		 *                                  iteration.
+		 * @dataProvider iteratedFlagsDataProvider
+		 */
+		public function testsIteration( string $flagableClassName, array $flags ): void
+		{
+			$initialValue = $flagableClassName::NONE;
+			foreach ( $flags as $flag )
+			{
+				$initialValue |= $flag;
+			}
+			$flagable      = new $flagableClassName( $initialValue );
+			$iteratedFlags = [];
+			/* @var FlagableInterface $iteratedFlag */
+			foreach ( $flagable as $iteratedFlag )
+			{
+				$this->assertInstanceOf( $flagableClassName, $iteratedFlag );
+				$iteratedFlags[] = $iteratedFlag->getValue();
+			}
+			$this->assertEquals( $flags, $iteratedFlags );
+		}
+
+		public function iteratedFlagsDataProvider(): array
+		{
+			return [
+				[
+					'flagableClassName' => ValidPermissions::class,
+					'flags'             => [
+						ValidPermissions::DIRECTORY,
+					],
+				],
+				[
+					'flagableClassName' => ValidPermissions::class,
+					'flags'             => [
+						ValidPermissions::DIRECTORY,
+						ValidPermissions::UREAD,
+					],
+				],
+				[
+					'flagableClassName' => ValidPermissions::class,
+					'flags'             => [
+						ValidPermissions::DIRECTORY,
+						ValidPermissions::UREAD,
+						ValidPermissions::UWRITE,
+					],
+				],
+				[
+					'flagableClassName' => ValidPermissions::class,
+					'flags'             => [
+						ValidPermissions::DIRECTORY,
+						ValidPermissions::UREAD,
+						ValidPermissions::UWRITE,
+					],
+				],
+				[
+					'flagableClassName' => ValidPermissions::class,
+					'flags'             => [
+						ValidPermissions::UREAD,
+						ValidPermissions::UWRITE,
+					],
+				],
+				[
+					'flagableClassName' => ValidPermissions::class,
+					'flags'             => [
+						ValidPermissions::DIRECTORY,
+						ValidPermissions::UWRITE,
+					],
 				],
 			];
 		}

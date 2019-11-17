@@ -12,7 +12,7 @@ namespace CodeKandis\Phlags
 
 	/**
 	 * Class AbstractFlags
-	 * @package Represents the base claa of all flagable classes.
+	 * @package Represents the base class of all flagable classes.
 	 * @author  Christian Ramelow <info@codekandis.net>
 	 */
 	abstract class AbstractFlagable implements FlagableInterface
@@ -30,22 +30,28 @@ namespace CodeKandis\Phlags
 		protected static $_validationException;
 
 		/**
+		 * Stores the reflected flags of the flagable.
+		 * @var array
+		 */
+		protected static $_reflectedFlags;
+
+		/**
 		 * Stores the maximum value of the flagable.
 		 * @var int
 		 */
 		protected static $_maxValue = self::NONE;
 
 		/**
-		 * Stores the current value of the flagable.
-		 * @var int
-		 */
-		private $_value;
-
-		/**
 		 * Stores the value validator of the flagable.
 		 * @var ValueValidatorInterface
 		 */
 		protected static $_valueValidator;
+
+		/**
+		 * Stores the current value of the flagable.
+		 * @var int
+		 */
+		private $_value;
 
 		/**
 		 * Constructor method.
@@ -55,6 +61,7 @@ namespace CodeKandis\Phlags
 		 */
 		final public function __construct( $value = self::NONE )
 		{
+			static::initializeReflectedFlags();
 			static::validateFlagable();
 			self::$_valueValidator = self::$_valueValidator ?? new ValueValidator();
 			$this->set( $value );
@@ -128,6 +135,21 @@ namespace CodeKandis\Phlags
 		}
 
 		/**
+		 * Initialized the reflected flags for validation and stringifying.
+		 */
+		public static function initializeReflectedFlags()
+		{
+			try
+			{
+				static::$_reflectedFlags = ( new \ReflectionClass( static::class ) )->getConstants();
+				asort( static::$_reflectedFlags );
+			}
+			catch ( \ReflectionException $exception )
+			{
+			}
+		}
+
+		/**
 		 * Validates the flagable
 		 * @throws InvalidFlagableException The flagable is invalid.
 		 */
@@ -138,7 +160,8 @@ namespace CodeKandis\Phlags
 				throw static::$_validationException;
 			}
 			static::$_hasBeenValidated = true;
-			$validationResult          = ( new FlagableValidator() )->validate( static::class );
+			$validationResult          =
+				( new FlagableValidator() )->validate( static::class, static::$_reflectedFlags );
 			if ( $validationResult->failed() === true )
 			{
 				throw ( new InvalidFlagableException( 'Invalid flagable.' ) )->withErrorMessages(
@@ -162,26 +185,16 @@ namespace CodeKandis\Phlags
 		public function __toString(): string
 		{
 			$flagsSetNames = [];
-			$flags         = [];
-			try
+			foreach ( static::$_reflectedFlags as $reflectedFlagName => $reflectedFlagValue )
 			{
-				$flags = ( new \ReflectionClass( static::class ) )->getConstants();
-				asort( $flags );
-				$flags = array_flip( $flags );
-				foreach ( $flags as $flagValue => $flagName )
+				if ( $reflectedFlagValue !== 0 && ( $this->_value & $reflectedFlagValue ) === $reflectedFlagValue )
 				{
-					if ( $flagValue !== 0 && ( $this->_value & $flagValue ) === $flagValue )
-					{
-						$flagsSetNames[] = $flagName;
-					}
+					$flagsSetNames[] = $reflectedFlagName;
 				}
-			}
-			catch ( \ReflectionException $exception )
-			{
 			}
 
 			return (string)( empty( $flagsSetNames ) === true
-				? $flags[ static::NONE ]
+				? 'NONE'
 				: implode(
 					'|',
 					$flagsSetNames
@@ -213,13 +226,53 @@ namespace CodeKandis\Phlags
 		}
 
 		/**
-		 * Gets the transformed value of a value.
+		 * Gets the extracted value of a value.
 		 * @param mixed $value The value to transform.
 		 * @return int The transformed value.
 		 */
-		private function getTransformedValue( $value ): int
+		private function getExtractedValue( $value ): int
 		{
 			return is_int( $value ) === true ? $value : $value->getValue();
+		}
+
+		/**
+		 * Determines if a value has been set.
+		 * @param int $value The value to check if it has been set.
+		 * @return bool true if the value has been set, false otherwise.
+		 */
+		private function unvalidatedHas( int $value ): bool
+		{
+			return ( $this->_value & $value ) === $value;
+		}
+
+		/**
+		 * Sets a flag.
+		 * @param int $value The flag to set.
+		 * @return void
+		 */
+		private function unvalidatedSet( int $value ): void
+		{
+			$this->_value |= $value;
+		}
+
+		/**
+		 * Unsets a flag.
+		 * @param int $value The flag to unset.
+		 * @return void
+		 */
+		private function unvalidatedUnset( int $value ): void
+		{
+			$this->_value &= ~$value;
+		}
+
+		/**
+		 * Switches a flag.
+		 * @param int $value The flag to switch.
+		 * @return void
+		 */
+		private function unvalidatedSwitch( int $value ): void
+		{
+			$this->_value ^= $value;
 		}
 
 		/**
@@ -230,9 +283,8 @@ namespace CodeKandis\Phlags
 		public function has( $value ): bool
 		{
 			$this->validateValue( $value );
-			$valueTransformed = $this->getTransformedValue( $value );
 
-			return ( $this->_value & $valueTransformed ) === $valueTransformed;
+			return $this->unvalidatedHas( $this->getExtractedValue( $value ) );
 		}
 
 		/**
@@ -243,7 +295,7 @@ namespace CodeKandis\Phlags
 		public function set( $value ): FlagableInterface
 		{
 			$this->validateValue( $value );
-			$this->_value |= $this->getTransformedValue( $value );
+			$this->unvalidatedSet( $this->getExtractedValue( $value ) );
 
 			return $this;
 		}
@@ -256,7 +308,7 @@ namespace CodeKandis\Phlags
 		public function unset( $value ): FlagableInterface
 		{
 			$this->validateValue( $value );
-			$this->_value &= ~$this->getTransformedValue( $value );
+			$this->unvalidatedUnset( $this->getExtractedValue( $value ) );
 
 			return $this;
 		}
@@ -269,9 +321,30 @@ namespace CodeKandis\Phlags
 		public function switch( $value ): FlagableInterface
 		{
 			$this->validateValue( $value );
-			$this->_value ^= $this->getTransformedValue( $value );
+			$this->unvalidatedSwitch( $this->getExtractedValue( $value ) );
 
 			return $this;
+		}
+
+		/**
+		 * {@inheritdoc}
+		 * @see FlagableInterface::getIterator()
+		 */
+		public function getIterator(): iterable
+		{
+			if ( $this->_value === static::NONE )
+			{
+				yield new static();
+
+				return;
+			}
+			foreach ( static::$_reflectedFlags as $reflectedFlagValue )
+			{
+				if ( static::NONE !== $reflectedFlagValue && $this->unvalidatedHas( $reflectedFlagValue ) === true )
+				{
+					yield new static( $reflectedFlagValue );
+				}
+			}
 		}
 	}
 }
