@@ -1,29 +1,47 @@
 <?php declare( strict_types = 1 );
-namespace CodeKandis\Phlags\Tests\Unit\Validation;
+namespace CodeKandis\Phlags\Tests\UnitTests\Validation;
 
-use CodeKandis\Phlags\FlagableInterface;
 use CodeKandis\Phlags\Tests\Fixtures\ValidFlagable;
 use CodeKandis\Phlags\Validation\ValueValidator;
-use CodeKandis\Phlags\Validation\ValueValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Represents the test case for the interface 'CodeKandis\Phlags\Validation\ValueValidatorInterface'.
+ * Represents the test case for the interface `CodeKandis\Phlags\Validation\ValueValidator`.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
-class ValueValidatorInterfaceTest extends TestCase
+class ValueValidatorTest extends TestCase
 {
 	/**
-	 * Provides value validators, flagables, flags to validate, error messages, maximum flag values and success states.
-	 * @return array The value validators, flagables, flags to validate, error messages, maximum flag values and success states.
+	 * Tests if the flagable validator is working as expected.
+	 * @param string $flagableClassName The class name of the flagable to validate.
+	 * @param array $reflectedFlags The reflected flags of the flagable.
+	 * @param int $maxValue The maximum value of the flagable.
+	 * @param mixed $value The value to validate.
+	 * @param array $errorMessages The error messages of the validation.
+	 * @param bool $expectedSucceeded The success state of the validation.
+	 * @dataProvider valuesAndResultsDataProvider
+	 */
+	public function testsProperValidation( string $flagableClassName, array $reflectedFlags, int $maxValue, $value, array $errorMessages, bool $expectedSucceeded ): void
+	{
+		$flagable = new $flagableClassName;
+
+		$validator = new ValueValidator ();
+		$validator->validate( $flagable, $reflectedFlags, $maxValue, $value );
+
+		static::assertEquals( $errorMessages, $validator->getErrorMessages() );
+		static::assertEquals( $expectedSucceeded, $validator->succeeded() );
+	}
+
+	/**
+	 * Provides the data to validate a value.
+	 * @return array The data sets.
 	 */
 	public function valuesAndResultsDataProvider(): array
 	{
 		return [
 			0  => [
-				'valueValidator'    => new ValueValidator(),
-				'flagableClassName' => new ValidFlagable(),
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'FLAG_A' => 1,
 					'FLAG_B' => 2,
@@ -35,8 +53,7 @@ class ValueValidatorInterfaceTest extends TestCase
 				'expectedSucceeded' => true
 			],
 			1  => [
-				'valueValidator'    => new ValueValidator(),
-				'flagableClassName' => new ValidFlagable(),
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'FLAG_A' => 1,
 					'FLAG_B' => 2,
@@ -48,8 +65,7 @@ class ValueValidatorInterfaceTest extends TestCase
 				'expectedSucceeded' => true
 			],
 			2  => [
-				'valueValidator'    => new ValueValidator(),
-				'flagableClassName' => new ValidFlagable(),
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'FLAG_A' => 1,
 					'FLAG_B' => 2,
@@ -61,8 +77,7 @@ class ValueValidatorInterfaceTest extends TestCase
 				'expectedSucceeded' => true
 			],
 			3  => [
-				'valueValidator'    => new ValueValidator(),
-				'flagableClassName' => new ValidFlagable(),
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'FLAG_A' => 1,
 					'FLAG_B' => 2,
@@ -74,8 +89,7 @@ class ValueValidatorInterfaceTest extends TestCase
 				'expectedSucceeded' => true
 			],
 			4  => [
-				'valueValidator'    => new ValueValidator(),
-				'flagableClassName' => new ValidFlagable(),
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'FLAG_A' => 1,
 					'FLAG_B' => 2,
@@ -89,8 +103,7 @@ class ValueValidatorInterfaceTest extends TestCase
 				'expectedSucceeded' => false
 			],
 			5  => [
-				'valueValidator'    => new ValueValidator(),
-				'flagableClassName' => new ValidFlagable(),
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'FLAG_A' => 1,
 					'FLAG_B' => 2,
@@ -104,8 +117,7 @@ class ValueValidatorInterfaceTest extends TestCase
 				'expectedSucceeded' => false
 			],
 			6  => [
-				'valueValidator'    => new ValueValidator(),
-				'flagableClassName' => new ValidFlagable(),
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'FLAG_A' => 1,
 					'FLAG_B' => 2,
@@ -119,8 +131,7 @@ class ValueValidatorInterfaceTest extends TestCase
 				'expectedSucceeded' => false
 			],
 			7  => [
-				'valueValidator'    => new ValueValidator(),
-				'flagableClassName' => new ValidFlagable(),
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'FLAG_A' => 1,
 					'FLAG_B' => 2,
@@ -134,8 +145,7 @@ class ValueValidatorInterfaceTest extends TestCase
 				'expectedSucceeded' => false
 			],
 			8  => [
-				'valueValidator'    => new ValueValidator(),
-				'flagableClassName' => new ValidFlagable(),
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'FLAG_A' => 1,
 					'FLAG_B' => 2,
@@ -149,8 +159,7 @@ class ValueValidatorInterfaceTest extends TestCase
 				'expectedSucceeded' => false
 			],
 			9  => [
-				'valueValidator'    => new ValueValidator(),
-				'flagableClassName' => new ValidFlagable(),
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'FLAG_A' => 1,
 					'FLAG_B' => 2,
@@ -164,8 +173,7 @@ class ValueValidatorInterfaceTest extends TestCase
 				'expectedSucceeded' => false
 			],
 			10 => [
-				'valueValidator'    => new ValueValidator(),
-				'flagableClassName' => new ValidFlagable(),
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'FLAG_A' => 1,
 					'FLAG_B' => 2,
@@ -179,38 +187,7 @@ class ValueValidatorInterfaceTest extends TestCase
 				'expectedSucceeded' => false
 			],
 			11 => [
-				'valueValidator'    => new ValueValidator(),
-				'flagableClassName' => new ValidFlagable(),
-				'reflectedFlags'    => [
-					'FLAG_A' => 1,
-					'FLAG_B' => 2,
-					'FLAG_C' => 4,
-				],
-				'maxValue'          => 7,
-				'value'             => '42',
-				'errorMessages'     => [
-					"The value '42' exceeds the maximum flag value of '7'.",
-				],
-				'expectedSucceeded' => false
-			],
-			12 => [
-				'valueValidator'    => new ValueValidator(),
-				'flagableClassName' => new ValidFlagable(),
-				'reflectedFlags'    => [
-					'FLAG_A' => 1,
-					'FLAG_B' => 2,
-					'FLAG_C' => 4,
-				],
-				'maxValue'          => 7,
-				'value'             => 'FLAG_A|42',
-				'errorMessages'     => [
-					"The value '42' exceeds the maximum flag value of '7'.",
-				],
-				'expectedSucceeded' => false
-			],
-			13 => [
-				'valueValidator'    => new ValueValidator(),
-				'flagableClassName' => new ValidFlagable(),
+				'flagableClassName' => ValidFlagable::class,
 				'reflectedFlags'    => [
 					'FLAG_A' => 1,
 					'FLAG_B' => 2,
@@ -225,27 +202,5 @@ class ValueValidatorInterfaceTest extends TestCase
 				'expectedSucceeded' => false
 			]
 		];
-	}
-
-	/**
-	 * Tests if the flagable validator is working as expected.
-	 * @param ValueValidatorInterface $valueValidator The validator implementing `ValueValidatorInterface`.
-	 * @param FlagableInterface $flagable The flagable to validate.
-	 * @param array $reflectedFlags The reflected flags of the flagable.
-	 * @param int $maxValue The maximum value of the flagable.
-	 * @param mixed $value The value to validate.
-	 * @param array $errorMessages The error messages of the validation.
-	 * @param bool $expectedSucceeded The success state of the validation.
-	 * @dataProvider valuesAndResultsDataProvider
-	 */
-	public function testValueValidatorsValidateAndReturnValidationResultsCorrectly( ValueValidatorInterface $valueValidator, FlagableInterface $flagable, array $reflectedFlags, int $maxValue, $value, array $errorMessages, bool $expectedSucceeded ): void
-	{
-		$valueValidator->validate( $flagable, $reflectedFlags, $maxValue, $value );
-
-		$resultedErrorMessages = $valueValidator->getErrorMessages();
-		$resultedSucceeded     = $valueValidator->succeeded();
-
-		static::assertEquals( $errorMessages, $resultedErrorMessages );
-		static::assertEquals( $expectedSucceeded, $resultedSucceeded );
 	}
 }

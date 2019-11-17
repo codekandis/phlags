@@ -1,5 +1,5 @@
 <?php declare( strict_types = 1 );
-namespace CodeKandis\Phlags\Tests\Unit;
+namespace CodeKandis\Phlags\Tests\UnitTests;
 
 use CodeKandis\Phlags\FlagableState;
 use CodeKandis\Phlags\FlagableStateInterface;

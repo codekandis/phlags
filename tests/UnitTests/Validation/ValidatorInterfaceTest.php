@@ -1,5 +1,5 @@
 <?php declare( strict_types = 1 );
-namespace CodeKandis\Phlags\Tests\Unit\Validation;
+namespace CodeKandis\Phlags\Tests\UnitTests\Validation;
 
 use CodeKandis\Phlags\Validation\AbstractValidator;
 use CodeKandis\Phlags\Validation\FlagableValidator;

@@ -1,5 +1,5 @@
 <?php declare( strict_types = 1 );
-namespace CodeKandis\Phlags\Tests\Unit\Exceptions;
+namespace CodeKandis\Phlags\Tests\UnitTests\Exceptions;
 
 use CodeKandis\Phlags\Exceptions\ErrorMessagesExceptionInterface;
 use CodeKandis\Phlags\Validation\InvalidFlagableException;

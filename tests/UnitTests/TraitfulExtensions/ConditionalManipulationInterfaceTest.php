@@ -1,5 +1,5 @@
 <?php declare( strict_types = 1 );
-namespace CodeKandis\Phlags\Tests\Unit\TraitfulExtensions;
+namespace CodeKandis\Phlags\Tests\UnitTests\TraitfulExtensions;
 
 use CodeKandis\Phlags\FlagableInterface;
 use CodeKandis\Phlags\Tests\Fixtures\ConditionalManipulatableFlagable;
