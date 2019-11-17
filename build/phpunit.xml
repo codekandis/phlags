@@ -5,10 +5,11 @@
 	colors="true"
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
-	convertWarningsToExceptions="true">
+	convertWarningsToExceptions="true"
+	cacheResult="false">
 	<testsuites>
-		<testsuite name="Phlags">
-			<directory suffix="Test.php">../tests/Unit</directory>
+		<testsuite name="codekandis/phlags">
+			<directory suffix="Test.php">../tests/UnitTests</directory>
 		</testsuite>
 	</testsuites>
 	<filter>
@@ -17,6 +18,6 @@
 		</whitelist>
 	</filter>
 	<logging>
-		<log type="coverage-text" target="php://stdout" showUncoveredFiles="false" showOnlySummary="false"/>
+		<log type="coverage-text" target="php://stdout" showUncoveredFiles="true" showOnlySummary="false"/>
 	</logging>
 </phpunit>
