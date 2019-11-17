@@ -1,69 +1,66 @@
 <?php declare( strict_types = 1 );
+namespace CodeKandis\Phlags\Validation;
 
-namespace CodeKandis\Phlags\Validation
+use CodeKandis\Phlags\Validation\Results\FlagableValidationResult;
+use CodeKandis\Phlags\Validation\Results\FlagableValidationResultInterface;
+
+/**
+ * Represents the validator of all flagables.
+ * @package codekandis/phlags
+ * @author  Christian Ramelow <info@codekandis.net>
+ */
+class FlagableValidator implements FlagableValidatorInterface
 {
-
-	use CodeKandis\Phlags\Validation\Results\FlagableValidationResult;
-	use CodeKandis\Phlags\Validation\Results\FlagableValidationResultInterface;
-
 	/**
-	 * Represents the validator of all flagables.
-	 * @package codekandis\phlags
-	 * @author  Christian Ramelow <info@codekandis.net>
+	 * {@inheritdoc}
+	 * @see FlagableValidatorInterface::validate()
 	 */
-	class FlagableValidator implements FlagableValidatorInterface
+	public function validate( string $flagableClassName, array $reflectedFlags ): FlagableValidationResultInterface
 	{
-		/**
-		 * {@inheritdoc}
-		 * @see FlagableValidatorInterface::validate()
-		 */
-		public function validate( string $flagableClassName, array $reflectedFlags ): FlagableValidationResultInterface
+		$errorMessages  = [];
+		$maxValue       = 0;
+		$validatedFlags = [];
+		foreach ( $reflectedFlags as $flagName => $flagValue )
 		{
-			$errorMessages  = [];
-			$maxValue       = 0;
-			$validatedFlags = [];
-			foreach ( $reflectedFlags as $flagName => $flagValue )
+			if ( in_array( $flagValue, $validatedFlags, true ) === true )
 			{
-				if ( in_array( $flagValue, $validatedFlags, true ) === true )
-				{
-					$errorMessages[] =
-						sprintf( "Duplicate flag '%s' in '%s::%s'.", $flagValue, $flagableClassName, $flagName );
-					continue;
-				}
-				if ( is_int( $flagValue ) === false || $flagValue < 0 )
-				{
-					$errorMessages[] =
-						sprintf( "Invalid type in '%s::%s'. Unsigned 'int' expected.", $flagableClassName, $flagName );
-					continue;
-				}
-				if ( ( $flagValue & ( $flagValue - 1 ) ) !== 0 )
-				{
-					$errorMessages[] =
-						sprintf(
-							"Invalid value '%s' in flag in '%s::%s'. Flag must be a power of 2.",
-							$flagValue,
-							$flagableClassName,
-							$flagName
-						);
-					continue;
-				}
-				$validatedFlags[] = $flagValue;
-				$maxValue         |= $flagValue;
+				$errorMessages[] =
+					sprintf( "Duplicate flag '%s' in '%s::%s'.", $flagValue, $flagableClassName, $flagName );
+				continue;
 			}
-			for ( $n = 1; 0 | $n <= $maxValue; $n *= 2 )
+			if ( is_int( $flagValue ) === false || $flagValue < 0 )
 			{
-				if ( ( $n & $maxValue ) === 0 )
-				{
-					$errorMessages[] =
-						sprintf(
-							"Missing flag with value '%s' in '%s'.",
-							$n,
-							$flagableClassName
-						);
-				}
+				$errorMessages[] =
+					sprintf( "Invalid type in '%s::%s'. Unsigned 'int' expected.", $flagableClassName, $flagName );
+				continue;
 			}
-
-			return new FlagableValidationResult( $errorMessages, $maxValue );
+			if ( ( $flagValue & ( $flagValue - 1 ) ) !== 0 )
+			{
+				$errorMessages[] =
+					sprintf(
+						"Invalid value '%s' in flag in '%s::%s'. Flag must be a power of 2.",
+						$flagValue,
+						$flagableClassName,
+						$flagName
+					);
+				continue;
+			}
+			$validatedFlags[] = $flagValue;
+			$maxValue         |= $flagValue;
 		}
+		for ( $n = 1; 0 | $n <= $maxValue; $n *= 2 )
+		{
+			if ( ( $n & $maxValue ) === 0 )
+			{
+				$errorMessages[] =
+					sprintf(
+						"Missing flag with value '%s' in '%s'.",
+						$n,
+						$flagableClassName
+					);
+			}
+		}
+
+		return new FlagableValidationResult( $errorMessages, $maxValue );
 	}
 }

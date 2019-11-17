@@ -1,39 +1,38 @@
 <?php declare( strict_types = 1 );
+namespace CodeKandis\Phlags\Exceptions;
 
-namespace CodeKandis\Phlags\Exceptions
+use RuntimeException;
+
+/**
+ * Represents an exception if a value passed to the flagable is invalid.
+ * @package codekandis/phlags
+ * @author  Christian Ramelow <info@codekandis.net>
+ */
+class InvalidValueException extends RuntimeException implements ErrorMessagesExceptionInterface
 {
+	/**
+	 * Stores the error messages of the exception.
+	 * @var string[]
+	 */
+	private $errorMessages = [];
 
 	/**
-	 * Represents an exception if a value passed to the flagable is invalid.
-	 * @package codekandis\phlags
-	 * @author  Christian Ramelow <info@codekandis.net>
+	 * {@inheritdoc}
+	 * @see ErrorMessagesExceptionInterface::getErrorMessages()
 	 */
-	class InvalidValueException extends \RuntimeException implements ErrorMessagesExceptionInterface
+	public function getErrorMessages(): array
 	{
-		/**
-		 * Stores the error messages of the exception.
-		 * @var string[]
-		 */
-		private $_errorMessages = [];
+		return $this->errorMessages;
+	}
 
-		/**
-		 * {@inheritdoc}
-		 * @see ErrorMessagesExceptionInterface::getErrorMessages()
-		 */
-		public function getErrorMessages(): array
-		{
-			return $this->_errorMessages;
-		}
+	/**
+	 * {@inheritdoc}
+	 * @see ErrorMessagesExceptionInterface::withErrorMessages()
+	 */
+	public function withErrorMessages( array $errorMessages ): ErrorMessagesExceptionInterface
+	{
+		$this->errorMessages = $errorMessages;
 
-		/**
-		 * {@inheritdoc}
-		 * @see ErrorMessagesExceptionInterface::withErrorMessages()
-		 */
-		public function withErrorMessages( array $errorMessages ): ErrorMessagesExceptionInterface
-		{
-			$this->_errorMessages = $errorMessages;
-
-			return $this;
-		}
+		return $this;
 	}
 }

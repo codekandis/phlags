@@ -60,12 +60,13 @@ In the context of manipulating the flagable the following values are supposed to
 Permissions::READ
 new Permissions( 1 )
 new Permissions( Permission::READ )
+new Permissions( 'READ' );
 ```
 
-In the other hand the type restriction of PHP does not allow any combination of an integer value with a flagable.
+In the other hand the type restriction of PHP does not allow any combination of an integer value with a string with a flagable.
 
 ```php
-new Permission( 1 | new Permissions( READ ) )
+new Permission( 1 | 'READ' | new Permissions( READ ) )
 ```
 
 ### Instantiation
@@ -84,6 +85,10 @@ $permissions = new Permissions( Permissions::READ | Permissions::WRITE );
 
 // or with another flagable
 $permissions = new Permissions( new Permissions( Permissions::READ ) );
+
+// or with string representations instead
+$permissions = new ( 'READ' );
+$permissions = new ( 'READ|WRITE' );
 ```
 
 ### Reading
@@ -116,7 +121,7 @@ $permissions = new Permissions();
 $permissions->set( Permissions::READ );
 $permissions->unset( Permissions::READ );
 $permissions->switch( Permissions::READ );
-$permissions->has( Permissions::READ );    // true
+$permissions->has( Permissions::READ );      // true
 ```
 
 ### Fluent Manipulation
@@ -128,7 +133,7 @@ $permissions = new Permissions();
 $permissions->set( Permissions::READ )
             ->unset( Permissions::READ )
             ->switch( Permissions::READ )
-            ->has( Permissions::READ );    // true
+            ->has( Permissions::READ );     // true
 ```
 
 ### String Representation
@@ -158,9 +163,9 @@ class Permissions extends AbstractFlagable
 {
     use SomeTraitfulExtension;
 
-    public const READ     = 1;
-    public const WRITE    = 2;
-    public const EXECUTE  = 4;
+    public const READ    = 1;
+    public const WRITE   = 2;
+    public const EXECUTE = 4;
 }
 ```
 
@@ -210,7 +215,10 @@ catch ( InvalidFlagableException $e )
 
 A flag value passed to the methods of the flagable has to pass a validation on every method call.
 
-* it's an `unsigned integer` or is an flagable with an identic type as the type of the called flagable
+* it's an one of the following
+    * an `unsigned integer` less or equal than the maximum value of the called flagable
+    * a `string` representation of a flagable with an identic type as the type of the called flagable
+    * a flagable with an identic type as the type of the called flagable
 * it does not exceeds the maximum flag value of the called flagable
 
 If the value does not pass the validation an [`InvalidValueException`][srclink-invalid-value-exception] will be thrown and you can retreive an array of detailed error messages of the validation.
@@ -233,7 +241,7 @@ catch ( InvalidValueException $e )
 [xtlink-sensiolabs-insight-badge]: https://insight.sensiolabs.com/projects/b5d47b55-216f-4247-ad41-902dc0f8ac44/mini.png
 [xtlink-sensiolabs-insight]: http://insight.sensiolabs.com/projects/b5d47b55-216f-4247-ad41-902dc0f8ac44
 
-[xtlink-version-badge]: https://img.shields.io/badge/version-1.0.0-blue.svg
+[xtlink-version-badge]: https://img.shields.io/badge/version-1.2.0-blue.svg
 [xtlink-license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
 
 [srclink-changelog]: ./CHANGELOG.md
