@@ -1,12 +1,13 @@
 <?php declare( strict_types = 1 );
-namespace CodeKandis\Phlags\Exceptions;
+namespace CodeKandis\Phlags\Validation;
 
+use CodeKandis\Phlags\Exceptions\ErrorMessagesExceptionInterface;
 use RuntimeException;
 
 /**
  * Represents an exception if the validation of the flagable has been failed.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 class InvalidFlagableException extends RuntimeException implements ErrorMessagesExceptionInterface
 {
@@ -18,7 +19,6 @@ class InvalidFlagableException extends RuntimeException implements ErrorMessages
 
 	/**
 	 * {@inheritdoc}
-	 * @see ErrorMessagesExceptionInterface::getErrorMessages()
 	 */
 	public function getErrorMessages(): array
 	{
@@ -27,7 +27,6 @@ class InvalidFlagableException extends RuntimeException implements ErrorMessages
 
 	/**
 	 * {@inheritdoc}
-	 * @see ErrorMessagesExceptionInterface::withErrorMessages()
 	 */
 	public function withErrorMessages( array $errorMessages ): ErrorMessagesExceptionInterface
 	{

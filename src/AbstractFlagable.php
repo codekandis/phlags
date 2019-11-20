@@ -1,49 +1,30 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags;
 
-use CodeKandis\Phlags\Exceptions\InvalidFlagableException;
-use CodeKandis\Phlags\Exceptions\InvalidValueException;
 use CodeKandis\Phlags\Exceptions\UnsupportedOperationException;
 use CodeKandis\Phlags\Validation\FlagableValidator;
+use CodeKandis\Phlags\Validation\InvalidFlagableException;
+use CodeKandis\Phlags\Validation\InvalidValueException;
 use CodeKandis\Phlags\Validation\ValueValidator;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
+use ReflectionClass;
+use function explode;
+use function implode;
+use function is_int;
+use function is_string;
 
 /**
  * Represents the base class of all flagable classes.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
 abstract class AbstractFlagable implements FlagableInterface
 {
 	/**
-	 * Stores if the flagable has been validated.
-	 * @var bool
+	 * Stores the states of all instantiated flagables.
+	 * @var FlagableStateInterface[]
 	 */
-	protected static $hasBeenValidated = false;
-
-	/**
-	 * Stores the thrown exception of the validation of the flagable.
-	 * @var InvalidFlagableException
-	 */
-	protected static $validationException;
-
-	/**
-	 * Stores the reflected flags of the flagable.
-	 * @var array
-	 */
-	protected static $reflectedFlags;
-
-	/**
-	 * Stores the maximum value of the flagable.
-	 * @var int
-	 */
-	protected static $_maxValue = self::NONE;
-
-	/**
-	 * Stores the value validator of the flagable.
-	 * @var ValueValidatorInterface
-	 */
-	protected static $valueValidator;
+	protected static $flagableStates = [];
 
 	/**
 	 * Stores the current value of the flagable.
@@ -61,24 +42,22 @@ abstract class AbstractFlagable implements FlagableInterface
 	{
 		static::initializeReflectedFlags();
 		static::validateFlagable();
-		self::$valueValidator = self::$valueValidator ?? new ValueValidator();
+		static::getFlagableState()->setValueValidator( new ValueValidator() );
 		$this->set( $value );
 	}
 
 	/**
-	 * Determines if a undefined member has been set.
-	 * @param string $memberName Gets the name of the undefined member.
-	 * @return bool false while accessing undefined members is not supported.
+	 * Gets the state of the flagble.
+	 * @return FlagableStateInterface The state of the flagable.
 	 */
-	final public function __isset( string $memberName ): bool
+	private static function getFlagableState(): FlagableStateInterface
 	{
-		return false;
+		return static::$flagableStates[ static::class ] ?? static::$flagableStates[ static::class ] = new FlagableState();
 	}
 
 	/**
 	 * Unsets an undefined member.
 	 * @param string $memberName The name of the undefined member.
-	 * @return mixed The value of the undefined member.
 	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
 	 */
 	final public function __unset( string $memberName ): void
@@ -100,8 +79,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Sets an undefined member.
 	 * @param string $memberName The name of the undefined member.
-	 * @param mixed  $value The value to set.
-	 * @return void
+	 * @param mixed $value The value to set.
 	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
 	 */
 	final public function __set( string $memberName, $value ): void
@@ -112,7 +90,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Calls an undefined method.
 	 * @param string $methodName The name of the undefined method.
-	 * @param array  $arguments The passed arguments.
+	 * @param array $arguments The passed arguments.
 	 * @return mixed The return value of the undefined method.
 	 * @throws UnsupportedOperationException Accessing undefined methods is not supported.
 	 */
@@ -124,7 +102,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Calls an undefined static method.
 	 * @param string $methodName The name of the undefined static method.
-	 * @param array  $arguments The passed arguments.
+	 * @param array $arguments The passed arguments.
 	 * @return mixed The return value of the undefined static method.
 	 * @throws UnsupportedOperationException Accessing undefined methods is not supported.
 	 */
@@ -135,27 +113,30 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @see FlagableInterface::__toString()
 	 */
 	final public function __toString(): string
 	{
 		$flagsSetNames = [];
-		foreach ( static::$reflectedFlags as $reflectedFlagName => $reflectedFlagValue )
+
+		/**
+		 * @var string $reflectedFlagName
+		 * @var int $reflectedFlagValue
+		 */
+		foreach ( static::getFlagableState()->getReflectedFlags() as $reflectedFlagName => $reflectedFlagValue )
 		{
-			if ( $reflectedFlagValue !== 0 && ( $this->value & $reflectedFlagValue ) === $reflectedFlagValue )
+			if ( 0 !== $reflectedFlagValue && ( $this->value & $reflectedFlagValue ) === $reflectedFlagValue )
 			{
 				$flagsSetNames[] = $reflectedFlagName;
 			}
 		}
 
-		return (string) ( empty( $flagsSetNames ) === true
+		return true === empty( $flagsSetNames )
 			? 'NONE'
-			: implode( '|', $flagsSetNames ) );
+			: implode( '|', $flagsSetNames );
 	}
 
 	/**
 	 * {@inheritdoc}
-	 * @see FlagableInterface::__invoke()
 	 */
 	final public function __invoke(): int
 	{
@@ -164,7 +145,6 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @see FlagableInterface::getValue()
 	 */
 	final public function getValue(): int
 	{
@@ -172,85 +152,96 @@ abstract class AbstractFlagable implements FlagableInterface
 	}
 
 	/**
-	 * Initialized the reflected flags for validation and stringifying.
-	 * @return void
+	 * Initializes the reflected flags for validation and stringification.
 	 */
 	private static function initializeReflectedFlags(): void
 	{
-		try
-		{
-			static::$reflectedFlags = ( new \ReflectionClass( static::class ) )->getConstants();
-			asort( static::$reflectedFlags );
-		}
-		catch ( \ReflectionException $exception )
-		{
-		}
+		static::getFlagableState()->setReflectedFlags(
+			( new ReflectionClass( static::class ) )
+				->getConstants()
+		);
 	}
 
 	/**
-	 * Validates the flagable
-	 * @return void
+	 * Validates the flagable.
 	 * @throws InvalidFlagableException The flagable is invalid.
 	 */
 	private static function validateFlagable(): void
 	{
-		if ( static::$hasBeenValidated === true && static::$validationException !== null )
+		$flagableState = static::getFlagableState();
+		if ( true === $flagableState->getHasBeenValidated() && null !== $flagableState->getValidationException() )
 		{
-			throw static::$validationException;
+			throw $flagableState->getValidationException();
 		}
-		static::$hasBeenValidated = true;
-		$validationResult         = ( new FlagableValidator )->validate( static::class, static::$reflectedFlags );
-		if ( $validationResult->failed() === true )
+		$flagableState->setHasBeenValidated( true );
+		$validator = new FlagableValidator();
+		$validator->validate( static::class, $flagableState->getReflectedFlags() );
+		if ( false === $validator->succeeded() )
 		{
-			throw ( new InvalidFlagableException( 'Invalid flagable.' ) )->withErrorMessages( $validationResult->getErrorMessages() );
+			/**
+			 * @var InvalidFlagableException $validationException
+			 */
+			$validationException = ( new InvalidFlagableException( 'Invalid flagable.' ) )
+				->withErrorMessages( $validator->getErrorMessages() );
+			$flagableState->setValidationException( $validationException );
+			throw $validationException;
 		}
-		static::$_maxValue = $validationResult->getMaxValue();
+		$flagableState->setMaxValue( $validator->getMaxValue() );
 	}
 
 	/**
 	 * Validates a value.
 	 * @param int|string|FlagableInterface $value The value to validate.
-	 * @return void
 	 * @throws InvalidValueException The value is invalid.
 	 */
 	private function validateValue( $value ): void
 	{
-		$validationResult = self::$valueValidator->validate( $this, static::$reflectedFlags, self::$_maxValue, $value );
-		if ( $validationResult->failed() === true )
+		/**
+		 * @var ValueValidatorInterface $valueValidator
+		 */
+		$valueValidator = static::getFlagableState()->getValueValidator();
+		$valueValidator->validate( $this, static::getFlagableState()->getReflectedFlags(), static::getFlagableState()->getMaxValue(), $value );
+		if ( false === $valueValidator->succeeded() )
 		{
-			throw ( new InvalidValueException( 'Invalid value.' ) )->withErrorMessages( $validationResult->getErrorMessages() );
+			throw ( new InvalidValueException( 'Invalid value.' ) )
+				->withErrorMessages( $valueValidator->getErrorMessages() );
 		}
 	}
 
 	/**
 	 * Gets the extracted value of a value.
-	 * @param mixed $value The value to transform.
-	 * @return int The transformed value.
+	 * @param mixed $value The value to extract.
+	 * @return int The extracted value.
 	 */
 	private function getExtractedValue( $value ): int
 	{
-		if ( is_int( $value ) === true )
+		$returnValue = null;
+
+		if ( true === is_int( $value ) )
 		{
-			return $value;
+			$returnValue = $value;
 		}
-		if ( is_string( $value ) === true )
+
+		if ( true === is_string( $value ) )
 		{
-			$extractedValue = FlagableInterface::NONE;
-			$explodedValues = explode( '|', $value );
-			foreach ( $explodedValues as $explodedValue )
+			$extractedValue = static::NONE;
+			/**
+			 * @var string $explodedValue
+			 */
+			foreach ( explode( '|', $value ) as $explodedValue )
 			{
-				if ( ctype_digit( $explodedValue ) === false )
+				if ( false === ctype_digit( $explodedValue ) )
 				{
-					$extractedValue |= static::$reflectedFlags[ $explodedValue ];
+					$extractedValue |= static::getFlagableState()->getReflectedFlags()[ $explodedValue ];
 					continue;
 				}
 				$extractedValue |= (int) $explodedValue;
 			}
 
-			return $extractedValue;
+			$returnValue = $extractedValue;
 		}
 
-		return $value->getValue();
+		return $returnValue ?? $value->getValue();
 	}
 
 	/**
@@ -266,7 +257,6 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Sets a flag.
 	 * @param int $value The flag to set.
-	 * @return void
 	 */
 	private function unvalidatedSet( int $value ): void
 	{
@@ -276,7 +266,6 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Unsets a flag.
 	 * @param int $value The flag to unset.
-	 * @return void
 	 */
 	private function unvalidatedUnset( int $value ): void
 	{
@@ -286,7 +275,6 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Switches a flag.
 	 * @param int $value The flag to switch.
-	 * @return void
 	 */
 	private function unvalidatedSwitch( int $value ): void
 	{
@@ -295,8 +283,6 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @throws InvalidValueException The value is invalid.
-	 * @see FlagableInterface::has()
 	 */
 	final public function has( $value ): bool
 	{
@@ -307,8 +293,6 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @throws InvalidValueException The value is invalid.
-	 * @see FlagableInterface::set()
 	 */
 	final public function set( $value ): FlagableInterface
 	{
@@ -320,8 +304,6 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @throws InvalidValueException The value is invalid.
-	 * @see FlagableInterface::unset()
 	 */
 	final public function unset( $value ): FlagableInterface
 	{
@@ -333,8 +315,6 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @throws InvalidValueException The value is invalid.
-	 * @see FlagableInterface::switch()
 	 */
 	final public function switch( $value ): FlagableInterface
 	{
@@ -346,19 +326,22 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * {@inheritdoc}
-	 * @see FlagableInterface::getIterator()
 	 */
 	final public function getIterator(): iterable
 	{
-		if ( $this->value === static::NONE )
+		if ( static::NONE === $this->value )
 		{
 			yield new static;
 
 			return;
 		}
-		foreach ( static::$reflectedFlags as $reflectedFlagValue )
+
+		/**
+		 * @var int $reflectedFlagValue
+		 */
+		foreach ( static::getFlagableState()->getReflectedFlags() as $reflectedFlagValue )
 		{
-			if ( static::NONE !== $reflectedFlagValue && $this->unvalidatedHas( $reflectedFlagValue ) === true )
+			if ( static::NONE !== $reflectedFlagValue && true === $this->unvalidatedHas( $reflectedFlagValue ) )
 			{
 				yield new static( $reflectedFlagValue );
 			}

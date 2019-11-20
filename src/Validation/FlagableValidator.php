@@ -1,42 +1,62 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags\Validation;
 
-use CodeKandis\Phlags\Validation\Results\FlagableValidationResult;
-use CodeKandis\Phlags\Validation\Results\FlagableValidationResultInterface;
+use function in_array;
+use function is_int;
+use function sprintf;
 
 /**
  * Represents the validator of all flagables.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
-class FlagableValidator implements FlagableValidatorInterface
+class FlagableValidator extends AbstractValidator implements FlagableValidatorInterface
 {
 	/**
-	 * {@inheritdoc}
-	 * @see FlagableValidatorInterface::validate()
+	 * Stores the maximum value of the flagable.
+	 * @var int
 	 */
-	public function validate( string $flagableClassName, array $reflectedFlags ): FlagableValidationResultInterface
+	private $maxValue;
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getMaxValue(): int
 	{
-		$errorMessages  = [];
-		$maxValue       = 0;
-		$validatedFlags = [];
+		return $this->maxValue;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function validate( string $flagableClassName, array $reflectedFlags ): void
+	{
+		$this->errorMessages = [];
+		$validatedFlags      = [];
+
+		/**
+		 * @var string $flagName
+		 * @var int $flagValue
+		 */
 		foreach ( $reflectedFlags as $flagName => $flagValue )
 		{
-			if ( in_array( $flagValue, $validatedFlags, true ) === true )
+			if ( true === in_array( $flagValue, $validatedFlags, true ) )
 			{
-				$errorMessages[] =
+				$this->errorMessages[] =
 					sprintf( "Duplicate flag '%s' in '%s::%s'.", $flagValue, $flagableClassName, $flagName );
 				continue;
 			}
-			if ( is_int( $flagValue ) === false || $flagValue < 0 )
+
+			if ( false === is_int( $flagValue ) || 0 > $flagValue )
 			{
-				$errorMessages[] =
+				$this->errorMessages[] =
 					sprintf( "Invalid type in '%s::%s'. Unsigned 'int' expected.", $flagableClassName, $flagName );
 				continue;
 			}
-			if ( ( $flagValue & ( $flagValue - 1 ) ) !== 0 )
+
+			if ( 0 !== ( $flagValue & ( $flagValue - 1 ) ) )
 			{
-				$errorMessages[] =
+				$this->errorMessages[] =
 					sprintf(
 						"Invalid value '%s' in flag in '%s::%s'. Flag must be a power of 2.",
 						$flagValue,
@@ -45,14 +65,16 @@ class FlagableValidator implements FlagableValidatorInterface
 					);
 				continue;
 			}
+
 			$validatedFlags[] = $flagValue;
-			$maxValue         |= $flagValue;
+			$this->maxValue   |= $flagValue;
 		}
-		for ( $n = 1; 0 | $n <= $maxValue; $n *= 2 )
+
+		for ( $n = 1; 0 | $n <= $this->maxValue; $n *= 2 )
 		{
-			if ( ( $n & $maxValue ) === 0 )
+			if ( 0 === ( $n & $this->maxValue ) )
 			{
-				$errorMessages[] =
+				$this->errorMessages[] =
 					sprintf(
 						"Missing flag with value '%s' in '%s'.",
 						$n,
@@ -60,7 +82,5 @@ class FlagableValidator implements FlagableValidatorInterface
 					);
 			}
 		}
-
-		return new FlagableValidationResult( $errorMessages, $maxValue );
 	}
 }

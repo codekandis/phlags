@@ -6,13 +6,13 @@ use CodeKandis\Phlags\AbstractFlagable;
 /**
  * Represents a test fixture of a flagable.
  * @package codekandis/phlags
- * @author  Christian Ramelow <info@codekandis.net>
+ * @author Christian Ramelow <info@codekandis.net>
  */
-class ValidPermissions extends AbstractFlagable
+class ValidFlagable extends AbstractFlagable
 {
-	public const DIRECTORY = 1;
+	public const FLAG_A = 1;
 
-	public const UREAD     = 2;
+	public const FLAG_B = 2;
 
-	public const UWRITE    = 4;
+	public const FLAG_C = 4;
 }
