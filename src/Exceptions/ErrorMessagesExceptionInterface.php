@@ -17,7 +17,7 @@ interface ErrorMessagesExceptionInterface
 	/**
 	 * Sets the error messages of the exception.
 	 * @param string[] $errorMessages The error messages of the exception.
-	 * @return self
+	 * @return self The occured exception.
 	 */
 	public function withErrorMessages( array $errorMessages ): self;
 }
