@@ -15,7 +15,7 @@ class InvalidFlagableException extends RuntimeException implements ErrorMessages
 	 * Stores the error messages of the exception.
 	 * @var string[]
 	 */
-	private $errorMessages = [];
+	private array $errorMessages = [];
 
 	/**
 	 * {@inheritdoc}
