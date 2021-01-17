@@ -15,7 +15,7 @@ class InvalidValueException extends RuntimeException implements ErrorMessagesExc
 	 * Stores the error messages of the exception.
 	 * @var string[]
 	 */
-	private $errorMessages = [];
+	private array $errorMessages = [];
 
 	/**
 	 * {@inheritdoc}
