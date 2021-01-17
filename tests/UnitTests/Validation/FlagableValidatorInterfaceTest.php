@@ -25,8 +25,7 @@ class FlagableValidatorInterfaceTest extends TestCase
 			0 => [
 				'flagableValidator' => new FlagableValidator(),
 				'flagableClassName' => get_class(
-					new class()
-					{
+					new class() {
 					}
 				),
 				'reflectedFlags'    => [
