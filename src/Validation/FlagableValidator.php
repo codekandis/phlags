@@ -16,7 +16,7 @@ class FlagableValidator extends AbstractValidator implements FlagableValidatorIn
 	 * Stores the maximum value of the flagable.
 	 * @var int
 	 */
-	private $maxValue;
+	private int $maxValue = 0;
 
 	/**
 	 * {@inheritdoc}

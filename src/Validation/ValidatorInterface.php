@@ -16,7 +16,7 @@ interface ValidatorInterface
 
 	/**
 	 * Determines if the validation has been succeeded.
-	 * @return bool true if the validation has been succeeded, false otherwise.
+	 * @return bool True if the validation has been succeeded, false otherwise.
 	 */
 	public function succeeded(): bool;
 }

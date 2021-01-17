@@ -3,7 +3,6 @@ namespace CodeKandis\Phlags;
 
 use CodeKandis\Phlags\Validation\InvalidValueException;
 use IteratorAggregate;
-use Traversable;
 
 /**
  * Represents the interface of all flagable classes.
@@ -28,7 +27,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * Gets the current value of the flagable.
 	 * @return int The current value of the flagable.
 	 */
-	public function __invoke(): int;
+	public function __invoke();
 
 	/**
 	 * Gets the current value of the flagable.
@@ -39,7 +38,7 @@ interface FlagableInterface extends IteratorAggregate
 	/**
 	 * Determines if a value has been set.
 	 * @param int|string|FlagableInterface $value The value to check if it has been set.
-	 * @return bool true if the value has been set, false otherwise.
+	 * @return bool True if the value has been set, false otherwise.
 	 * @throws InvalidValueException The flag to check is invalid.
 	 */
 	public function has( $value ): bool;
@@ -47,7 +46,7 @@ interface FlagableInterface extends IteratorAggregate
 	/**
 	 * Sets a flag.
 	 * @param int|string|FlagableInterface $value The flag to set.
-	 * @return self
+	 * @return self The flagable.
 	 * @throws InvalidValueException The flag to set is invalid.
 	 */
 	public function set( $value ): self;
@@ -55,7 +54,7 @@ interface FlagableInterface extends IteratorAggregate
 	/**
 	 * Unsets a flag.
 	 * @param int|string|FlagableInterface $value The flag to unset.
-	 * @return self
+	 * @return self The flagable.
 	 * @throws InvalidValueException The flag to unset is invalid.
 	 */
 	public function unset( $value ): self;
@@ -63,7 +62,7 @@ interface FlagableInterface extends IteratorAggregate
 	/**
 	 * Switches a flag.
 	 * @param int|string|FlagableInterface $value The flag to switch.
-	 * @return self
+	 * @return self The flagable.
 	 * @throws InvalidValueException The flag to switch is invalid.
 	 */
 	public function switch( $value ): self;
@@ -71,7 +70,7 @@ interface FlagableInterface extends IteratorAggregate
 	/**
 	 * {@inheritdoc}
 	 * Generates a list of all flags set in the flagable, each as a new flagable.
-	 * @return iterable|Traversable|FlagableInterface[] The list of all flags set in the flagable, each as a new flagable.
+	 * @return iterable|FlagableInterface[] The list of all flags set in the flagable, each as a new flagable.
 	 */
 	public function getIterator(): iterable;
 }

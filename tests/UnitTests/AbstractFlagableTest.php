@@ -25,11 +25,10 @@ final class AbstractFlagableTest extends TestCase
 	{
 		return [
 			0 => [
-				'flagable'          => new class() extends AbstractFlagable
-				{
+				'flagable'                   => new class() extends AbstractFlagable {
 				},
-				'unknownMemberName' => 'foobar',
-				'expectedException' => UnsupportedOperationException::class,
+				'unknownMemberName'          => 'foobar',
+				'expectedExceptionClassName' => UnsupportedOperationException::class,
 			]
 		];
 	}
@@ -38,12 +37,12 @@ final class AbstractFlagableTest extends TestCase
 	 * Tests if an exception will be thrown while accessing an unknown static method.
 	 * @param AbstractFlagable $flagable The flagable to test.
 	 * @param string $unknownMemberName The name of the unknown static method.
-	 * @param string $expectedException The class name of the expected exception.
+	 * @param string $expectedExceptionClassName The class name of the expected exception.
 	 * @dataProvider flagablesWithUnknownMemberAndExceptionDataProvider
 	 */
-	public function testExceptionIsThrownWhileAccessingUnsupportedStaticMethod( AbstractFlagable $flagable, string $unknownMemberName, string $expectedException ): void
+	public function testExceptionIsThrownWhileAccessingUnsupportedStaticMethod( AbstractFlagable $flagable, string $unknownMemberName, string $expectedExceptionClassName ): void
 	{
-		$this->expectException( $expectedException );
+		$this->expectException( $expectedExceptionClassName );
 		$flagable::{$unknownMemberName}();
 	}
 

@@ -15,31 +15,31 @@ class FlagableState implements FlagableStateInterface
 	 * Stores if the flagable has been validated.
 	 * @var bool
 	 */
-	private $hasBeenValidated = false;
+	private bool $hasBeenValidated = false;
 
 	/**
 	 * Stores the thrown exception of the validation of the flagable.
-	 * @var null|InvalidFlagableException
+	 * @var ?InvalidFlagableException
 	 */
-	private $validationException;
+	private ?InvalidFlagableException $validationException = null;
 
 	/**
 	 * Stores the reflected flags of the flagable.
-	 * @var string[]
+	 * @var ?string[]
 	 */
-	private $reflectedFlags = [];
+	private ?array $reflectedFlags = [];
 
 	/**
 	 * Stores the maximum value of the flagable.
-	 * @var int
+	 * @var ?int
 	 */
-	private $maxValue = FlagableInterface::NONE;
+	private ?int $maxValue = FlagableInterface::NONE;
 
 	/**
 	 * Stores the value validator of the flagable.
-	 * @var null|ValueValidatorInterface
+	 * @var ?ValueValidatorInterface
 	 */
-	private $valueValidator;
+	private ?ValueValidatorInterface $valueValidator = null;
 
 	/**
 	 * {@inheritdoc}

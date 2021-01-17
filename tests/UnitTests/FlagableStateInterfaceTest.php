@@ -64,8 +64,7 @@ class FlagableStateInterfaceTest extends TestCase
 			],
 			2 => [
 				'flagableState'       => new FlagableState(),
-				'validationException' => new class() extends InvalidFlagableException
-				{
+				'validationException' => new class() extends InvalidFlagableException {
 				}
 			]
 		];
@@ -198,8 +197,7 @@ class FlagableStateInterfaceTest extends TestCase
 			],
 			2 => [
 				'flagableState'  => new FlagableState(),
-				'valueValidator' => new class() extends ValueValidator
-				{
+				'valueValidator' => new class() extends ValueValidator {
 				}
 			]
 		];

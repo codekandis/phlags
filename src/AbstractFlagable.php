@@ -24,13 +24,13 @@ abstract class AbstractFlagable implements FlagableInterface
 	 * Stores the states of all instantiated flagables.
 	 * @var FlagableStateInterface[]
 	 */
-	protected static $flagableStates = [];
+	protected static array $flagableStates = [];
 
 	/**
 	 * Stores the current value of the flagable.
 	 * @var int
 	 */
-	private $value;
+	private int $value = 0;
 
 	/**
 	 * Constructor method.
@@ -138,7 +138,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	final public function __invoke(): int
+	final public function __invoke()
 	{
 		return $this->getValue();
 	}
@@ -247,7 +247,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Determines if a value has been set.
 	 * @param int $value The value to check if it has been set.
-	 * @return bool true if the value has been set, false otherwise.
+	 * @return bool True if the value has been set, false otherwise.
 	 */
 	private function unvalidatedHas( int $value ): bool
 	{

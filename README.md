@@ -31,10 +31,7 @@ Install the latest version with
 
 ```bash
 $ composer require codekandis/phlags
-
 ```
-
-It is strongly recommended not to use any release of `1.x` anymore due a major bug fixed in `2.0`.
 
 ## How to use
 
@@ -47,9 +44,9 @@ Declare a class extending the flagable base class [`AbstractFlagable`][srclink-a
 ```php
 class Permissions extends AbstractFlagable
 {
-    public const READ     = 1;
-    public const WRITE    = 2;
-    public const EXECUTE  = 4;
+    public const READ    = 1;
+    public const WRITE   = 2;
+    public const EXECUTE = 4;
 }
 ```
 
@@ -105,8 +102,8 @@ You can read the value of the flagable in 2 different ways.
 
 ```php
 $permissions = new Permissions( Permissions::READ );
-echo $permissions->getValue();    // 1
-echo $permissions();              // 1
+echo $permissions->getValue();  // 1
+echo $permissions();            // 1
 ```
 
 ### Determination
@@ -115,9 +112,9 @@ You can determine if one or more specific flags have been set.
 
 ```php
 $permissions = new Permissions( Permissions::READ | Permissions::WRITE );
-$permissions->has( Permissions::READ );       // true
-$permissions->has( Permissions::WRITE );      // true
-$permissions->has( Permissions::EXECUTE );    // false
+$permissions->has( Permissions::READ );     // true
+$permissions->has( Permissions::WRITE );    // true
+$permissions->has( Permissions::EXECUTE );  // false
 ```
 
 ### Manipulation
@@ -129,7 +126,7 @@ $permissions = new Permissions();
 $permissions->set( Permissions::READ );
 $permissions->unset( Permissions::READ );
 $permissions->switch( Permissions::READ );
-$permissions->has( Permissions::READ );      // true
+$permissions->has( Permissions::READ );     // true
 ```
 
 ### Fluent Manipulation
@@ -141,7 +138,7 @@ $permissions = new Permissions();
 $permissions->set( Permissions::READ )
             ->unset( Permissions::READ )
             ->switch( Permissions::READ )
-            ->has( Permissions::READ );     // true
+            ->has( Permissions::READ );    // true
 ```
 
 ### String Representation
@@ -150,16 +147,16 @@ A flagable can stringified in different ways with different outputs.
 
 ```php
 $permissions = new Permissions();
-(string)$permissions->getValue();    // 0
-(string)$permissions();              // 0
-(string)$permissions;                // NONE
-$permissions->__toString();          // NONE
+(string)$permissions->getValue();  // 0
+(string)$permissions();            // 0
+(string)$permissions;              // NONE
+$permissions->__toString();        // NONE
 
 $permissions = new Permissions( PERMISSIONS::READ | PERMISSIONS::EXECUTE );
-(string)$permissions->getValue();    // 5
-(string)$permissions();              // 5
-(string)$permissions;                // READ|EXECUTE
-$permissions->__toString();          // READ|EXECUTE
+(string)$permissions->getValue();  // 5
+(string)$permissions();            // 5
+(string)$permissions;              // READ|EXECUTE
+$permissions->__toString();        // READ|EXECUTE
 ```
 
 ### Traitful Extensions
@@ -187,12 +184,12 @@ The Conditional Manipulation provides you with methods to set, unset and switch 
 $pathToFile = '/some-random-file.txt';
 $permissions = new Permissions();
 $permissions->ifSet( Permissions::DIRECTORY, is_dir( $pathToFile ) );
-$permissions->has( Permissions::DIRECTORY );    // false
+$permissions->has( Permissions::DIRECTORY );  // false
 
-$pathToFile = '/some-random-directory/';
+$pathToFile = '/some-random-directory';
 $permissions = new Permissions();
 $permissions->ifSet( Permissions::DIRECTORY, is_dir( $pathToDirectory ) );
-$permissions->has( Permissions::DIRECTORY );    // true
+$permissions->has( Permissions::DIRECTORY );  // true
 ```
 
 ## Validation
@@ -243,9 +240,9 @@ catch ( InvalidValueException $e )
 
 
 
-[xtlink-version-badge]: https://img.shields.io/badge/version-2.0.0-blue.svg
+[xtlink-version-badge]: https://img.shields.io/badge/version-development-blue.svg
 [xtlink-license-badge]: https://img.shields.io/badge/license-MIT-yellow.svg
-[xtlink-php-version-badge]: https://img.shields.io/badge/php-%3E%3D%207.3-8892BF.svg
+[xtlink-php-version-badge]: https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg
 [xtlink-code-coverage-badge]: https://img.shields.io/badge/coverage-100%25-green.svg
 [xtlink-php-net]: https://php.net
 

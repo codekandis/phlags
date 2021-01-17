@@ -22,9 +22,8 @@ class ValidatorInterfaceTest extends TestCase
 	{
 		return [
 			0 => [
-				'validatorClass'        => new class() extends AbstractValidator
-				{
-					protected $errorMessages = [
+				'validatorClass'        => new class() extends AbstractValidator {
+					protected array $errorMessages = [
 						'foobar',
 						'barfoo'
 					];
@@ -36,16 +35,14 @@ class ValidatorInterfaceTest extends TestCase
 				'expectedSucceeded'     => false
 			],
 			1 => [
-				'validatorClass'        => new class() extends AbstractValidator
-				{
+				'validatorClass'        => new class() extends AbstractValidator {
 				},
 				'expectedErrorMessages' => [],
 				'expectedSucceeded'     => true
 			],
 			2 => [
-				'validatorClass'        => new class() extends ValueValidator
-				{
-					protected $errorMessages = [
+				'validatorClass'        => new class() extends ValueValidator {
+					protected array $errorMessages = [
 						'foobar',
 						'barfoo'
 					];
@@ -57,16 +54,14 @@ class ValidatorInterfaceTest extends TestCase
 				'expectedSucceeded'     => false
 			],
 			3 => [
-				'validatorClass'        => new class() extends ValueValidator
-				{
+				'validatorClass'        => new class() extends ValueValidator {
 				},
 				'expectedErrorMessages' => [],
 				'expectedSucceeded'     => true
 			],
 			4 => [
-				'validatorClass'        => new class() extends FlagableValidator
-				{
-					protected $errorMessages = [
+				'validatorClass'        => new class() extends FlagableValidator {
+					protected array $errorMessages = [
 						'foobar',
 						'barfoo'
 					];
@@ -78,8 +73,7 @@ class ValidatorInterfaceTest extends TestCase
 				'expectedSucceeded'     => false
 			],
 			5 => [
-				'validatorClass'        => new class() extends FlagableValidator
-				{
+				'validatorClass'        => new class() extends FlagableValidator {
 				},
 				'expectedErrorMessages' => [],
 				'expectedSucceeded'     => true
