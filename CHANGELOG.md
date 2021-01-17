@@ -1,11 +1,28 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [keep a changelog][xtlink-keep-a-changelog]
 and this project adheres to [Semantic Versioning 2.0.0][xtlink-semantic-versioning].
 
 
-[2.0.0]: https://github.com/codekandis/phlags/compare/1.1.0...1.2.0
+## [3.0.0] - 2021-01-17
+
+### Changed
+
+* composer package dependencies.
+  * removed
+    * `sensiolabs/security-checker`
+    * `phpunit/phpunit`
+    * `phpmetrics/phpmetrics`
+  * changed
+    * `php` [^7.4]
+  * added
+    * `codekandis/phpunit` [^3]
+
+[3.0.0]: https://github.com/codekandis/phlags/compare/2.0.0...3.0.0
+
+---
 ## [2.0.0] - 2019-07-10
 
 ### Added
@@ -23,8 +40,9 @@ and this project adheres to [Semantic Versioning 2.0.0][xtlink-semantic-versioni
 
 * a major issue caused while accessing static members
 
+[2.0.0]: https://github.com/codekandis/phlags/compare/1.2.0...2.0.0
 
-[1.2.0]: https://github.com/codekandis/phlags/compare/1.1.0...1.2.0
+---
 ## [1.2.0] - 2019-07-01
 
 ### Added
@@ -51,8 +69,9 @@ and this project adheres to [Semantic Versioning 2.0.0][xtlink-semantic-versioni
 * the imports in the code files
 * the inheritance in the invalid flagable exception
 
+[1.2.0]: https://github.com/codekandis/phlags/compare/1.1.0...1.2.0
 
-[1.1.0]: https://github.com/codekandis/phlags/compare/1.0.0...1.1.0
+---
 ## [1.1.0] - 2017-08-31
 
 ### Added
@@ -74,8 +93,10 @@ and this project adheres to [Semantic Versioning 2.0.0][xtlink-semantic-versioni
 * decreased performance due stringifying the flagable
 * `PHPDoc`
 
+[1.1.0]: https://github.com/codekandis/phlags/compare/1.0.0...1.1.0
 
-## 1.0.0 - 2017-08-30
+---
+## [1.0.0] - 2017-08-30
 
 ### Added
 
@@ -86,6 +107,8 @@ and this project adheres to [Semantic Versioning 2.0.0][xtlink-semantic-versioni
 * `PHPUnit` tests
 * `LICENSE`
 * `README.md`
+
+[1.0.0]: https://github.com/codekandis/phlags/tree/1.0.0
 
 
 
