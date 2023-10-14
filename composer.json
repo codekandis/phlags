@@ -1,6 +1,7 @@
 {
 	"name": "codekandis/phlags",
-	"description": "Introduces the possibility to use flagable enums in PHP.",
+	"description": "`codekandis/phlags` introduces the possibility to use flagable enums in PHP.",
+	"version": "dev-development",
 	"keywords": [
 		"php",
 		"flags",
@@ -14,7 +15,7 @@
 		{
 			"name": "Christian Ramelow",
 			"email": "info@codekandis.net",
-			"homepage": "http://codekandis.net",
+			"homepage": "https://codekandis.net",
 			"role": "Developer"
 		}
 	],
@@ -25,20 +26,33 @@
 		"source": "https://github.com/codekandis/phlags/tree/master"
 	},
 	"require": {
-		"php": "^7.4"
+		"php": ">=8.3",
+		"ext-ctype": "*",
+		"codekandis/types": "^1.0.0"
 	},
 	"require-dev": {
 		"roave/security-advisories": "dev-master",
-		"codekandis/phpunit": "^3"
+		"codekandis/phpunit": "^5.0.0",
+		"rector/rector": "^1.2.2"
 	},
 	"autoload": {
 		"psr-4": {
-			"CodeKandis\\Phlags\\": "src/"
+			"CodeKandis\\Phlags\\": [
+				"src/"
+			]
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"CodeKandis\\Phlags\\Tests\\": "tests/"
+			"CodeKandis\\Phlags\\Build\\": [
+				"build/"
+			],
+			"CodeKandis\\Phlags\\Tests\\": [
+				"tests/"
+			]
 		}
+	},
+	"scripts": {
+		"test": "/usr/bin/env php -dxdebug.mode=coverage ./vendor/phpunit/phpunit/phpunit --configuration ./build/phpunit.xml"
 	}
 }
