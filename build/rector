@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+function executeRectorInteractive()
+{
+	php "${1}/../vendor/bin/rector" "${@:2}"
+}
+
+function executeRector()
+{
+	executeRectorInteractive "${1}" --output-format="json" --config="${1}/rectorConfiguration.php" process "${@:2}"
+}
+
+function runDry()
+{
+	executeRector "${1}" --dry-run
+}
+
+function doChanges()
+{
+	executeRector "${1}"
+}
+
+function runInteractive()
+{
+	if [[ -z "${2}" ]]
+	then
+		executeRectorInteractive "${1}" --help
+	else
+		executeRectorInteractive "${@}"
+	fi
+}
+
+workingDirectory="$( dirname "${0}" )"
+
+case "${1}" in
+	"-d" | "--dry-run" )
+		runDry "${workingDirectory}"
+		;;
+	"-c" | "--do-changes" )
+		doChanges "${workingDirectory}"
+		;;
+	"-i" | "--interactive" )
+		runInteractive "${workingDirectory}" "${@:2}"
+		;;
+	"-h" | "--help" | * )
+		echo "Options:"
+		echo
+		echo -e "  -d, --dry-run\t\t[default] Shows a diff of changes rector would do."
+		echo -e "  -c, --do-changes\tPerforms all changes automatically."
+		echo -e "  -i, --interactive\tRuns rector interactively."
+		echo -e "  -h, --help\t\tShows the help."
+		;;
+esac
