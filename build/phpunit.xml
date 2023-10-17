@@ -1,23 +1,24 @@
+<?xml version="1.0"?>
 <phpunit
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
 	bootstrap="../tests/bootstrap.php"
-	verbose="true"
 	beStrictAboutOutputDuringTests="true"
 	colors="true"
-	convertErrorsToExceptions="true"
-	convertNoticesToExceptions="true"
-	convertWarningsToExceptions="true"
 	cacheResult="false">
 	<testsuites>
 		<testsuite name="codekandis/phlags">
-			<directory suffix="Test.php">../tests/UnitTests</directory>
+			<directory>../tests/UnitTests</directory>
 		</testsuite>
 	</testsuites>
-	<filter>
-		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">../src</directory>
-		</whitelist>
-	</filter>
-	<logging>
-		<log type="coverage-text" target="php://stdout" showUncoveredFiles="true" showOnlySummary="false"/>
-	</logging>
+	<source>
+		<include>
+			<directory>../src</directory>
+		</include>
+	</source>
+	<coverage>
+		<report>
+			<text outputFile="php://stdout" showUncoveredFiles="true"/>
+		</report>
+	</coverage>
 </phpunit>
