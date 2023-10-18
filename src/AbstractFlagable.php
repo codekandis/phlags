@@ -45,7 +45,11 @@ abstract class AbstractFlagable implements FlagableInterface
 	{
 		static::initializeReflectedFlags();
 		static::validateFlagable();
-		static::getFlagableState()->setValueValidator( new ValueValidator() );
+		static
+			::getFlagableState()
+			->setValueValidator(
+				new ValueValidator()
+			);
 		$this->set( $value );
 	}
 
@@ -55,7 +59,8 @@ abstract class AbstractFlagable implements FlagableInterface
 	 */
 	private static function getFlagableState(): FlagableStateInterface
 	{
-		return static::$flagableStates[ static::class ] ?? static::$flagableStates[ static::class ] = new FlagableState();
+		return static::$flagableStates[ static::class ]
+			   ?? static::$flagableStates[ static::class ] = new FlagableState();
 	}
 
 	/**
@@ -151,10 +156,12 @@ abstract class AbstractFlagable implements FlagableInterface
 	 */
 	private static function initializeReflectedFlags(): void
 	{
-		static::getFlagableState()->setReflectedFlags(
-			( new ReflectionClass( static::class ) )
-				->getConstants()
-		);
+		static
+			::getFlagableState()
+			->setReflectedFlags(
+				( new ReflectionClass( static::class ) )
+					->getConstants()
+			);
 	}
 
 	/**
@@ -185,10 +192,13 @@ abstract class AbstractFlagable implements FlagableInterface
 					...$validator->getErrorMessages()
 				);
 			$flagableState->setValidationException( $validationException );
+
 			throw $validationException;
 		}
 
-		$flagableState->setMaximumValue( $validator->getMaximumValue() );
+		$flagableState->setMaximumValue(
+			$validator->getMaximumValue()
+		);
 	}
 
 	/**
@@ -198,8 +208,20 @@ abstract class AbstractFlagable implements FlagableInterface
 	 */
 	private function validateValue( int|string|FlagableInterface $value ): void
 	{
-		$valueValidator = static::getFlagableState()->getValueValidator();
-		$valueValidator->validate( $this, static::getFlagableState()->getReflectedFlags(), static::getFlagableState()->getMaximumValue(), $value );
+		$valueValidator = static
+			::getFlagableState()
+			->getValueValidator();
+		$valueValidator->validate(
+			$this,
+			static
+				::getFlagableState()
+				->getReflectedFlags(),
+			static
+				::getFlagableState()
+				->getMaximumValue(),
+			$value
+		);
+
 		if ( false === $valueValidator->succeeded() )
 		{
 			throw InvalidValueException
@@ -232,7 +254,9 @@ abstract class AbstractFlagable implements FlagableInterface
 			{
 				if ( false === ctype_digit( $explodedValue ) )
 				{
-					$extractedValue |= static::getFlagableState()->getReflectedFlags()[ $explodedValue ];
+					$extractedValue |= static
+										   ::getFlagableState()
+										   ->getReflectedFlags()[ $explodedValue ];
 					continue;
 				}
 				$extractedValue |= (int) $explodedValue;
@@ -241,7 +265,8 @@ abstract class AbstractFlagable implements FlagableInterface
 			$returnValue = $extractedValue;
 		}
 
-		return $returnValue ?? $value->getValue();
+		return $returnValue
+			   ?? $value->getValue();
 	}
 
 	/**
@@ -289,7 +314,9 @@ abstract class AbstractFlagable implements FlagableInterface
 	{
 		$this->validateValue( $value );
 
-		return $this->unvalidatedHas( $this->getExtractedValue( $value ) );
+		return $this->unvalidatedHas(
+			$this->getExtractedValue( $value )
+		);
 	}
 
 	/**
@@ -299,7 +326,9 @@ abstract class AbstractFlagable implements FlagableInterface
 	final public function set( int|string|FlagableInterface $value ): static
 	{
 		$this->validateValue( $value );
-		$this->unvalidatedSet( $this->getExtractedValue( $value ) );
+		$this->unvalidatedSet(
+			$this->getExtractedValue( $value )
+		);
 
 		return $this;
 	}
@@ -311,7 +340,9 @@ abstract class AbstractFlagable implements FlagableInterface
 	final public function unset( int|string|FlagableInterface $value ): static
 	{
 		$this->validateValue( $value );
-		$this->unvalidatedUnset( $this->getExtractedValue( $value ) );
+		$this->unvalidatedUnset(
+			$this->getExtractedValue( $value )
+		);
 
 		return $this;
 	}
@@ -323,7 +354,9 @@ abstract class AbstractFlagable implements FlagableInterface
 	final public function switch( int|string|FlagableInterface $value ): static
 	{
 		$this->validateValue( $value );
-		$this->unvalidatedSwitch( $this->getExtractedValue( $value ) );
+		$this->unvalidatedSwitch(
+			$this->getExtractedValue( $value )
+		);
 
 		return $this;
 	}
