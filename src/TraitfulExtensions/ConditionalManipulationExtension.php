@@ -1,6 +1,8 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags\TraitfulExtensions;
 
+use CodeKandis\Phlags\FlagableInterface;
+
 /**
  * Represents a traitful extension to manipulate a flagable while a passed condition is true.
  * @package codekandis/phlags
@@ -11,7 +13,7 @@ trait ConditionalManipulationExtension
 	/**
 	 * @see ConditionalManipulationInterface::ifSet()
 	 */
-	public function ifSet( $value, bool $condition ): static
+	public function ifSet( int|string|FlagableInterface $value, bool $condition ): static
 	{
 		if ( true === $condition )
 		{
@@ -24,7 +26,7 @@ trait ConditionalManipulationExtension
 	/**
 	 * @see ConditionalManipulationInterface::ifUnset()
 	 */
-	public function ifUnset( $value, bool $condition ): static
+	public function ifUnset( int|string|FlagableInterface $value, bool $condition ): static
 	{
 		if ( true === $condition )
 		{
@@ -37,7 +39,7 @@ trait ConditionalManipulationExtension
 	/**
 	 * @see ConditionalManipulationInterface::ifSwitch()
 	 */
-	public function ifSwitch( $value, bool $condition ): static
+	public function ifSwitch( int|string|FlagableInterface $value, bool $condition ): static
 	{
 		if ( true === $condition )
 		{

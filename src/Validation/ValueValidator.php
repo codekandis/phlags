@@ -20,7 +20,7 @@ class ValueValidator extends AbstractValidator implements ValueValidatorInterfac
 	/**
 	 * {@inheritdoc}
 	 */
-	public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maxValue, $value ): void
+	public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maxValue, mixed $value ): void
 	{
 		$this->errorMessages = [];
 

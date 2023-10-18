@@ -39,7 +39,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	 * @throws InvalidFlagableException The flagable is invalid.
 	 * @throws InvalidValueException The value is invalid.
 	 */
-	final public function __construct( $value = self::NONE )
+	final public function __construct( int|string|FlagableInterface $value = self::NONE )
 	{
 		static::initializeReflectedFlags();
 		static::validateFlagable();
@@ -72,7 +72,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	 * @return mixed The value of the undefined member.
 	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
 	 */
-	final public function __get( string $memberName )
+	final public function __get( string $memberName ): mixed
 	{
 		throw new UnsupportedOperationException( 'Accessing undefined members is not supported.' );
 	}
@@ -83,7 +83,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	 * @param mixed $value The value to set.
 	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
 	 */
-	final public function __set( string $memberName, $value ): void
+	final public function __set( string $memberName, mixed $value ): void
 	{
 		throw new UnsupportedOperationException( 'Accessing undefined members is not supported.' );
 	}
@@ -95,7 +95,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	 * @return mixed The return value of the undefined method.
 	 * @throws UnsupportedOperationException Accessing undefined methods is not supported.
 	 */
-	final public function __call( string $methodName, array $arguments )
+	final public function __call( string $methodName, array $arguments ): mixed
 	{
 		throw new UnsupportedOperationException( 'Accessing undefined methods is not supported.' );
 	}
@@ -107,7 +107,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	 * @return mixed The return value of the undefined static method.
 	 * @throws UnsupportedOperationException Accessing undefined methods is not supported.
 	 */
-	final public static function __callStatic( string $methodName, array $arguments )
+	final public static function __callStatic( string $methodName, array $arguments ): mixed
 	{
 		throw new UnsupportedOperationException( 'Accessing undefined methods is not supported.' );
 	}
@@ -139,7 +139,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	final public function __invoke()
+	final public function __invoke(): int
 	{
 		return $this->getValue();
 	}
@@ -195,7 +195,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	 * @param int|string|FlagableInterface $value The value to validate.
 	 * @throws InvalidValueException The value is invalid.
 	 */
-	private function validateValue( $value ): void
+	private function validateValue( int|string|FlagableInterface $value ): void
 	{
 		/**
 		 * @var ValueValidatorInterface $valueValidator
@@ -214,7 +214,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	 * @param mixed $value The value to extract.
 	 * @return int The extracted value.
 	 */
-	private function getExtractedValue( $value ): int
+	private function getExtractedValue( mixed $value ): int
 	{
 		$returnValue = null;
 
@@ -285,7 +285,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	final public function has( $value ): bool
+	final public function has( int|string|FlagableInterface $value ): bool
 	{
 		$this->validateValue( $value );
 
@@ -295,7 +295,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	final public function set( $value ): static
+	final public function set( int|string|FlagableInterface $value ): static
 	{
 		$this->validateValue( $value );
 		$this->unvalidatedSet( $this->getExtractedValue( $value ) );
@@ -306,7 +306,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	final public function unset( $value ): static
+	final public function unset( int|string|FlagableInterface $value ): static
 	{
 		$this->validateValue( $value );
 		$this->unvalidatedUnset( $this->getExtractedValue( $value ) );
@@ -317,7 +317,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	final public function switch( $value ): static
+	final public function switch( int|string|FlagableInterface $value ): static
 	{
 		$this->validateValue( $value );
 		$this->unvalidatedSwitch( $this->getExtractedValue( $value ) );

@@ -16,7 +16,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * Stores the default flag.
 	 * @var int
 	 */
-	public const NONE = 0;
+	public const int NONE = 0;
 
 	/**
 	 * Gets the string representation of the current value.
@@ -28,7 +28,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * Gets the current value of the flagable.
 	 * @return int The current value of the flagable.
 	 */
-	public function __invoke();
+	public function __invoke(): int;
 
 	/**
 	 * Gets the current value of the flagable.
@@ -42,7 +42,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * @return bool True if the value has been set, false otherwise.
 	 * @throws InvalidValueException The flag to check is invalid.
 	 */
-	public function has( $value ): bool;
+	public function has( int|string|FlagableInterface $value ): bool;
 
 	/**
 	 * Sets a flag.
@@ -50,7 +50,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * @return self The flagable.
 	 * @throws InvalidValueException The flag to set is invalid.
 	 */
-	public function set( $value ): static;
+	public function set( int|string|FlagableInterface $value ): static;
 
 	/**
 	 * Unsets a flag.
@@ -58,7 +58,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * @return self The flagable.
 	 * @throws InvalidValueException The flag to unset is invalid.
 	 */
-	public function unset( $value ): static;
+	public function unset( int|string|FlagableInterface $value ): static;
 
 	/**
 	 * Switches a flag.
@@ -66,7 +66,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * @return self The flagable.
 	 * @throws InvalidValueException The flag to switch is invalid.
 	 */
-	public function switch( $value ): static;
+	public function switch( int|string|FlagableInterface $value ): static;
 
 	/**
 	 * {@inheritdoc}

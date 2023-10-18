@@ -11,7 +11,7 @@ interface ConditionalManipulationInterface
 	 * @param bool $condition The condition defining if the flag can be set.
 	 * @return self The flagable.
 	 */
-	public function ifSet( $value, bool $condition ): static;
+	public function ifSet( int|string|FlagableInterface $value, bool $condition ): static;
 
 	/**
 	 * Unsets a flag if the passed condition is true.
@@ -19,7 +19,7 @@ interface ConditionalManipulationInterface
 	 * @param bool $condition The condition defining if the flag can be unset.
 	 * @return self The flagable.
 	 */
-	public function ifUnset( $value, bool $condition ): static;
+	public function ifUnset( int|string|FlagableInterface $value, bool $condition ): static;
 
 	/**
 	 * Switches a flag if the passed condition is true.
@@ -27,5 +27,5 @@ interface ConditionalManipulationInterface
 	 * @param bool $condition The condition defining if the flag can be switched.
 	 * @return self The flagable.
 	 */
-	public function ifSwitch( $value, bool $condition ): static;
+	public function ifSwitch( int|string|FlagableInterface $value, bool $condition ): static;
 }
