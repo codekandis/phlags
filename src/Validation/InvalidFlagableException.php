@@ -1,40 +1,34 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags\Validation;
 
-use CodeKandis\Phlags\Exceptions\ErrorMessagesExceptionInterface;
-use Override;
-use RuntimeException;
+use CodeKandis\Phlags\ContectualErrorMessagesExceptionTrait;
+use CodeKandis\Types\RuntimeException;
+use function sprintf;
 
 /**
  * Represents an exception if the validation of the flagable has been failed.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
-class InvalidFlagableException extends RuntimeException implements ErrorMessagesExceptionInterface
+class InvalidFlagableException extends RuntimeException implements InvalidFlagableExceptionInterface
 {
-	/**
-	 * Stores the error messages of the exception.
-	 * @var string[]
-	 */
-	private array $errorMessages = [];
+	use ContectualErrorMessagesExceptionTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * Represents the exception message if a flagable is invalid.
+	 * @var string
 	 */
-	#[Override]
-	public function getErrorMessages(): array
+	public const string EXCEPTION_MESSAGE_INVALID_FLAGABLE = 'The flagable `%s` is invalid.';
+
+	/**
+	 * Static constructor method.
+	 * @param string $invalidFlagableClassName The class name of the invalid flagable.
+	 * @return static
+	 */
+	public static function with_invalidFlagableClassName( string $invalidFlagableClassName ): static
 	{
-		return $this->errorMessages;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	#[Override]
-	public function withErrorMessages( array $errorMessages ): static
-	{
-		$this->errorMessages = $errorMessages;
-
-		return $this;
+		return new static(
+			sprintf( static::EXCEPTION_MESSAGE_INVALID_FLAGABLE, $invalidFlagableClassName )
+		);
 	}
 }

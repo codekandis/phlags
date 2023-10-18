@@ -1,12 +1,15 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags;
 
-use CodeKandis\Phlags\Exceptions\UnsupportedOperationException;
 use CodeKandis\Phlags\Validation\FlagableValidator;
 use CodeKandis\Phlags\Validation\InvalidFlagableException;
+use CodeKandis\Phlags\Validation\InvalidFlagableExceptionInterface;
 use CodeKandis\Phlags\Validation\InvalidValueException;
+use CodeKandis\Phlags\Validation\InvalidValueExceptionInterface;
 use CodeKandis\Phlags\Validation\ValueValidator;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
+use CodeKandis\Types\MethodNotFoundException;
+use CodeKandis\Types\PropertyNotFoundException;
 use Override;
 use ReflectionClass;
 use Traversable;
@@ -38,8 +41,8 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Constructor method.
 	 * @param int|string|FlagableInterface $value The initial value of the flagable.
-	 * @throws InvalidFlagableException The flagable is invalid.
-	 * @throws InvalidValueException The value is invalid.
+	 * @throws InvalidFlagableExceptionInterface The flagable is invalid.
+	 * @throws InvalidValueExceptionInterface The value is invalid.
 	 */
 	final public function __construct( int|string|FlagableInterface $value = self::NONE )
 	{
@@ -64,7 +67,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	#[Override]
 	final public function __unset( string $memberName ): void
 	{
-		throw new UnsupportedOperationException( 'Accessing undefined members is not supported.' );
+		throw PropertyNotFoundException::with_classNameAndPropertyName( static::class, $memberName );
 	}
 
 	/**
@@ -73,7 +76,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	#[Override]
 	final public function __get( string $memberName ): mixed
 	{
-		throw new UnsupportedOperationException( 'Accessing undefined members is not supported.' );
+		throw PropertyNotFoundException::with_classNameAndPropertyName( static::class, $memberName );
 	}
 
 	/**
@@ -82,7 +85,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	#[Override]
 	final public function __set( string $memberName, mixed $value ): void
 	{
-		throw new UnsupportedOperationException( 'Accessing undefined members is not supported.' );
+		throw PropertyNotFoundException::with_classNameAndPropertyName( static::class, $memberName );
 	}
 
 	/**
@@ -91,7 +94,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	#[Override]
 	final public function __call( string $methodName, array $arguments ): mixed
 	{
-		throw new UnsupportedOperationException( 'Accessing undefined methods is not supported.' );
+		throw MethodNotFoundException::with_classNameAndMethodName( static::class, $methodName );
 	}
 
 	/**
@@ -100,7 +103,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	#[Override]
 	final public static function __callStatic( string $methodName, array $arguments ): mixed
 	{
-		throw new UnsupportedOperationException( 'Accessing undefined methods is not supported.' );
+		throw MethodNotFoundException::with_classNameAndMethodName( static::class, $methodName );
 	}
 
 	/**
@@ -159,35 +162,45 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * Validates the flagable.
-	 * @throws InvalidFlagableException The flagable is invalid.
+	 * @throws InvalidFlagableExceptionInterface The flagable is invalid.
 	 */
 	private static function validateFlagable(): void
 	{
 		$flagableState = static::getFlagableState();
+
 		if ( true === $flagableState->getHasBeenValidated() && null !== $flagableState->getValidationException() )
 		{
 			throw $flagableState->getValidationException();
 		}
+
 		$flagableState->setHasBeenValidated( true );
 		$validator = new FlagableValidator();
-		$validator->validate( static::class, $flagableState->getReflectedFlags() );
+		$validator->validate(
+			static::class,
+			$flagableState->getReflectedFlags()
+		);
+
 		if ( false === $validator->succeeded() )
 		{
 			/**
-			 * @var InvalidFlagableException $validationException
+			 * @var InvalidFlagableExceptionInterface $validationException
 			 */
-			$validationException = ( new InvalidFlagableException( 'Invalid flagable.' ) )
-				->withErrorMessages( $validator->getErrorMessages() );
+			$validationException = InvalidFlagableException
+				::with_invalidFlagableClassName( static::class )
+				->setContextErrorMessages(
+					...$validator->getErrorMessages()
+				);
 			$flagableState->setValidationException( $validationException );
 			throw $validationException;
 		}
+
 		$flagableState->setMaxValue( $validator->getMaxValue() );
 	}
 
 	/**
 	 * Validates a value.
 	 * @param int|string|FlagableInterface $value The value to validate.
-	 * @throws InvalidValueException The value is invalid.
+	 * @throws InvalidValueExceptionInterface The value is invalid.
 	 */
 	private function validateValue( int|string|FlagableInterface $value ): void
 	{
@@ -198,8 +211,11 @@ abstract class AbstractFlagable implements FlagableInterface
 		$valueValidator->validate( $this, static::getFlagableState()->getReflectedFlags(), static::getFlagableState()->getMaxValue(), $value );
 		if ( false === $valueValidator->succeeded() )
 		{
-			throw ( new InvalidValueException( 'Invalid value.' ) )
-				->withErrorMessages( $valueValidator->getErrorMessages() );
+			throw InvalidValueException
+				::with_invalidValue( $value )
+				->setContextErrorMessages(
+					...$valueValidator->getErrorMessages()
+				);
 		}
 	}
 

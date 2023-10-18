@@ -1,7 +1,7 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags;
 
-use CodeKandis\Phlags\Validation\InvalidFlagableException;
+use CodeKandis\Phlags\Validation\InvalidFlagableExceptionInterface;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
 use Override;
 use function asort;
@@ -21,9 +21,9 @@ class FlagableState implements FlagableStateInterface
 
 	/**
 	 * Stores the thrown exception of the validation of the flagable.
-	 * @var ?InvalidFlagableException
+	 * @var ?InvalidFlagableExceptionInterface
 	 */
-	private ?InvalidFlagableException $validationException = null;
+	private ?InvalidFlagableExceptionInterface $validationException = null;
 
 	/**
 	 * Stores the reflected flags of the flagable.
@@ -65,7 +65,7 @@ class FlagableState implements FlagableStateInterface
 	 * {@inheritdoc}
 	 */
 	#[Override]
-	public function getValidationException(): ?InvalidFlagableException
+	public function getValidationException(): ?InvalidFlagableExceptionInterface
 	{
 		return $this->validationException;
 	}
@@ -74,7 +74,7 @@ class FlagableState implements FlagableStateInterface
 	 * {@inheritdoc}
 	 */
 	#[Override]
-	public function setValidationException( ?InvalidFlagableException $validationException ): void
+	public function setValidationException( ?InvalidFlagableExceptionInterface $validationException ): void
 	{
 		$this->validationException = $validationException;
 	}

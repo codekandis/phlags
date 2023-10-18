@@ -1,7 +1,7 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags;
 
-use CodeKandis\Phlags\Validation\InvalidFlagableException;
+use CodeKandis\Phlags\Validation\InvalidFlagableExceptionInterface;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
 
 /**
@@ -25,15 +25,15 @@ interface FlagableStateInterface
 
 	/**
 	 * Gets the thrown exception of the validation of the flagable.
-	 * @return ?InvalidFlagableException The thrown exception of the validation of the flagable.
+	 * @return ?InvalidFlagableExceptionInterface The thrown exception of the validation of the flagable.
 	 */
-	public function getValidationException(): ?InvalidFlagableException;
+	public function getValidationException(): ?InvalidFlagableExceptionInterface;
 
 	/**
 	 * Sets the thrown exception of the validation of the flagable.
-	 * @param ?InvalidFlagableException $validationException The thrown exception of the validation of the flagable.
+	 * @param ?InvalidFlagableExceptionInterface $validationException The thrown exception of the validation of the flagable.
 	 */
-	public function setValidationException( ?InvalidFlagableException $validationException ): void;
+	public function setValidationException( ?InvalidFlagableExceptionInterface $validationException ): void;
 
 	/**
 	 * Gets the reflected flags of the flagable.

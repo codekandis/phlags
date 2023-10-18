@@ -1,8 +1,9 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags;
 
-use CodeKandis\Phlags\Exceptions\UnsupportedOperationException;
-use CodeKandis\Phlags\Validation\InvalidValueException;
+use CodeKandis\Phlags\Validation\InvalidValueExceptionInterface;
+use CodeKandis\Types\MethodNotFoundExceptionInterface;
+use CodeKandis\Types\PropertyNotFoundExceptionInterface;
 use IteratorAggregate;
 use Traversable;
 
@@ -22,7 +23,7 @@ interface FlagableInterface extends IteratorAggregate
 	/**
 	 * Unsets an undefined member.
 	 * @param string $memberName The name of the undefined member.
-	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
+	 * @throws PropertyNotFoundExceptionInterface The access of an undefined member is not supported.
 	 */
 	public function __unset( string $memberName ): void;
 
@@ -30,7 +31,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * Gets an undefined member.
 	 * @param string $memberName The name of the undefined member.
 	 * @return mixed The value of the undefined member.
-	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
+	 * @throws PropertyNotFoundExceptionInterface The access of an undefined member is not supported.
 	 */
 	public function __get( string $memberName ): mixed;
 
@@ -38,7 +39,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * Sets an undefined member.
 	 * @param string $memberName The name of the undefined member.
 	 * @param mixed $value The value to set.
-	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
+	 * @throws PropertyNotFoundExceptionInterface The access of an undefined member is not supported.
 	 */
 	public function __set( string $memberName, mixed $value ): void;
 
@@ -47,7 +48,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * @param string $methodName The name of the undefined method.
 	 * @param array $arguments The passed arguments.
 	 * @return mixed The return value of the undefined method.
-	 * @throws UnsupportedOperationException Accessing undefined methods is not supported.
+	 * @throws MethodNotFoundExceptionInterface The access of an undefined method is not supported.
 	 */
 	public function __call( string $methodName, array $arguments ): mixed;
 
@@ -56,7 +57,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * @param string $methodName The name of the undefined static method.
 	 * @param array $arguments The passed arguments.
 	 * @return mixed The return value of the undefined static method.
-	 * @throws UnsupportedOperationException Accessing undefined methods is not supported.
+	 * @throws MethodNotFoundExceptionInterface The access of an undefined static method is not supported.
 	 */
 	public static function __callStatic( string $methodName, array $arguments ): mixed;
 
@@ -82,7 +83,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * Determines if a value has been set.
 	 * @param int|string|FlagableInterface $value The value to check if it has been set.
 	 * @return bool True if the value has been set, false otherwise.
-	 * @throws InvalidValueException The flag to check is invalid.
+	 * @throws InvalidValueExceptionInterface The flag to check is invalid.
 	 */
 	public function has( int|string|FlagableInterface $value ): bool;
 
@@ -90,7 +91,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * Sets a flag.
 	 * @param int|string|FlagableInterface $value The flag to set.
 	 * @return self The flagable.
-	 * @throws InvalidValueException The flag to set is invalid.
+	 * @throws InvalidValueExceptionInterface The flag to set is invalid.
 	 */
 	public function set( int|string|FlagableInterface $value ): static;
 
@@ -98,7 +99,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * Unsets a flag.
 	 * @param int|string|FlagableInterface $value The flag to unset.
 	 * @return self The flagable.
-	 * @throws InvalidValueException The flag to unset is invalid.
+	 * @throws InvalidValueExceptionInterface The flag to unset is invalid.
 	 */
 	public function unset( int|string|FlagableInterface $value ): static;
 
@@ -106,7 +107,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * Switches a flag.
 	 * @param int|string|FlagableInterface $value The flag to switch.
 	 * @return self The flagable.
-	 * @throws InvalidValueException The flag to switch is invalid.
+	 * @throws InvalidValueExceptionInterface The flag to switch is invalid.
 	 */
 	public function switch( int|string|FlagableInterface $value ): static;
 
