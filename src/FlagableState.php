@@ -15,13 +15,11 @@ class FlagableState implements FlagableStateInterface
 {
 	/**
 	 * Stores if the flagable has been validated.
-	 * @var bool
 	 */
 	private bool $hasBeenValidated = false;
 
 	/**
 	 * Stores the thrown exception of the validation of the flagable.
-	 * @var ?InvalidFlagableExceptionInterface
 	 */
 	private ?InvalidFlagableExceptionInterface $validationException = null;
 
@@ -33,18 +31,16 @@ class FlagableState implements FlagableStateInterface
 
 	/**
 	 * Stores the maximum flag value of the flagable.
-	 * @var ?int
 	 */
 	private ?int $maximumValue = FlagableInterface::NONE;
 
 	/**
 	 * Stores the value validator of the flagable.
-	 * @var ?ValueValidatorInterface
 	 */
 	private ?ValueValidatorInterface $valueValidator = null;
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function getHasBeenValidated(): bool
@@ -53,7 +49,7 @@ class FlagableState implements FlagableStateInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function setHasBeenValidated( bool $hasBeenValidated ): void
@@ -62,7 +58,7 @@ class FlagableState implements FlagableStateInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function getValidationException(): ?InvalidFlagableExceptionInterface
@@ -71,7 +67,7 @@ class FlagableState implements FlagableStateInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function setValidationException( ?InvalidFlagableExceptionInterface $validationException ): void
@@ -80,7 +76,7 @@ class FlagableState implements FlagableStateInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function getReflectedFlags(): ?array
@@ -89,7 +85,7 @@ class FlagableState implements FlagableStateInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function setReflectedFlags( ?array $reflectedFlags ): void
@@ -102,7 +98,7 @@ class FlagableState implements FlagableStateInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function getMaximumValue(): ?int
@@ -111,7 +107,7 @@ class FlagableState implements FlagableStateInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function setMaximumValue( ?int $maximumValue ): void
@@ -120,7 +116,7 @@ class FlagableState implements FlagableStateInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function getValueValidator(): ?ValueValidatorInterface
@@ -129,7 +125,7 @@ class FlagableState implements FlagableStateInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function setValueValidator( ?ValueValidatorInterface $valueValidator ): void

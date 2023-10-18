@@ -14,19 +14,16 @@ class UnsupportedOperationException extends LogicException implements Unsupporte
 {
 	/**
 	 * Represents the exception message if an attempt to access an undefined member has been made.
-	 * @var string
 	 */
 	public const string EXCEPTION_MESSAGE_ACCESSING_UNDEFINED_MEMBER = 'The access of the undefined member `%s::%s` is not supported.';
 
 	/**
 	 * Represents the exception message if an attempt to access an undefined method has been made.
-	 * @var string
 	 */
 	public const string EXCEPTION_MESSAGE_ACCESSING_UNDEFINED_METHOD = 'The access of the undefined method `%s::%s()` is not supported.';
 
 	/**
 	 * Represents the exception message if an attempt to access an undefined static method has been made.
-	 * @var string
 	 */
 	public const string EXCEPTION_MESSAGE_ACCESSING_UNDEFINED_STATIC_METHOD = 'The access of the undefined static method `%s::%s()` is not supported.';
 

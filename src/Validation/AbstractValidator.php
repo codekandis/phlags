@@ -17,7 +17,7 @@ abstract class AbstractValidator implements ValidatorInterface
 	protected array $errorMessages = [];
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function getErrorMessages(): array
@@ -26,7 +26,7 @@ abstract class AbstractValidator implements ValidatorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function succeeded(): bool

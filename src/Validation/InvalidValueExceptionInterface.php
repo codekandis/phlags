@@ -14,7 +14,6 @@ interface InvalidValueExceptionInterface extends ContextualErrorMessagesExceptio
 	/**
 	 * Static constructor method.
 	 * @param int|string|FlagableInterface $invalidValue The invalid value.
-	 * @return static
 	 */
 	public static function with_invalidValue( int|string|FlagableInterface $invalidValue ): static;
 }

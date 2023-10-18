@@ -15,12 +15,11 @@ class InvalidValueException extends RuntimeException implements InvalidValueExce
 {
 	/**
 	 * Represents the exception message if a value is invalid.
-	 * @var string
 	 */
 	public const string EXCEPTION_MESSAGE_VALUE_IS_INVALID = 'The value `%s` is invalid.';
 
 	/**
-	 * Stores the error messages of the exception.
+	 * Stores the context error messages of the exception.
 	 * @var string[]
 	 */
 	private array $contextErrorMessages = [];
@@ -37,7 +36,7 @@ class InvalidValueException extends RuntimeException implements InvalidValueExce
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function getContextErrorMessages(): array
@@ -46,7 +45,7 @@ class InvalidValueException extends RuntimeException implements InvalidValueExce
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function setContextErrorMessages( string ...$contextErrorMessages ): static

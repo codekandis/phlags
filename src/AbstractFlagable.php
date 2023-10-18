@@ -7,7 +7,6 @@ use CodeKandis\Phlags\Validation\InvalidFlagableExceptionInterface;
 use CodeKandis\Phlags\Validation\InvalidValueException;
 use CodeKandis\Phlags\Validation\InvalidValueExceptionInterface;
 use CodeKandis\Phlags\Validation\ValueValidator;
-use CodeKandis\Phlags\Validation\ValueValidatorInterface;
 use Override;
 use ReflectionClass;
 use Traversable;
@@ -32,7 +31,6 @@ abstract class AbstractFlagable implements FlagableInterface
 
 	/**
 	 * Stores the current value of the flagable.
-	 * @var int
 	 */
 	private int $value = 0;
 
@@ -51,7 +49,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	}
 
 	/**
-	 * Gets the state of the flagble.
+	 * Gets the state of the flagable.
 	 * @return FlagableStateInterface The state of the flagable.
 	 */
 	private static function getFlagableState(): FlagableStateInterface
@@ -105,7 +103,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	final public function __toString(): string
@@ -130,7 +128,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	final public function __invoke(): int
@@ -139,7 +137,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	final public function getValue(): int
@@ -180,9 +178,6 @@ abstract class AbstractFlagable implements FlagableInterface
 
 		if ( false === $validator->succeeded() )
 		{
-			/**
-			 * @var InvalidFlagableExceptionInterface $validationException
-			 */
 			$validationException = InvalidFlagableException
 				::with_invalidFlagableClassName( static::class )
 				->setContextErrorMessages(
@@ -202,9 +197,6 @@ abstract class AbstractFlagable implements FlagableInterface
 	 */
 	private function validateValue( int|string|FlagableInterface $value ): void
 	{
-		/**
-		 * @var ValueValidatorInterface $valueValidator
-		 */
 		$valueValidator = static::getFlagableState()->getValueValidator();
 		$valueValidator->validate( $this, static::getFlagableState()->getReflectedFlags(), static::getFlagableState()->getMaximumValue(), $value );
 		if ( false === $valueValidator->succeeded() )
@@ -234,9 +226,7 @@ abstract class AbstractFlagable implements FlagableInterface
 		if ( true === is_string( $value ) )
 		{
 			$extractedValue = static::NONE;
-			/**
-			 * @var string $explodedValue
-			 */
+
 			foreach ( explode( '|', $value ) as $explodedValue )
 			{
 				if ( false === ctype_digit( $explodedValue ) )
@@ -256,7 +246,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * Determines if a value has been set.
 	 * @param int $value The value to check if it has been set.
-	 * @return bool True if the value has been set, false otherwise.
+	 * @return bool True if the value has been set, otherwise false.
 	 */
 	private function unvalidatedHas( int $value ): bool
 	{
@@ -291,7 +281,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	final public function has( int|string|FlagableInterface $value ): bool
@@ -302,7 +292,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	final public function set( int|string|FlagableInterface $value ): static
@@ -314,7 +304,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	final public function unset( int|string|FlagableInterface $value ): static
@@ -326,7 +316,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	final public function switch( int|string|FlagableInterface $value ): static
@@ -338,7 +328,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	final public function getIterator(): Traversable

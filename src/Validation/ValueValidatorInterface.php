@@ -4,7 +4,7 @@ namespace CodeKandis\Phlags\Validation;
 use CodeKandis\Phlags\FlagableInterface;
 
 /**
- * Represents the interface of all validators validating if a value is a valid flag.
+ * Represents the interface of any validator validating if a value is a valid flag.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */

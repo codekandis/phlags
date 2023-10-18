@@ -13,7 +13,6 @@ interface InvalidFlagableExceptionInterface extends ContextualErrorMessagesExcep
 	/**
 	 * Static constructor method.
 	 * @param string $invalidFlagableClassName The class name of the invalid flagable.
-	 * @return static
 	 */
 	public static function with_invalidFlagableClassName( string $invalidFlagableClassName ): static;
 }

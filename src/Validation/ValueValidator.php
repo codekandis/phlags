@@ -12,7 +12,7 @@ use function is_string;
 use function sprintf;
 
 /**
- * Represents the validator of all flagables.
+ * Represents the validator of any value.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
@@ -20,30 +20,26 @@ class ValueValidator extends AbstractValidator implements ValueValidatorInterfac
 {
 	/**
 	 * Represents the error message if the type of a value is invalid.
-	 * @var string
 	 */
 	public const string ERROR_MESSAGE_INVALID_VALUE_TYPE = 'The type of the value `%s` is invalid. Unsigned `int`, `string` or instance of `%s` expected.';
 
 	/**
 	 * Represents the error message if the type of a stringified value is invalid.
-	 * @var string
 	 */
 	public const string ERROR_MESSAGE_INVALID_STRINGIFIED_VALUE_TYPE = 'The type of the stringified value `%s` is invalid. Unsigned `int` or flag name of flagable `%s` expected.';
 
 	/**
 	 * Represents the error message if a value cannot be resolved to a flag value.
-	 * @var string
 	 */
 	public const string ERROR_MESSAGE_UNRESOLVABLE_VALUE = 'The value `%s` cannot be resolved to a flag value.';
 
 	/**
 	 * Represents the error message if a value exceeds a maximum flag value.
-	 * @var string
 	 */
 	public const string ERROR_MESSAGE_VALUE_EXEEDS_MAXIMUM_FLAG_VALUE = 'The value `%s` exceeds the maximum flag value of `%s`.';
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maximumValue, mixed $value ): void
@@ -64,9 +60,6 @@ class ValueValidator extends AbstractValidator implements ValueValidatorInterfac
 
 			if ( true === $isString )
 			{
-				/**
-				 * @var string $explodedValue
-				 */
 				foreach ( explode( '|', $value ) as $explodedValue )
 				{
 					if ( false === ctype_digit( $explodedValue ) )
