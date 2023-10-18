@@ -8,6 +8,7 @@ use CodeKandis\Phlags\Validation\InvalidValueException;
 use CodeKandis\Phlags\Validation\ValueValidator;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
 use ReflectionClass;
+use Traversable;
 use function explode;
 use function implode;
 use function is_int;
@@ -294,7 +295,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	final public function set( $value ): FlagableInterface
+	final public function set( $value ): static
 	{
 		$this->validateValue( $value );
 		$this->unvalidatedSet( $this->getExtractedValue( $value ) );
@@ -305,7 +306,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	final public function unset( $value ): FlagableInterface
+	final public function unset( $value ): static
 	{
 		$this->validateValue( $value );
 		$this->unvalidatedUnset( $this->getExtractedValue( $value ) );
@@ -316,7 +317,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	final public function switch( $value ): FlagableInterface
+	final public function switch( $value ): static
 	{
 		$this->validateValue( $value );
 		$this->unvalidatedSwitch( $this->getExtractedValue( $value ) );
@@ -327,7 +328,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	final public function getIterator(): iterable
+	final public function getIterator(): Traversable
 	{
 		if ( static::NONE === $this->value )
 		{

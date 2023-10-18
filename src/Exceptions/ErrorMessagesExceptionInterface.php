@@ -19,5 +19,5 @@ interface ErrorMessagesExceptionInterface
 	 * @param string[] $errorMessages The error messages of the exception.
 	 * @return self The occured exception.
 	 */
-	public function withErrorMessages( array $errorMessages ): self;
+	public function withErrorMessages( array $errorMessages ): static;
 }
