@@ -95,6 +95,7 @@ class FlagableState extends BaseObject implements FlagableStateInterface
 		{
 			asort( $reflectedFlags );
 		}
+
 		$this->reflectedFlags = $reflectedFlags;
 	}
 

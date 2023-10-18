@@ -67,12 +67,14 @@ class ValueValidator extends AbstractValidator implements ValueValidatorInterfac
 						if ( true === is_numeric( $explodedValue ) )
 						{
 							$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_INVALID_STRINGIFIED_VALUE_TYPE, $explodedValue, $flagable::class );
+
 							continue;
 						}
 
 						if ( false === array_key_exists( $explodedValue, $reflectedFlags ) )
 						{
 							$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_UNRESOLVABLE_VALUE, $explodedValue );
+
 							continue;
 						}
 					}
