@@ -9,6 +9,7 @@ use CodeKandis\Phlags\Validation\ValueValidator;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
 use ReflectionClass;
 use Traversable;
+use function ctype_digit;
 use function explode;
 use function implode;
 use function is_int;

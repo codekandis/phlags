@@ -3,6 +3,7 @@ namespace CodeKandis\Phlags\Validation;
 
 use CodeKandis\Phlags\FlagableInterface;
 use function array_key_exists;
+use function ctype_digit;
 use function explode;
 use function get_class;
 use function is_int;
