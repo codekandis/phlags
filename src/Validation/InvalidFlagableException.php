@@ -16,7 +16,6 @@ class InvalidFlagableException extends RuntimeException implements InvalidFlagab
 
 	/**
 	 * Represents the exception message if a flagable is invalid.
-	 * @var string
 	 */
 	public const string EXCEPTION_MESSAGE_INVALID_FLAGABLE = 'The flagable `%s` is invalid.';
 

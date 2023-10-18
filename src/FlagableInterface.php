@@ -8,7 +8,7 @@ use IteratorAggregate;
 use Traversable;
 
 /**
- * Represents the interface of all flagable classes.
+ * Represents the interface of any flagable class.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
@@ -16,7 +16,6 @@ interface FlagableInterface extends IteratorAggregate
 {
 	/**
 	 * Stores the default flag.
-	 * @var int
 	 */
 	public const int NONE = 0;
 
@@ -82,7 +81,7 @@ interface FlagableInterface extends IteratorAggregate
 	/**
 	 * Determines if a value has been set.
 	 * @param int|string|FlagableInterface $value The value to check if it has been set.
-	 * @return bool True if the value has been set, false otherwise.
+	 * @return bool True if the value has been set, otherwise false.
 	 * @throws InvalidValueExceptionInterface The flag to check is invalid.
 	 */
 	public function has( int|string|FlagableInterface $value ): bool;
@@ -90,7 +89,7 @@ interface FlagableInterface extends IteratorAggregate
 	/**
 	 * Sets a flag.
 	 * @param int|string|FlagableInterface $value The flag to set.
-	 * @return self The flagable.
+	 * @return static
 	 * @throws InvalidValueExceptionInterface The flag to set is invalid.
 	 */
 	public function set( int|string|FlagableInterface $value ): static;
@@ -98,7 +97,7 @@ interface FlagableInterface extends IteratorAggregate
 	/**
 	 * Unsets a flag.
 	 * @param int|string|FlagableInterface $value The flag to unset.
-	 * @return self The flagable.
+	 * @return static
 	 * @throws InvalidValueExceptionInterface The flag to unset is invalid.
 	 */
 	public function unset( int|string|FlagableInterface $value ): static;
@@ -106,13 +105,13 @@ interface FlagableInterface extends IteratorAggregate
 	/**
 	 * Switches a flag.
 	 * @param int|string|FlagableInterface $value The flag to switch.
-	 * @return self The flagable.
+	 * @return static
 	 * @throws InvalidValueExceptionInterface The flag to switch is invalid.
 	 */
 	public function switch( int|string|FlagableInterface $value ): static;
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 * Generates a list of all flags set in the flagable, each as a new flagable.
 	 * @return iterable|FlagableInterface[] The list of all flags set in the flagable, each as a new flagable.
 	 */

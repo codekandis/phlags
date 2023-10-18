@@ -7,7 +7,7 @@ use function is_int;
 use function sprintf;
 
 /**
- * Represents the validator of all flagables.
+ * Represents the validator of any flagable.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
@@ -15,36 +15,31 @@ class FlagableValidator extends AbstractValidator implements FlagableValidatorIn
 {
 	/**
 	 * Represents the error message if a flag value is a duplicate.
-	 * @var string
 	 */
 	public const string ERROR_MESSAGE_DUPLICATE_FLAG = 'The flag value `%s` in the flag `%s::%s` is a duplicate.';
 
 	/**
 	 * Represents the error message if the type of a flag is invalid.
-	 * @var string
 	 */
 	public const string ERROR_MESSAGE_INVALID_TYPE = 'The type of the flag `%s::%s` is invalid. Unsigned `int` expected.';
 
 	/**
 	 * Represents the error message if a flag value is invalid.
-	 * @var string
 	 */
 	public const string ERROR_MESSAGE_INVALID_VALUE = 'The flag value `%s` in the flag `%s::%s` is invalid. A power of `2` expected.';
 
 	/**
-	 * Represents the error message if the flag value is missing.
-	 * @var string
+	 * Represents the error message if a flag value is missing.
 	 */
 	public const string ERROR_MESSAGE_MISSING_FLAG = 'The flag value `%s` is missing in the flagable `%s`.';
 
 	/**
 	 * Stores the maximum flag value of the flagable.
-	 * @var int
 	 */
 	private int $maximumValue = 0;
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function getMaximumValue(): int
@@ -53,7 +48,7 @@ class FlagableValidator extends AbstractValidator implements FlagableValidatorIn
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function validate( string $flagableClassName, array $reflectedFlags ): void

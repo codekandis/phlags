@@ -5,7 +5,7 @@ use CodeKandis\Phlags\Validation\InvalidFlagableExceptionInterface;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
 
 /**
- * Represents the interface of all flagable states.
+ * Represents the interface of any flagable state.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
@@ -13,13 +13,13 @@ interface FlagableStateInterface
 {
 	/**
 	 * Gets if the flagable has been validated.
-	 * @return bool True if the flagable has been validated, false otherwise.
+	 * @return bool True if the flagable has been validated, otherwise false.
 	 */
 	public function getHasBeenValidated(): bool;
 
 	/**
 	 * Sets if the flagable has been validated.
-	 * @param bool $hasBeenValidated True if the flagable has been validated, false otherwise.
+	 * @param bool $hasBeenValidated True if the flagable has been validated, otherwise false.
 	 */
 	public function setHasBeenValidated( bool $hasBeenValidated ): void;
 

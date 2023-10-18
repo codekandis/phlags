@@ -17,7 +17,7 @@ interface ContextualErrorMessagesExceptionInterface
 	/**
 	 * Sets the context error messages of the exception.
 	 * @param string[] $contextErrorMessages The context error messages of the exception.
-	 * @return $this
+	 * @return static
 	 */
 	public function setContextErrorMessages( string ...$contextErrorMessages ): static;
 }
