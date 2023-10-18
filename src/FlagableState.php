@@ -94,6 +94,7 @@ class FlagableState implements FlagableStateInterface
 		{
 			asort( $reflectedFlags );
 		}
+
 		$this->reflectedFlags = $reflectedFlags;
 	}
 
