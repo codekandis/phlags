@@ -15,7 +15,7 @@ interface ValueValidatorInterface extends ValidatorInterface
 	 * @param FlagableInterface $flagable The flagable the value has to be validated against.
 	 * @param <string,int>[] $reflectedFlags The reflected flags of the flagable.
 	 * @param int $maxValue The maximum value of the flagable.
-	 * @param int|string|FlagableInterface $value The value to validate.
+	 * @param mixed $value The value to validate.
 	 */
-	public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maxValue, $value ): void;
+	public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maxValue, mixed $value ): void;
 }
