@@ -17,7 +17,7 @@ interface FlagableValidatorInterface extends ValidatorInterface
 	/**
 	 * Validates the flagable.
 	 * @param string $flagableClassName The class name of the flagable to validate.
-	 * @param array $reflectedFlags The reflected flags of the flagable to validate.
+	 * @param <string,int>[] $reflectedFlags The reflected flags of the flagable to validate.
 	 */
 	public function validate( string $flagableClassName, array $reflectedFlags ): void;
 }

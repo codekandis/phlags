@@ -3,6 +3,7 @@ namespace CodeKandis\Phlags;
 
 use CodeKandis\Phlags\Validation\InvalidValueException;
 use IteratorAggregate;
+use Traversable;
 
 /**
  * Represents the interface of all flagable classes.
@@ -49,7 +50,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * @return self The flagable.
 	 * @throws InvalidValueException The flag to set is invalid.
 	 */
-	public function set( $value ): self;
+	public function set( $value ): static;
 
 	/**
 	 * Unsets a flag.
@@ -57,7 +58,7 @@ interface FlagableInterface extends IteratorAggregate
 	 * @return self The flagable.
 	 * @throws InvalidValueException The flag to unset is invalid.
 	 */
-	public function unset( $value ): self;
+	public function unset( $value ): static;
 
 	/**
 	 * Switches a flag.
@@ -65,12 +66,12 @@ interface FlagableInterface extends IteratorAggregate
 	 * @return self The flagable.
 	 * @throws InvalidValueException The flag to switch is invalid.
 	 */
-	public function switch( $value ): self;
+	public function switch( $value ): static;
 
 	/**
 	 * {@inheritdoc}
 	 * Generates a list of all flags set in the flagable, each as a new flagable.
 	 * @return iterable|FlagableInterface[] The list of all flags set in the flagable, each as a new flagable.
 	 */
-	public function getIterator(): iterable;
+	public function getIterator(): Traversable;
 }

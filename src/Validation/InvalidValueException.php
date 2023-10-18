@@ -28,7 +28,7 @@ class InvalidValueException extends RuntimeException implements ErrorMessagesExc
 	/**
 	 * {@inheritdoc}
 	 */
-	public function withErrorMessages( array $errorMessages ): ErrorMessagesExceptionInterface
+	public function withErrorMessages( array $errorMessages ): static
 	{
 		$this->errorMessages = $errorMessages;
 
