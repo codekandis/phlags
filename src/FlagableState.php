@@ -3,6 +3,7 @@ namespace CodeKandis\Phlags;
 
 use CodeKandis\Phlags\Validation\InvalidFlagableException;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
+use function asort;
 
 /**
  * Represents a flagable state.
