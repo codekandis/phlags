@@ -7,7 +7,7 @@ use function is_int;
 use function sprintf;
 
 /**
- * Represents the validator of all flagables.
+ * Represents the validator of any flagable.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
@@ -32,7 +32,7 @@ class FlagableValidator extends AbstractValidator implements FlagableValidatorIn
 	public const string ERROR_MESSAGE_INVALID_VALUE = 'The flag value `%s` in the flag `%s::%s` is invalid. A power of `2` expected.';
 
 	/**
-	 * Represents the error message if the flag value is missing.
+	 * Represents the error message if a flag value is missing.
 	 * @var string
 	 */
 	public const string ERROR_MESSAGE_MISSING_FLAG = 'The flag value `%s` is missing in the flagable `%s`.';
@@ -44,7 +44,7 @@ class FlagableValidator extends AbstractValidator implements FlagableValidatorIn
 	private int $maximumValue = 0;
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function getMaximumValue(): int
@@ -53,7 +53,7 @@ class FlagableValidator extends AbstractValidator implements FlagableValidatorIn
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function validate( string $flagableClassName, array $reflectedFlags ): void

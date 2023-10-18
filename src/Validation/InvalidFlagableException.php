@@ -19,7 +19,7 @@ class InvalidFlagableException extends RuntimeException implements InvalidFlagab
 	public const string EXCEPTION_MESSAGE_FLAGABLE_IS_INVALID = 'The flagable `%s` is invalid.';
 
 	/**
-	 * Stores the error messages of the exception.
+	 * Stores the context error messages of the exception.
 	 * @var string[]
 	 */
 	private array $contextErrorMessages = [];

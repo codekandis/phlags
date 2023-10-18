@@ -12,7 +12,7 @@ use function is_string;
 use function sprintf;
 
 /**
- * Represents the validator of all flagables.
+ * Represents the validator of any value.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
@@ -43,7 +43,7 @@ class ValueValidator extends AbstractValidator implements ValueValidatorInterfac
 	public const string ERROR_MESSAGE_VALUE_EXEEDS_MAXIMUM_FLAG_VALUE = 'The value `%s` exceeds the maximum flag value of `%s`.';
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	#[Override]
 	public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maximumValue, mixed $value ): void
@@ -62,9 +62,6 @@ class ValueValidator extends AbstractValidator implements ValueValidatorInterfac
 
 			else if ( true === $isString )
 			{
-				/**
-				 * @var string $explodedValue
-				 */
 				foreach ( explode( '|', $value ) as $explodedValue )
 				{
 					if ( false === ctype_digit( $explodedValue ) )
