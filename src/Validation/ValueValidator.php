@@ -6,7 +6,6 @@ use Override;
 use function array_key_exists;
 use function ctype_digit;
 use function explode;
-use function get_class;
 use function is_int;
 use function is_numeric;
 use function is_string;
@@ -19,6 +18,30 @@ use function sprintf;
  */
 class ValueValidator extends AbstractValidator implements ValueValidatorInterface
 {
+	/**
+	 * Represents the error message if the type of a value is invalid.
+	 * @var string
+	 */
+	public const string ERROR_MESSAGE_INVALID_VALUE_TYPE = 'The type of the value `%s` is invalid. Unsigned `int`, `string` or instance of `%s` expected.';
+
+	/**
+	 * Represents the error message if the type of a stringified value is invalid.
+	 * @var string
+	 */
+	public const string ERROR_MESSAGE_INVALID_STRINGIFIED_VALUE_TYPE = 'The type of the stringified value `%s` is invalid. Unsigned `int` or flag name of flagable `%s` expected.';
+
+	/**
+	 * Represents the error message if a value cannot be resolved to a flag value.
+	 * @var string
+	 */
+	public const string ERROR_MESSAGE_UNRESOLVABLE_VALUE = 'The value `%s` cannot be resolved to a flag value.';
+
+	/**
+	 * Represents the error message if a value exceeds a maximum flag value.
+	 * @var string
+	 */
+	public const string ERROR_MESSAGE_VALUE_EXEEDS_MAXIMUM_FLAG_VALUE = 'The value `%s` exceeds the maximum flag value of `%s`.';
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -34,11 +57,7 @@ class ValueValidator extends AbstractValidator implements ValueValidatorInterfac
 
 			if ( false === $isString && ( false === $isInt || 0 > $value ) )
 			{
-				$this->errorMessages[] = sprintf(
-					"Invalid type in value '%s'. Unsigned 'int', 'string' or instance of '%s' expected.",
-					(string) $value,
-					get_class( $flagable )
-				);
+				$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_INVALID_VALUE_TYPE, (string) $value, $flagable::class );
 			}
 
 			else if ( true === $isString )
@@ -52,42 +71,27 @@ class ValueValidator extends AbstractValidator implements ValueValidatorInterfac
 					{
 						if ( true === is_numeric( $explodedValue ) )
 						{
-							$this->errorMessages[] = sprintf(
-								"Invalid type in stringified value '%s'. Unsigned 'int' or flag name of flagable '%s' expected.",
-								$explodedValue,
-								get_class( $flagable )
-							);
+							$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_INVALID_STRINGIFIED_VALUE_TYPE, $explodedValue, $flagable::class );
 							continue;
 						}
 
 						if ( false === array_key_exists( $explodedValue, $reflectedFlags ) )
 						{
-							$this->errorMessages[] = sprintf(
-								"The value '%s' cannot be resolved to a flag value.",
-								$explodedValue
-							);
+							$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_UNRESOLVABLE_VALUE, $explodedValue );
 							continue;
 						}
 					}
 
 					if ( $maxValue < (int) $explodedValue )
 					{
-						$this->errorMessages[] = sprintf(
-							"The value '%s' exceeds the maximum flag value of '%s'.",
-							$explodedValue,
-							(string) $maxValue
-						);
+						$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_VALUE_EXEEDS_MAXIMUM_FLAG_VALUE, $explodedValue, (string) $maxValue );
 					}
 				}
 			}
 
 			else if ( $maxValue < $value )
 			{
-				$this->errorMessages[] = sprintf(
-					"The value '%s' exceeds the maximum flag value of '%s'.",
-					(string) $value,
-					(string) $maxValue
-				);
+				$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_VALUE_EXEEDS_MAXIMUM_FLAG_VALUE, (string) $value, (string) $maxValue );
 			}
 		}
 	}
