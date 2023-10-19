@@ -48,16 +48,16 @@ interface FlagableStateInterface
 	public function setReflectedFlags( ?array $reflectedFlags ): void;
 
 	/**
-	 * Gets the maximum value of the flagable.
+	 * Gets the maximum flag value of the flagable.
 	 * @return ?int The reflected flags of the flagable.
 	 */
-	public function getMaxValue(): ?int;
+	public function getMaximumValue(): ?int;
 
 	/**
-	 * Sets the maximum value of the flagable.
-	 * @param ?int $maxValue The reflected flags of the flagable.
+	 * Sets the maximum flag value of the flagable.
+	 * @param ?int $maximumValue The reflected flags of the flagable.
 	 */
-	public function setMaxValue( ?int $maxValue ): void;
+	public function setMaximumValue( ?int $maximumValue ): void;
 
 	/**
 	 * Gets the value validator of the flagable.

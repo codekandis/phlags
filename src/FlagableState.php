@@ -32,10 +32,10 @@ class FlagableState implements FlagableStateInterface
 	private ?array $reflectedFlags = [];
 
 	/**
-	 * Stores the maximum value of the flagable.
+	 * Stores the maximum flag value of the flagable.
 	 * @var ?int
 	 */
-	private ?int $maxValue = FlagableInterface::NONE;
+	private ?int $maximumValue = FlagableInterface::NONE;
 
 	/**
 	 * Stores the value validator of the flagable.
@@ -105,18 +105,18 @@ class FlagableState implements FlagableStateInterface
 	 * {@inheritdoc}
 	 */
 	#[Override]
-	public function getMaxValue(): ?int
+	public function getMaximumValue(): ?int
 	{
-		return $this->maxValue;
+		return $this->maximumValue;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	#[Override]
-	public function setMaxValue( ?int $maxValue ): void
+	public function setMaximumValue( ?int $maximumValue ): void
 	{
-		$this->maxValue = $maxValue;
+		$this->maximumValue = $maximumValue;
 	}
 
 	/**

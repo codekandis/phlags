@@ -12,7 +12,7 @@ interface FlagableValidatorInterface extends ValidatorInterface
 	 * Gets the maximum flag value of the validated flagable.
 	 * @return int The maximum flag value of the validated flagable.
 	 */
-	public function getMaxValue(): int;
+	public function getMaximumValue(): int;
 
 	/**
 	 * Validates the flagable.

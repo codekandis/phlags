@@ -38,18 +38,18 @@ class FlagableValidator extends AbstractValidator implements FlagableValidatorIn
 	public const string ERROR_MESSAGE_MISSING_FLAG = 'The flag value `%s` is missing in the flagable `%s`.';
 
 	/**
-	 * Stores the maximum value of the flagable.
+	 * Stores the maximum flag value of the flagable.
 	 * @var int
 	 */
-	private int $maxValue = 0;
+	private int $maximumValue = 0;
 
 	/**
 	 * {@inheritdoc}
 	 */
 	#[Override]
-	public function getMaxValue(): int
+	public function getMaximumValue(): int
 	{
-		return $this->maxValue;
+		return $this->maximumValue;
 	}
 
 	/**
@@ -88,13 +88,13 @@ class FlagableValidator extends AbstractValidator implements FlagableValidatorIn
 				continue;
 			}
 
-			$validatedFlags[] = $flagValue;
-			$this->maxValue   |= $flagValue;
+			$validatedFlags[]   = $flagValue;
+			$this->maximumValue |= $flagValue;
 		}
 
-		for ( $n = 1; 0 | $n <= $this->maxValue; $n *= 2 )
+		for ( $n = 1; 0 | $n <= $this->maximumValue; $n *= 2 )
 		{
-			if ( 0 === ( $n & $this->maxValue ) )
+			if ( 0 === ( $n & $this->maximumValue ) )
 			{
 				$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_MISSING_FLAG, $n, $flagableClassName );
 			}

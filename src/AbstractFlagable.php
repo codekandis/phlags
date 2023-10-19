@@ -194,7 +194,7 @@ abstract class AbstractFlagable implements FlagableInterface
 			throw $validationException;
 		}
 
-		$flagableState->setMaxValue( $validator->getMaxValue() );
+		$flagableState->setMaximumValue( $validator->getMaximumValue() );
 	}
 
 	/**
@@ -208,7 +208,7 @@ abstract class AbstractFlagable implements FlagableInterface
 		 * @var ValueValidatorInterface $valueValidator
 		 */
 		$valueValidator = static::getFlagableState()->getValueValidator();
-		$valueValidator->validate( $this, static::getFlagableState()->getReflectedFlags(), static::getFlagableState()->getMaxValue(), $value );
+		$valueValidator->validate( $this, static::getFlagableState()->getReflectedFlags(), static::getFlagableState()->getMaximumValue(), $value );
 		if ( false === $valueValidator->succeeded() )
 		{
 			throw InvalidValueException
