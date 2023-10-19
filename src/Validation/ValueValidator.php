@@ -46,7 +46,7 @@ class ValueValidator extends AbstractValidator implements ValueValidatorInterfac
 	 * {@inheritdoc}
 	 */
 	#[Override]
-	public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maxValue, mixed $value ): void
+	public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maximumValue, mixed $value ): void
 	{
 		$this->errorMessages = [];
 
@@ -82,16 +82,16 @@ class ValueValidator extends AbstractValidator implements ValueValidatorInterfac
 						}
 					}
 
-					if ( $maxValue < (int) $explodedValue )
+					if ( $maximumValue < (int) $explodedValue )
 					{
-						$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_VALUE_EXEEDS_MAXIMUM_FLAG_VALUE, $explodedValue, (string) $maxValue );
+						$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_VALUE_EXEEDS_MAXIMUM_FLAG_VALUE, $explodedValue, (string) $maximumValue );
 					}
 				}
 			}
 
-			else if ( $maxValue < $value )
+			else if ( $maximumValue < $value )
 			{
-				$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_VALUE_EXEEDS_MAXIMUM_FLAG_VALUE, (string) $value, (string) $maxValue );
+				$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_VALUE_EXEEDS_MAXIMUM_FLAG_VALUE, (string) $value, (string) $maximumValue );
 			}
 		}
 	}
