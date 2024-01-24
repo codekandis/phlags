@@ -1,6 +1,7 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags;
 
+use CodeKandis\Phlags\Exceptions\UnsupportedOperationException;
 use CodeKandis\Phlags\Validation\InvalidValueException;
 use IteratorAggregate;
 use Traversable;
@@ -17,6 +18,47 @@ interface FlagableInterface extends IteratorAggregate
 	 * @var int
 	 */
 	public const int NONE = 0;
+
+	/**
+	 * Unsets an undefined member.
+	 * @param string $memberName The name of the undefined member.
+	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
+	 */
+	public function __unset( string $memberName ): void;
+
+	/**
+	 * Gets an undefined member.
+	 * @param string $memberName The name of the undefined member.
+	 * @return mixed The value of the undefined member.
+	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
+	 */
+	public function __get( string $memberName ): mixed;
+
+	/**
+	 * Sets an undefined member.
+	 * @param string $memberName The name of the undefined member.
+	 * @param mixed $value The value to set.
+	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
+	 */
+	public function __set( string $memberName, mixed $value ): void;
+
+	/**
+	 * Calls an undefined method.
+	 * @param string $methodName The name of the undefined method.
+	 * @param array $arguments The passed arguments.
+	 * @return mixed The return value of the undefined method.
+	 * @throws UnsupportedOperationException Accessing undefined methods is not supported.
+	 */
+	public function __call( string $methodName, array $arguments ): mixed;
+
+	/**
+	 * Calls an undefined static method.
+	 * @param string $methodName The name of the undefined static method.
+	 * @param array $arguments The passed arguments.
+	 * @return mixed The return value of the undefined static method.
+	 * @throws UnsupportedOperationException Accessing undefined methods is not supported.
+	 */
+	public static function __callStatic( string $methodName, array $arguments ): mixed;
 
 	/**
 	 * Gets the string representation of the current value.
