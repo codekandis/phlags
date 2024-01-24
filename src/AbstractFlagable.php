@@ -59,56 +59,45 @@ abstract class AbstractFlagable implements FlagableInterface
 	}
 
 	/**
-	 * Unsets an undefined member.
-	 * @param string $memberName The name of the undefined member.
-	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
+	 * @inheritDoc
 	 */
+	#[Override]
 	final public function __unset( string $memberName ): void
 	{
 		throw new UnsupportedOperationException( 'Accessing undefined members is not supported.' );
 	}
 
 	/**
-	 * Gets an undefined member.
-	 * @param string $memberName The name of the undefined member.
-	 * @return mixed The value of the undefined member.
-	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
+	 * @inheritDoc
 	 */
+	#[Override]
 	final public function __get( string $memberName ): mixed
 	{
 		throw new UnsupportedOperationException( 'Accessing undefined members is not supported.' );
 	}
 
 	/**
-	 * Sets an undefined member.
-	 * @param string $memberName The name of the undefined member.
-	 * @param mixed $value The value to set.
-	 * @throws UnsupportedOperationException Accessing undefined members is not supported.
+	 * @inheritDoc
 	 */
+	#[Override]
 	final public function __set( string $memberName, mixed $value ): void
 	{
 		throw new UnsupportedOperationException( 'Accessing undefined members is not supported.' );
 	}
 
 	/**
-	 * Calls an undefined method.
-	 * @param string $methodName The name of the undefined method.
-	 * @param array $arguments The passed arguments.
-	 * @return mixed The return value of the undefined method.
-	 * @throws UnsupportedOperationException Accessing undefined methods is not supported.
+	 * @inheritDoc
 	 */
+	#[Override]
 	final public function __call( string $methodName, array $arguments ): mixed
 	{
 		throw new UnsupportedOperationException( 'Accessing undefined methods is not supported.' );
 	}
 
 	/**
-	 * Calls an undefined static method.
-	 * @param string $methodName The name of the undefined static method.
-	 * @param array $arguments The passed arguments.
-	 * @return mixed The return value of the undefined static method.
-	 * @throws UnsupportedOperationException Accessing undefined methods is not supported.
+	 * @inheritDoc
 	 */
+	#[Override]
 	final public static function __callStatic( string $methodName, array $arguments ): mixed
 	{
 		throw new UnsupportedOperationException( 'Accessing undefined methods is not supported.' );
