@@ -6,17 +6,17 @@ use CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationExtension;
 use CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationInterface;
 
 /**
- * Represents a test fixture of a conditional manipulatable flagable.
+ * Represents a fixture of a valid conditional manipulation flagable.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
-class ConditionalManipulatableFlagable extends AbstractFlagable implements ConditionalManipulationInterface
+class ValidConditionalManipulationFlagableFixture extends AbstractFlagable implements ConditionalManipulationInterface
 {
 	use ConditionalManipulationExtension;
 
-	public const FLAG_A = 1;
+	public const int FLAG_A = 1;
 
-	public const FLAG_B = 2;
+	public const int FLAG_B = 2;
 
-	public const FLAG_C = 4;
+	public const int FLAG_C = 4;
 }
