@@ -2,190 +2,113 @@
 namespace CodeKandis\Phlags\Tests\UnitTests\TraitfulExtensions;
 
 use CodeKandis\Phlags\FlagableInterface;
-use CodeKandis\Phlags\Tests\Fixtures\ConditionalManipulatableFlagable;
-use CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationExtension;
-use PHPUnit\Framework\TestCase;
+use CodeKandis\Phlags\Tests\DataProviders\UnitTests\TraitfulExtensions\ConditionalManipulationExtensionTest\ValidConditionalManipulationFlagablesWithValidConditionalSetValuesValidConditionalSwitchValuesValidConditionalUnsetValuesAndExpectedFlagValuesDataProvider;
+use CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationInterface;
+use CodeKandis\PhpUnit\TestCase;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
 
 /**
- * Represents the test case for the trait 'CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationExtension'.
+ * Represents the test case of `CodeKandis\Phlags\TraitfulExtensions\ConditionalManipulationExtension`.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
-final class ConditionalManipulationExtensionTest extends TestCase
+class ConditionalManipulationExtensionTest extends TestCase
 {
 	/**
-	 * Tests if the conditional manipulation methods works as expected.
-	 * @param string $flagableClassName
-	 * @param int|string|FlagableInterface $setValue_1 The first value to set.
-	 * @param bool $setCondition_1 The first set condition.
-	 * @param int $setResult_1 The flagable value after the first set.
-	 * @param int|string|FlagableInterface $setValue_2 The second value to set.
-	 * @param bool $setCondition_2 The second set condition.
-	 * @param int $setResult_2 The flagable value after the second set.
-	 * @param int|string|FlagableInterface $setValue_3 The third value to set.
-	 * @param bool $setCondition_3 The third set condition.
-	 * @param int $setResult_3 The flagable value after the third set.
-	 * @param int|string|FlagableInterface $setValue_4 The fourth value to set.
-	 * @param bool $setCondition_4 The fourth set condition.
-	 * @param int $setResult_4 The flagable value after the fourth set.
-	 * @param int|string|FlagableInterface $setValue_5 The fifth value to set.
-	 * @param bool $setCondition_5 The fifth set condition.
-	 * @param int $setResult_5 The flagable value after the fifth set.
-	 * @param int|string|FlagableInterface $switchValue_1 The first value to switch.
-	 * @param bool $switchCondition_1 The first switch condition.
-	 * @param int $switchResult_1 The flagable value after the first switch.
-	 * @param int|string|FlagableInterface $switchValue_2 The second value to switch.
-	 * @param bool $switchCondition_2 The second switch condition.
-	 * @param int $switchResult_2 The flagable value after the second switch.
-	 * @param int|string|FlagableInterface $unsetValue_1 The first value to unset.
-	 * @param bool $unsetCondition_1 The first unset condition.
-	 * @param int $unsetResult_1 The flagable value after the first unset.
-	 * @param int|string|FlagableInterface $unsetValue_2 The second value to unset.
-	 * @param bool $unsetCondition_2 The second unset condition.
-	 * @param int $unsetResult_2 The flagable value after the second unset.
-	 * @dataProvider validConditionalManipulatableFlagableDataProvider
+	 * Tests if the methods `ConditionalManipulationInterface::if*()` manipulate the values on conditions correctly.
+	 * @param ConditionalManipulationInterface $validConditionalManipulationFlagable The valid conditional manipulation flagable.
+	 * @param int|string|FlagableInterface $validSetValue_1 The first valid set value to pass.
+	 * @param bool $setCondition_1 The first set condition to pass.
+	 * @param int|string|FlagableInterface $validSetValue_2 The second valid set value to pass.
+	 * @param bool $setCondition_2 The second set condition to pass.
+	 * @param int|string|FlagableInterface $validSetValue_3 The third valid set value to pass.
+	 * @param bool $setCondition_3 The third set condition to pass.
+	 * @param int|string|FlagableInterface $validSetValue_4 The fourth valid set value to pass.
+	 * @param bool $setCondition_4 The fourth set condition to pass.
+	 * @param int|string|FlagableInterface $validSetValue_5 The fifth valid set value to pass.
+	 * @param bool $setCondition_5 The fifth set condition to pass.
+	 * @param int|string|FlagableInterface $validSwitchValue_1 The first valid switch value to pass.
+	 * @param bool $switchCondition_1 The first switch condition to pass.
+	 * @param int|string|FlagableInterface $validSwitchValue_2 The second valid switch value to pass.
+	 * @param bool $switchCondition_2 The second switch condition to pass.
+	 * @param int|string|FlagableInterface $validUnsetValue_1 The first valid unset value to pass.
+	 * @param bool $unsetCondition_1 The first unset condition to pass.
+	 * @param int|string|FlagableInterface $validUnsetValue_2 The second valid unset value to pass.
+	 * @param bool $unsetCondition_2 The second unset condition to pass.
+	 * @param int $expectedFlagValue_1 The expected flag value after the first set.
+	 * @param int $expectedFlagValue_2 The expected flag value after the second set.
+	 * @param int $expectedFlagValue_3 The expected flag value after the third set.
+	 * @param int $expectedFlagValue_4 The expected flag value after the fourth set.
+	 * @param int $expectedFlagValue_5 The expected flag value after the fifth set.
+	 * @param int $expectedFlagValue_6 The expected flag value after the first switch.
+	 * @param int $expectedFlagValue_7 The expected flag value after the second switch.
+	 * @param int $expectedFlagValue_8 The expected flag value after the first unset.
+	 * @param int $expectedFlagValue_9 The expected flag value after the second unset.
 	 */
-	public function testsConditionalManipulation( string $flagableClassName, $setValue_1, bool $setCondition_1, int $setResult_1, $setValue_2, bool $setCondition_2, int $setResult_2, $setValue_3, bool $setCondition_3, int $setResult_3, $setValue_4, bool $setCondition_4, int $setResult_4, $setValue_5, bool $setCondition_5, int $setResult_5, $switchValue_1, bool $switchCondition_1, int $switchResult_1, $switchValue_2, bool $switchCondition_2, int $switchResult_2, $unsetValue_1, bool $unsetCondition_1, int $unsetResult_1, $unsetValue_2, bool $unsetCondition_2, int $unsetResult_2 ): void
+	#[DataProviderExternal( ValidConditionalManipulationFlagablesWithValidConditionalSetValuesValidConditionalSwitchValuesValidConditionalUnsetValuesAndExpectedFlagValuesDataProvider::class, 'provideData' )]
+	public function testIfMethodsIfManipulateValuesOnConditionsCorrectly( ConditionalManipulationInterface $validConditionalManipulationFlagable, int|string|FlagableInterface $validSetValue_1, bool $setCondition_1, int|string|FlagableInterface $validSetValue_2, bool $setCondition_2, int|string|FlagableInterface $validSetValue_3, bool $setCondition_3, int|string|FlagableInterface $validSetValue_4, bool $setCondition_4, int|string|FlagableInterface $validSetValue_5, bool $setCondition_5, int|string|FlagableInterface $validSwitchValue_1, bool $switchCondition_1, int|string|FlagableInterface $validSwitchValue_2, bool $switchCondition_2, int|string|FlagableInterface $validUnsetValue_1, bool $unsetCondition_1, int|string|FlagableInterface $validUnsetValue_2, bool $unsetCondition_2, int $expectedFlagValue_1, int $expectedFlagValue_2, int $expectedFlagValue_3, int $expectedFlagValue_4, int $expectedFlagValue_5, int $expectedFlagValue_6, int $expectedFlagValue_7, int $expectedFlagValue_8, int $expectedFlagValue_9 ): void
 	{
-		/**
-		 * @var ConditionalManipulationExtension $flagable
-		 */
-		$flagable = new $flagableClassName;
+		$validConditionalManipulationFlagable->ifSet( $validSetValue_1, $setCondition_1 );
 
-		$flagable->ifSet( $setValue_1, $setCondition_1 );
+		static::assertEquals(
+			$expectedFlagValue_1,
+			$validConditionalManipulationFlagable->getValue()
+		);
 
-		static::assertEquals( $setResult_1, $flagable->getValue() );
+		$validConditionalManipulationFlagable->ifSet( $validSetValue_2, $setCondition_2 );
 
-		$flagable->ifSet( $setValue_2, $setCondition_2 );
+		static::assertEquals(
+			$expectedFlagValue_2,
+			$validConditionalManipulationFlagable->getValue()
+		);
 
-		static::assertEquals( $setResult_2, $flagable->getValue() );
+		$validConditionalManipulationFlagable->ifSet( $validSetValue_3, $setCondition_3 );
 
-		$flagable->ifSet( $setValue_3, $setCondition_3 );
+		static::assertEquals(
+			$expectedFlagValue_3,
+			$validConditionalManipulationFlagable->getValue()
+		);
 
-		static::assertEquals( $setResult_3, $flagable->getValue() );
+		$validConditionalManipulationFlagable->ifSet( $validSetValue_4, $setCondition_4 );
 
-		$flagable->ifSet( $setValue_4, $setCondition_4 );
+		static::assertEquals(
+			$expectedFlagValue_4,
+			$validConditionalManipulationFlagable->getValue()
+		);
 
-		static::assertEquals( $setResult_4, $flagable->getValue() );
+		$validConditionalManipulationFlagable->ifSet( $validSetValue_5, $setCondition_5 );
 
-		$flagable->ifSet( $setValue_5, $setCondition_5 );
+		static::assertEquals(
+			$expectedFlagValue_5,
+			$validConditionalManipulationFlagable->getValue()
+		);
 
-		static::assertEquals( $setResult_5, $flagable->getValue() );
+		$validConditionalManipulationFlagable->ifSwitch( $validSwitchValue_1, $switchCondition_1 );
 
-		$flagable->ifSwitch( $switchValue_1, $switchCondition_1 );
+		static::assertEquals(
+			$expectedFlagValue_6,
+			$validConditionalManipulationFlagable->getValue()
+		);
 
-		static::assertEquals( $switchResult_1, $flagable->getValue() );
+		$validConditionalManipulationFlagable->ifSwitch( $validSwitchValue_2, $switchCondition_2 );
 
-		$flagable->ifSwitch( $switchValue_2, $switchCondition_2 );
+		static::assertEquals(
+			$expectedFlagValue_7,
+			$validConditionalManipulationFlagable->getValue()
+		);
 
-		static::assertEquals( $switchResult_2, $flagable->getValue() );
+		$validConditionalManipulationFlagable->ifUnset( $validUnsetValue_1, $unsetCondition_1 );
 
-		$flagable->ifUnset( $unsetValue_1, $unsetCondition_1 );
+		static::assertEquals(
+			$expectedFlagValue_8,
+			$validConditionalManipulationFlagable->getValue()
+		);
 
-		static::assertEquals( $unsetResult_1, $flagable->getValue() );
+		$validConditionalManipulationFlagable->ifUnset( $validUnsetValue_2, $unsetCondition_2 );
 
-		$flagable->ifUnset( $unsetValue_2, $unsetCondition_2 );
-
-		static::assertEquals( $unsetResult_2, $flagable->getValue() );
-	}
-
-	/**
-	 * Provides the data sets with
-	 * @return array The data sets.
-	 */
-	public function validConditionalManipulatableFlagableDataProvider(): array
-	{
-		return [
-			0 => [
-				'flagableClassName' => ConditionalManipulatableFlagable::class,
-				'setValue_1'        => ConditionalManipulatableFlagable::FLAG_A,
-				'setCondition_1'    => false,
-				'setResult_1'       => ConditionalManipulatableFlagable::NONE,
-				'setValue_2'        => ConditionalManipulatableFlagable::FLAG_A,
-				'setCondition_2'    => true,
-				'setResult_2'       => ConditionalManipulatableFlagable::FLAG_A,
-				'setValue_3'        => ConditionalManipulatableFlagable::FLAG_B,
-				'setCondition_3'    => false,
-				'setResult_3'       => ConditionalManipulatableFlagable::FLAG_A,
-				'setValue_4'        => ConditionalManipulatableFlagable::FLAG_B,
-				'setCondition_4'    => true,
-				'setResult_4'       => ConditionalManipulatableFlagable::FLAG_A | ConditionalManipulatableFlagable::FLAG_B,
-				'setValue_5'        => ConditionalManipulatableFlagable::FLAG_C,
-				'setCondition_5'    => true,
-				'setResult_5'       => ConditionalManipulatableFlagable::FLAG_A | ConditionalManipulatableFlagable::FLAG_B | ConditionalManipulatableFlagable::FLAG_C,
-				'switchValue_1'     => ConditionalManipulatableFlagable::FLAG_B,
-				'switchCondition_1' => false,
-				'switchResult_1'    => ConditionalManipulatableFlagable::FLAG_A | ConditionalManipulatableFlagable::FLAG_B | ConditionalManipulatableFlagable::FLAG_C,
-				'switchValue_2'     => ConditionalManipulatableFlagable::FLAG_B,
-				'switchCondition_2' => true,
-				'switchResult_2'    => ConditionalManipulatableFlagable::FLAG_A | ConditionalManipulatableFlagable::FLAG_C,
-				'unsetValue_1'      => ConditionalManipulatableFlagable::FLAG_A,
-				'unsetCondition_1'  => false,
-				'unsetResult_1'     => ConditionalManipulatableFlagable::FLAG_A | ConditionalManipulatableFlagable::FLAG_C,
-				'unsetValue_2'      => ConditionalManipulatableFlagable::FLAG_A,
-				'unsetCondition_2'  => true,
-				'unsetResult_2'     => ConditionalManipulatableFlagable::FLAG_C,
-			],
-			1 => [
-				'flagableClassName' => ConditionalManipulatableFlagable::class,
-				'setValue_1'        => new ConditionalManipulatableFlagable( ConditionalManipulatableFlagable::FLAG_A ),
-				'setCondition_1'    => false,
-				'setResult_1'       => ConditionalManipulatableFlagable::NONE,
-				'setValue_2'        => new ConditionalManipulatableFlagable( ConditionalManipulatableFlagable::FLAG_A ),
-				'setCondition_2'    => true,
-				'setResult_2'       => ConditionalManipulatableFlagable::FLAG_A,
-				'setValue_3'        => new ConditionalManipulatableFlagable( ConditionalManipulatableFlagable::FLAG_B ),
-				'setCondition_3'    => false,
-				'setResult_3'       => ConditionalManipulatableFlagable::FLAG_A,
-				'setValue_4'        => new ConditionalManipulatableFlagable( ConditionalManipulatableFlagable::FLAG_B ),
-				'setCondition_4'    => true,
-				'setResult_4'       => ConditionalManipulatableFlagable::FLAG_A | ConditionalManipulatableFlagable::FLAG_B,
-				'setValue_5'        => new ConditionalManipulatableFlagable( ConditionalManipulatableFlagable::FLAG_C ),
-				'setCondition_5'    => true,
-				'setResult_5'       => ConditionalManipulatableFlagable::FLAG_A | ConditionalManipulatableFlagable::FLAG_B | ConditionalManipulatableFlagable::FLAG_C,
-				'switchValue_1'     => new ConditionalManipulatableFlagable( ConditionalManipulatableFlagable::FLAG_B ),
-				'switchCondition_1' => false,
-				'switchResult_1'    => ConditionalManipulatableFlagable::FLAG_A | ConditionalManipulatableFlagable::FLAG_B | ConditionalManipulatableFlagable::FLAG_C,
-				'switchValue_2'     => new ConditionalManipulatableFlagable( ConditionalManipulatableFlagable::FLAG_B ),
-				'switchCondition_2' => true,
-				'switchResult_2'    => ConditionalManipulatableFlagable::FLAG_A | ConditionalManipulatableFlagable::FLAG_C,
-				'unsetValue_1'      => new ConditionalManipulatableFlagable( ConditionalManipulatableFlagable::FLAG_A ),
-				'unsetCondition_1'  => false,
-				'unsetResult_1'     => ConditionalManipulatableFlagable::FLAG_A | ConditionalManipulatableFlagable::FLAG_C,
-				'unsetValue_2'      => new ConditionalManipulatableFlagable( ConditionalManipulatableFlagable::FLAG_A ),
-				'unsetCondition_2'  => true,
-				'unsetResult_2'     => ConditionalManipulatableFlagable::FLAG_C,
-			],
-			2 => [
-				'flagableClassName' => ConditionalManipulatableFlagable::class,
-				'setValue_1'        => 'FLAG_A',
-				'setCondition_1'    => false,
-				'setResult_1'       => ConditionalManipulatableFlagable::NONE,
-				'setValue_2'        => 'FLAG_A',
-				'setCondition_2'    => true,
-				'setResult_2'       => ConditionalManipulatableFlagable::FLAG_A,
-				'setValue_3'        => 'FLAG_B',
-				'setCondition_3'    => false,
-				'setResult_3'       => ConditionalManipulatableFlagable::FLAG_A,
-				'setValue_4'        => 'FLAG_B',
-				'setCondition_4'    => true,
-				'setResult_4'       => ConditionalManipulatableFlagable::FLAG_A | ConditionalManipulatableFlagable::FLAG_B,
-				'setValue_5'        => 'FLAG_C',
-				'setCondition_5'    => true,
-				'setResult_5'       => ConditionalManipulatableFlagable::FLAG_A | ConditionalManipulatableFlagable::FLAG_B | ConditionalManipulatableFlagable::FLAG_C,
-				'switchValue_1'     => 'FLAG_B',
-				'switchCondition_1' => false,
-				'switchResult_1'    => ConditionalManipulatableFlagable::FLAG_A | ConditionalManipulatableFlagable::FLAG_B | ConditionalManipulatableFlagable::FLAG_C,
-				'switchValue_2'     => 'FLAG_B',
-				'switchCondition_2' => true,
-				'switchResult_2'    => ConditionalManipulatableFlagable::FLAG_A | ConditionalManipulatableFlagable::FLAG_C,
-				'unsetValue_1'      => 'FLAG_A',
-				'unsetCondition_1'  => false,
-				'unsetResult_1'     => ConditionalManipulatableFlagable::FLAG_A | ConditionalManipulatableFlagable::FLAG_C,
-				'unsetValue_2'      => 'FLAG_A',
-				'unsetCondition_2'  => true,
-				'unsetResult_2'     => ConditionalManipulatableFlagable::FLAG_C,
-			]
-		];
+		static::assertEquals(
+			$expectedFlagValue_9,
+			$validConditionalManipulationFlagable->getValue()
+		);
 	}
 }
