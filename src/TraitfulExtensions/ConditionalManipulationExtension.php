@@ -2,6 +2,7 @@
 namespace CodeKandis\Phlags\TraitfulExtensions;
 
 use CodeKandis\Phlags\FlagableInterface;
+use Override;
 
 /**
  * Represents a traitful extension to manipulate a flagable while a passed condition is true.
@@ -13,6 +14,7 @@ trait ConditionalManipulationExtension
 	/**
 	 * @see ConditionalManipulationInterface::ifSet()
 	 */
+	#[Override]
 	public function ifSet( int|string|FlagableInterface $value, bool $condition ): static
 	{
 		if ( true === $condition )
@@ -26,6 +28,7 @@ trait ConditionalManipulationExtension
 	/**
 	 * @see ConditionalManipulationInterface::ifUnset()
 	 */
+	#[Override]
 	public function ifUnset( int|string|FlagableInterface $value, bool $condition ): static
 	{
 		if ( true === $condition )
@@ -39,6 +42,7 @@ trait ConditionalManipulationExtension
 	/**
 	 * @see ConditionalManipulationInterface::ifSwitch()
 	 */
+	#[Override]
 	public function ifSwitch( int|string|FlagableInterface $value, bool $condition ): static
 	{
 		if ( true === $condition )
