@@ -1,6 +1,7 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags\Validation;
 
+use Override;
 use function in_array;
 use function is_int;
 use function sprintf;
@@ -21,6 +22,7 @@ class FlagableValidator extends AbstractValidator implements FlagableValidatorIn
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function getMaxValue(): int
 	{
 		return $this->maxValue;
@@ -29,6 +31,7 @@ class FlagableValidator extends AbstractValidator implements FlagableValidatorIn
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function validate( string $flagableClassName, array $reflectedFlags ): void
 	{
 		$this->errorMessages = [];

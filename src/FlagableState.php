@@ -3,6 +3,7 @@ namespace CodeKandis\Phlags;
 
 use CodeKandis\Phlags\Validation\InvalidFlagableException;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
+use Override;
 use function asort;
 
 /**
@@ -45,6 +46,7 @@ class FlagableState implements FlagableStateInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function getHasBeenValidated(): bool
 	{
 		return $this->hasBeenValidated;
@@ -53,6 +55,7 @@ class FlagableState implements FlagableStateInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function setHasBeenValidated( bool $hasBeenValidated ): void
 	{
 		$this->hasBeenValidated = $hasBeenValidated;
@@ -61,6 +64,7 @@ class FlagableState implements FlagableStateInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function getValidationException(): ?InvalidFlagableException
 	{
 		return $this->validationException;
@@ -69,6 +73,7 @@ class FlagableState implements FlagableStateInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function setValidationException( ?InvalidFlagableException $validationException ): void
 	{
 		$this->validationException = $validationException;
@@ -77,6 +82,7 @@ class FlagableState implements FlagableStateInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function getReflectedFlags(): ?array
 	{
 		return $this->reflectedFlags;
@@ -85,6 +91,7 @@ class FlagableState implements FlagableStateInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function setReflectedFlags( ?array $reflectedFlags ): void
 	{
 		if ( null !== $reflectedFlags )
@@ -97,6 +104,7 @@ class FlagableState implements FlagableStateInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function getMaxValue(): ?int
 	{
 		return $this->maxValue;
@@ -105,6 +113,7 @@ class FlagableState implements FlagableStateInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function setMaxValue( ?int $maxValue ): void
 	{
 		$this->maxValue = $maxValue;
@@ -113,6 +122,7 @@ class FlagableState implements FlagableStateInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function getValueValidator(): ?ValueValidatorInterface
 	{
 		return $this->valueValidator;
@@ -121,6 +131,7 @@ class FlagableState implements FlagableStateInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function setValueValidator( ?ValueValidatorInterface $valueValidator ): void
 	{
 		$this->valueValidator = $valueValidator;
