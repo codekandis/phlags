@@ -2,6 +2,7 @@
 namespace CodeKandis\Phlags\Validation;
 
 use CodeKandis\Phlags\Exceptions\ErrorMessagesExceptionInterface;
+use Override;
 use RuntimeException;
 
 /**
@@ -20,6 +21,7 @@ class InvalidFlagableException extends RuntimeException implements ErrorMessages
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function getErrorMessages(): array
 	{
 		return $this->errorMessages;
@@ -28,6 +30,7 @@ class InvalidFlagableException extends RuntimeException implements ErrorMessages
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function withErrorMessages( array $errorMessages ): static
 	{
 		$this->errorMessages = $errorMessages;

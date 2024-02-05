@@ -2,6 +2,7 @@
 namespace CodeKandis\Phlags\Validation;
 
 use CodeKandis\Phlags\FlagableInterface;
+use Override;
 use function array_key_exists;
 use function ctype_digit;
 use function explode;
@@ -21,6 +22,7 @@ class ValueValidator extends AbstractValidator implements ValueValidatorInterfac
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maxValue, mixed $value ): void
 	{
 		$this->errorMessages = [];

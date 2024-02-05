@@ -1,6 +1,8 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags\Validation;
 
+use Override;
+
 /**
  * Represents the base class of all validators.
  * @package codekandis/phlags
@@ -17,6 +19,7 @@ abstract class AbstractValidator implements ValidatorInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function getErrorMessages(): array
 	{
 		return $this->errorMessages;
@@ -25,6 +28,7 @@ abstract class AbstractValidator implements ValidatorInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function succeeded(): bool
 	{
 		return [] === $this->errorMessages;

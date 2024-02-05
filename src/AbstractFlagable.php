@@ -7,6 +7,7 @@ use CodeKandis\Phlags\Validation\InvalidFlagableException;
 use CodeKandis\Phlags\Validation\InvalidValueException;
 use CodeKandis\Phlags\Validation\ValueValidator;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
+use Override;
 use ReflectionClass;
 use Traversable;
 use function ctype_digit;
@@ -116,6 +117,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	final public function __toString(): string
 	{
 		$flagsSetNames = [];
@@ -140,6 +142,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	final public function __invoke(): int
 	{
 		return $this->getValue();
@@ -148,6 +151,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	final public function getValue(): int
 	{
 		return $this->value;
@@ -286,6 +290,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	final public function has( int|string|FlagableInterface $value ): bool
 	{
 		$this->validateValue( $value );
@@ -296,6 +301,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	final public function set( int|string|FlagableInterface $value ): static
 	{
 		$this->validateValue( $value );
@@ -307,6 +313,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	final public function unset( int|string|FlagableInterface $value ): static
 	{
 		$this->validateValue( $value );
@@ -318,6 +325,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	final public function switch( int|string|FlagableInterface $value ): static
 	{
 		$this->validateValue( $value );
@@ -329,6 +337,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	final public function getIterator(): Traversable
 	{
 		if ( static::NONE === $this->value )
