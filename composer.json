@@ -1,7 +1,7 @@
 {
 	"name": "codekandis/phlags",
 	"description": "`codekandis/phlags` introduces the possibility to use flagable enums in PHP.",
-	"version": "dev-development",
+	"version": "4.0.0",
 	"keywords": [
 		"php",
 		"flags",
