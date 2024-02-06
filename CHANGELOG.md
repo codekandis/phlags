@@ -5,7 +5,55 @@ All notable changes to this project will be documented in this file.
 The format is based on [keep a changelog][xtlink-keep-a-changelog]
 and this project adheres to [Semantic Versioning 2.0.0][xtlink-semantic-versioning].
 
+## [4.0.0] - 2024-02-17
 
+### Fixed
+
+* type hints
+* method naming
+* PHPDoc
+
+### Changed
+
+* composer package
+  * description
+  * require
+    * `php` [>=8.3]
+    * `ext-ctype` [*]
+  * require-dev
+    * `codekandis/phpunit` [^5.0.0]
+* added
+  * version
+  * require-dev
+    * `rector/rector` [^0.18.5]
+  * autoload-dev
+    * psr-4
+      * `CodeKandis\Phlags\Build\`
+        * `build/`
+* PHPUnit tests
+  * configuration
+  * externalized data providers
+* error and exception handling
+* `CODE_OF_CONDUCT.md`
+* `README.md`
+  * PHP version `8.3`
+
+### Removed
+
+* sealed classes
+
+### Added
+
+* read-only fields
+* type hints
+* `Override` attributes
+* rector
+  * configuration script
+  * shell script
+
+[4.0.0]: https://github.com/codekandis/phlags/compare/3.0.0..4.0.0
+
+---
 ## [3.0.0] - 2021-01-17
 
 ### Changed
