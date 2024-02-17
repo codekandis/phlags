@@ -1,99 +1,31 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags\Tests\UnitTests\Validation;
 
-use CodeKandis\Phlags\Validation\AbstractValidator;
-use CodeKandis\Phlags\Validation\FlagableValidator;
+use CodeKandis\Phlags\Tests\DataProviders\UnitTests\Validation\ValidatorInterfaceTest\ValidatorsWithExpectedSucceededAndExpectedErrorMessagesDataProvider;
 use CodeKandis\Phlags\Validation\ValidatorInterface;
-use CodeKandis\Phlags\Validation\ValueValidator;
-use PHPUnit\Framework\TestCase;
+use CodeKandis\PhpUnit\TestCase;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
 
 /**
- * Represents the test case for the interface `CodeKandis\Phlags\Validation\ValidatorInterface`.
+ * Represents the test case of `CodeKandis\Phlags\Validation\ValidatorInterface`.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
 class ValidatorInterfaceTest extends TestCase
 {
 	/**
-	 * Provides validators with error messages and success states.
-	 * @return array The validators with error messages and success states.
+	 * Tests if the methods `ValidatorInterface::succeeded()` and `ValidatorInterface::getErrorMessage()` return results correctly.
+	 * @param ValidatorInterface $validator The validator to test.
+	 * @param bool $expectedSucceeded The expected succeeded state of the validation.
+	 * @param string[] $expectedErrorMessages The expected error messages of the validation.
 	 */
-	public function validatorsDataProvider(): array
+	#[DataProviderExternal( ValidatorsWithExpectedSucceededAndExpectedErrorMessagesDataProvider::class, 'provideData' )]
+	public function testIfMethodsSucceededAndGetErrorMessagesReturnResultsCorrectly( ValidatorInterface $validator, bool $expectedSucceeded, array $expectedErrorMessages ): void
 	{
-		return [
-			0 => [
-				'validatorClass'        => new class() extends AbstractValidator {
-					protected array $errorMessages = [
-						'foobar',
-						'barfoo'
-					];
-				},
-				'expectedErrorMessages' => [
-					'foobar',
-					'barfoo'
-				],
-				'expectedSucceeded'     => false
-			],
-			1 => [
-				'validatorClass'        => new class() extends AbstractValidator {
-				},
-				'expectedErrorMessages' => [],
-				'expectedSucceeded'     => true
-			],
-			2 => [
-				'validatorClass'        => new class() extends ValueValidator {
-					protected array $errorMessages = [
-						'foobar',
-						'barfoo'
-					];
-				},
-				'expectedErrorMessages' => [
-					'foobar',
-					'barfoo'
-				],
-				'expectedSucceeded'     => false
-			],
-			3 => [
-				'validatorClass'        => new class() extends ValueValidator {
-				},
-				'expectedErrorMessages' => [],
-				'expectedSucceeded'     => true
-			],
-			4 => [
-				'validatorClass'        => new class() extends FlagableValidator {
-					protected array $errorMessages = [
-						'foobar',
-						'barfoo'
-					];
-				},
-				'expectedErrorMessages' => [
-					'foobar',
-					'barfoo'
-				],
-				'expectedSucceeded'     => false
-			],
-			5 => [
-				'validatorClass'        => new class() extends FlagableValidator {
-				},
-				'expectedErrorMessages' => [],
-				'expectedSucceeded'     => true
-			]
-		];
-	}
-
-	/**
-	 * Tests if the validators return the error messages and the success state correctly.
-	 * @param ValidatorInterface $validator The validator implementing `ValidatorInterface`.
-	 * @param string[] $expectedErrorMessages The expected error messages.
-	 * @param bool $expectedSucceeded The expected success state.
-	 * @dataProvider validatorsDataProvider
-	 */
-	public function testValidatorsReturnResultsCorrectly( ValidatorInterface $validator, array $expectedErrorMessages, bool $expectedSucceeded ): void
-	{
-		$resultedErrorMessages = $validator->getErrorMessages();
 		$resultedSucceeded     = $validator->succeeded();
+		$resultedErrorMessages = $validator->getErrorMessages();
 
-		static::assertSame( $expectedErrorMessages, $resultedErrorMessages );
 		static::assertSame( $expectedSucceeded, $resultedSucceeded );
+		static::assertSame( $expectedErrorMessages, $resultedErrorMessages );
 	}
 }

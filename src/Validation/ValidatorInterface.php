@@ -2,7 +2,7 @@
 namespace CodeKandis\Phlags\Validation;
 
 /**
- * Represents the interface of all validators.
+ * Represents the interface of any validator.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
@@ -16,7 +16,7 @@ interface ValidatorInterface
 
 	/**
 	 * Determines if the validation has been succeeded.
-	 * @return bool True if the validation has been succeeded, false otherwise.
+	 * @return bool True if the validation has been succeeded, otherwise false.
 	 */
 	public function succeeded(): bool;
 }

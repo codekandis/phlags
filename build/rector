@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+function executeRector()
+{
+	php "${1}/../vendor/bin/rector" --output-format="json" --config="${1}/rectorConfiguration.php" "${@:2}"
+}
+
+workingDirectory="$( dirname "${0}" )"
+
+case "${1}" in
+	"-h" | "--help" )
+		echo "Options:"
+		echo
+		echo -e "  -d, --dry-run\t\t[default] Shows a diff of changes rector would do."
+		echo -e "  -c, --do-changes\tPerforms all changes automatically."
+		echo -e "  -h, --help\t\tShows the help."
+		;;
+	"-c" | "--do-changes" )
+		executeRector "${workingDirectory}"
+		;;
+	"-d" | "--dry-run" | * )
+		executeRector "${workingDirectory}" --dry-run
+		;;
+esac
