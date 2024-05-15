@@ -58,9 +58,11 @@ class ValueValidator extends AbstractValidator implements ValueValidatorInterfac
 			if ( false === $isString && ( false === $isInt || 0 > $value ) )
 			{
 				$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_INVALID_VALUE_TYPE, (string) $value, $flagable::class );
+
+				return;
 			}
 
-			else if ( true === $isString )
+			if ( true === $isString )
 			{
 				/**
 				 * @var string $explodedValue
@@ -87,9 +89,11 @@ class ValueValidator extends AbstractValidator implements ValueValidatorInterfac
 						$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_VALUE_EXEEDS_MAXIMUM_FLAG_VALUE, $explodedValue, (string) $maximumValue );
 					}
 				}
+
+				return;
 			}
 
-			else if ( $maximumValue < $value )
+			if ( $maximumValue < $value )
 			{
 				$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_VALUE_EXEEDS_MAXIMUM_FLAG_VALUE, (string) $value, (string) $maximumValue );
 			}
