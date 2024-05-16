@@ -2,25 +2,47 @@
 namespace CodeKandis\Phlags\Validation;
 
 use CodeKandis\Phlags\FlagableInterface;
+use Override;
 use function array_key_exists;
+use function ctype_digit;
 use function explode;
-use function get_class;
 use function is_int;
 use function is_numeric;
 use function is_string;
 use function sprintf;
 
 /**
- * Represents the validator of all flagables.
+ * Represents the validator of any value.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
 class ValueValidator extends AbstractValidator implements ValueValidatorInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * Represents the error message if the type of a value is invalid.
 	 */
-	public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maxValue, $value ): void
+	public const string ERROR_MESSAGE_INVALID_VALUE_TYPE = 'The type of the value `%s` is invalid. Unsigned `int`, `string` or instance of `%s` expected.';
+
+	/**
+	 * Represents the error message if the type of a stringified value is invalid.
+	 */
+	public const string ERROR_MESSAGE_INVALID_STRINGIFIED_VALUE_TYPE = 'The type of the stringified value `%s` is invalid. Unsigned `int` or flag name of flagable `%s` expected.';
+
+	/**
+	 * Represents the error message if a value cannot be resolved to a flag value.
+	 */
+	public const string ERROR_MESSAGE_UNRESOLVABLE_VALUE = 'The value `%s` cannot be resolved to a flag value.';
+
+	/**
+	 * Represents the error message if a value exceeds a maximum flag value.
+	 */
+	public const string ERROR_MESSAGE_VALUE_EXEEDS_MAXIMUM_FLAG_VALUE = 'The value `%s` exceeds the maximum flag value of `%s`.';
+
+	/**
+	 * @inheritDoc
+	 */
+	#[Override]
+	public function validate( FlagableInterface $flagable, array $reflectedFlags, int $maximumValue, mixed $value ): void
 	{
 		$this->errorMessages = [];
 
@@ -31,60 +53,44 @@ class ValueValidator extends AbstractValidator implements ValueValidatorInterfac
 
 			if ( false === $isString && ( false === $isInt || 0 > $value ) )
 			{
-				$this->errorMessages[] = sprintf(
-					"Invalid type in value '%s'. Unsigned 'int', 'string' or instance of '%s' expected.",
-					(string) $value,
-					get_class( $flagable )
-				);
+				$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_INVALID_VALUE_TYPE, (string) $value, $flagable::class );
+
+				return;
 			}
 
-			else if ( true === $isString )
+			if ( true === $isString )
 			{
-				/**
-				 * @var string $explodedValue
-				 */
 				foreach ( explode( '|', $value ) as $explodedValue )
 				{
 					if ( false === ctype_digit( $explodedValue ) )
 					{
 						if ( true === is_numeric( $explodedValue ) )
 						{
-							$this->errorMessages[] = sprintf(
-								"Invalid type in stringified value '%s'. Unsigned 'int' or flag name of flagable '%s' expected.",
-								$explodedValue,
-								get_class( $flagable )
-							);
+							$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_INVALID_STRINGIFIED_VALUE_TYPE, $explodedValue, $flagable::class );
+
 							continue;
 						}
 
 						if ( false === array_key_exists( $explodedValue, $reflectedFlags ) )
 						{
-							$this->errorMessages[] = sprintf(
-								"The value '%s' cannot be resolved to a flag value.",
-								$explodedValue
-							);
+							$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_UNRESOLVABLE_VALUE, $explodedValue );
+
 							continue;
 						}
 					}
 
-					if ( $maxValue < (int) $explodedValue )
+					if ( $maximumValue < (int) $explodedValue )
 					{
-						$this->errorMessages[] = sprintf(
-							"The value '%s' exceeds the maximum flag value of '%s'.",
-							$explodedValue,
-							(string) $maxValue
-						);
+						$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_VALUE_EXEEDS_MAXIMUM_FLAG_VALUE, $explodedValue, (string) $maximumValue );
 					}
 				}
+
+				return;
 			}
 
-			else if ( $maxValue < $value )
+			if ( $maximumValue < $value )
 			{
-				$this->errorMessages[] = sprintf(
-					"The value '%s' exceeds the maximum flag value of '%s'.",
-					(string) $value,
-					(string) $maxValue
-				);
+				$this->errorMessages[] = sprintf( static::ERROR_MESSAGE_VALUE_EXEEDS_MAXIMUM_FLAG_VALUE, (string) $value, (string) $maximumValue );
 			}
 		}
 	}

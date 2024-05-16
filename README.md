@@ -44,9 +44,9 @@ Declare a class extending the flagable base class [`AbstractFlagable`][srclink-a
 ```php
 class Permissions extends AbstractFlagable
 {
-    public const READ    = 1;
-    public const WRITE   = 2;
-    public const EXECUTE = 4;
+    public const int READ    = 1;
+    public const int WRITE   = 2;
+    public const int EXECUTE = 4;
 }
 ```
 
@@ -168,9 +168,9 @@ class Permissions extends AbstractFlagable SomeTraitfulInterface
 {
     use SomeTraitfulExtension;
 
-    public const READ    = 1;
-    public const WRITE   = 2;
-    public const EXECUTE = 4;
+    public const int READ    = 1;
+    public const int WRITE   = 2;
+    public const int EXECUTE = 4;
 }
 ```
 
@@ -242,7 +242,7 @@ catch ( InvalidValueException $e )
 
 [xtlink-version-badge]: https://img.shields.io/badge/version-3.0.0-blue.svg
 [xtlink-license-badge]: https://img.shields.io/badge/license-MIT-yellow.svg
-[xtlink-php-version-badge]: https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg
+[xtlink-php-version-badge]: https://img.shields.io/badge/php-%3E%3D%208.3-8892BF.svg
 [xtlink-code-coverage-badge]: https://img.shields.io/badge/coverage-100%25-green.svg
 [xtlink-php-net]: https://php.net
 
