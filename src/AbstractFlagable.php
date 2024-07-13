@@ -8,6 +8,7 @@ use CodeKandis\Phlags\Validation\InvalidValueException;
 use CodeKandis\Phlags\Validation\InvalidValueExceptionInterface;
 use CodeKandis\Phlags\Validation\ValueValidator;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
+use CodeKandis\Types\BaseObject;
 use CodeKandis\Types\MethodNotFoundException;
 use CodeKandis\Types\PropertyNotFoundException;
 use Override;
@@ -24,7 +25,7 @@ use function is_string;
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
-abstract class AbstractFlagable implements FlagableInterface
+abstract class AbstractFlagable extends BaseObject implements FlagableInterface
 {
 	/**
 	 * Stores the states of all instantiated flagables.

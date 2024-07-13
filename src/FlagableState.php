@@ -3,6 +3,7 @@ namespace CodeKandis\Phlags;
 
 use CodeKandis\Phlags\Validation\InvalidFlagableExceptionInterface;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
+use CodeKandis\Types\BaseObject;
 use Override;
 use function asort;
 
@@ -11,7 +12,7 @@ use function asort;
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
-class FlagableState implements FlagableStateInterface
+class FlagableState extends BaseObject implements FlagableStateInterface
 {
 	/**
 	 * Stores if the flagable has been validated.

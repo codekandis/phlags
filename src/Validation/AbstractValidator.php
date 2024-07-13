@@ -1,6 +1,7 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags\Validation;
 
+use CodeKandis\Types\BaseObject;
 use Override;
 
 /**
@@ -8,7 +9,7 @@ use Override;
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
-abstract class AbstractValidator implements ValidatorInterface
+abstract class AbstractValidator extends BaseObject implements ValidatorInterface
 {
 	/**
 	 * Stores the error messages of the validation.
