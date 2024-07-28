@@ -1,219 +1,96 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags\Tests\UnitTests;
 
-use CodeKandis\Phlags\FlagableState;
 use CodeKandis\Phlags\FlagableStateInterface;
-use CodeKandis\Phlags\Validation\InvalidFlagableException;
-use CodeKandis\Phlags\Validation\ValueValidator;
+use CodeKandis\Phlags\Tests\DataProviders\UnitTests\FlagableStateInterfaceTest\FlagableStatesWithMaximumFlagValueAndExpectedMaximumFlagValueDataProvider;
+use CodeKandis\Phlags\Tests\DataProviders\UnitTests\FlagableStateInterfaceTest\FlagableStatesWithReflectedFlagsAndExpectedReflectedFlagsDataProvider;
+use CodeKandis\Phlags\Tests\DataProviders\UnitTests\FlagableStateInterfaceTest\FlagableStatesWithValidationThrowableAndExpectedValidationThrowableDataProvider;
+use CodeKandis\Phlags\Tests\DataProviders\UnitTests\FlagableStateInterfaceTest\FlagableStatesWithValidationStateAndExpectedValidationStateDataProvider;
+use CodeKandis\Phlags\Tests\DataProviders\UnitTests\FlagableStateInterfaceTest\FlagableStatesWithValueValidatorAndExpectedValueValidatorDataProvider;
+use CodeKandis\Phlags\Validation\InvalidFlagableExceptionInterface;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
-use PHPUnit\Framework\TestCase;
+use CodeKandis\PhpUnit\TestCase;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
 
 /**
- * Represents the test case for the interface `CodeKandis\Phlags\FlagableStateInterface`.
+ * Represents the test case of `CodeKandis\Phlags\FlagableStateInterface`.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
 class FlagableStateInterfaceTest extends TestCase
 {
 	/**
-	 * Provides flagable states implementing `FlagableStateInterface` with validation states.
-	 * @return array The flagable states implementing `FlagableStateInterface` with validation states.
-	 */
-	public function flagableStatesWithValidationStateDataProvider(): array
-	{
-		return [
-			0 => [
-				'flagableState'   => new FlagableState(),
-				'validationState' => false
-			],
-			1 => [
-				'flagableState'   => new FlagableState(),
-				'validationState' => true
-			]
-		];
-	}
-
-	/**
-	 * Tests if the validation state is stored and returned correctly.
+	 * Tests if the method `FlagableStateInterface::setHasBeenValidated()" sets the validation state correctly.
 	 * @param FlagableStateInterface $flagableState The flagable state to test.
-	 * @param bool $validationState The validation state to store.
-	 * @dataProvider flagableStatesWithValidationStateDataProvider
+	 * @param bool $validationState The validation state to set.
+	 * @param bool $expectedValidationState The expected validation state.
 	 */
-	public function testHasBeenValidatedWillBeStoredAndReturnedCorrectly( FlagableStateInterface $flagableState, bool $validationState ): void
+	#[DataProviderExternal( FlagableStatesWithValidationStateAndExpectedValidationStateDataProvider::class, 'provideData' )]
+	public function testIfMethodSetHasBeenValidatedSetsValidationStateCorrectly( FlagableStateInterface $flagableState, bool $validationState, bool $expectedValidationState ): void
 	{
 		$flagableState->setHasBeenValidated( $validationState );
 		$resultedValidationState = $flagableState->getHasBeenValidated();
 
-		static::assertSame( $validationState, $resultedValidationState );
+		static::assertSame( $expectedValidationState, $resultedValidationState );
 	}
 
 	/**
-	 * Provides flagable states implementing `FlagableStateInterface` with validation states.
-	 * @return array The flagable states implementing `FlagableStateInterface` with validation states.
-	 */
-	public function flagableStatesWithValidationExceptionDataProvider(): array
-	{
-		return [
-			0 => [
-				'flagableState'       => new FlagableState(),
-				'validationException' => null
-			],
-			1 => [
-				'flagableState'       => new FlagableState(),
-				'validationException' => new InvalidFlagableException()
-			],
-			2 => [
-				'flagableState'       => new FlagableState(),
-				'validationException' => new class() extends InvalidFlagableException {
-				}
-			]
-		];
-	}
-
-	/**
-	 * Tests if the validation exception is stored and returned correctly.
+	 * Tests if the method `FlagableStateInterface::setValidationException()" sets the validation throwable correctly.
 	 * @param FlagableStateInterface $flagableState The flagable state to test.
-	 * @param null|InvalidFlagableException $validationException The validation exception to store.
-	 * @dataProvider flagableStatesWithValidationExceptionDataProvider
+	 * @param ?InvalidFlagableExceptionInterface $validationThrowable The validation throwable to set.
+	 * @param ?InvalidFlagableExceptionInterface $expectedValidationThrowable The expected validation throwable.
 	 */
-	public function testValidationExceptionWillBeStoredAndReturnedCorrectly( FlagableStateInterface $flagableState, ?InvalidFlagableException $validationException ): void
+	#[DataProviderExternal( FlagableStatesWithValidationThrowableAndExpectedValidationThrowableDataProvider::class, 'provideData' )]
+	public function testIfMethodSetValidationThrowableSetsValidationThrowableCorrectly( FlagableStateInterface $flagableState, ?InvalidFlagableExceptionInterface $validationThrowable, ?InvalidFlagableExceptionInterface $expectedValidationThrowable ): void
 	{
-		$flagableState->setValidationException( $validationException );
-		$resultedValidationException = $flagableState->getValidationException();
+		$flagableState->setValidationException( $validationThrowable );
+		$resultedValidationThrowable = $flagableState->getValidationException();
 
-		static::assertSame( $validationException, $resultedValidationException );
+		static::assertSame( $expectedValidationThrowable, $resultedValidationThrowable );
 	}
 
 	/**
-	 * Provides flagable states implementing `FlagableStateInterface` with reflected values.
-	 * @return array The flagable states implementing `FlagableStateInterface` with reflected values.
-	 */
-	public function flagableStatesWithReflectedValuesDataProvider(): array
-	{
-		return [
-			0 => [
-				'flagableState'   => new FlagableState(),
-				'reflectedValues' => null
-			],
-			1 => [
-				'flagableState'   => new FlagableState(),
-				'reflectedValues' => [
-					'FLAG_A'
-				]
-			],
-			2 => [
-				'flagableState'   => new FlagableState(),
-				'reflectedValues' => [
-					'FLAG_A',
-					'FLAG_B'
-				]
-			],
-			3 => [
-				'flagableState'   => new FlagableState(),
-				'reflectedValues' => [
-					'FLAG_A',
-					'FLAG_B',
-					'FLAG_C'
-				]
-			],
-			4 => [
-				'flagableState'   => new FlagableState(),
-				'reflectedValues' => [
-					'FLAG_A',
-					'FLAG_C'
-				]
-			]
-		];
-	}
-
-	/**
-	 * Tests if the reflected flags are stored and returned correctly.
+	 * Tests if the method `FlagableStateInterface::setReflectedFlags()" sets the reflected flags correctly.
 	 * @param FlagableStateInterface $flagableState The flagable state to test.
-	 * @param null|array $reflectedFlags The reflected flags to store.
-	 * @dataProvider flagableStatesWithReflectedValuesDataProvider
+	 * @param ?<string,int>[] $reflectedFlags The reflected flags to set.
+	 * @param ?<string,int>[] $expectedReflectedFlags The expected reflected flags.
 	 */
-	public function testReflectedFlagsWillBeStoredAndReturnedCorrectly( FlagableStateInterface $flagableState, ?array $reflectedFlags ): void
+	#[DataProviderExternal( FlagableStatesWithReflectedFlagsAndExpectedReflectedFlagsDataProvider::class, 'provideData' )]
+	public function testIfMethodSetReflectedFlagsSetsReflectedFlagsCorrectly( FlagableStateInterface $flagableState, ?array $reflectedFlags, ?array $expectedReflectedFlags ): void
 	{
 		$flagableState->setReflectedFlags( $reflectedFlags );
 		$resultedReflectedFlags = $flagableState->getReflectedFlags();
 
-		static::assertSame( $reflectedFlags, $resultedReflectedFlags );
+		static::assertSame( $expectedReflectedFlags, $resultedReflectedFlags );
 	}
 
 	/**
-	 * Provides flagable states implementing `FlagableStateInterface` with max values.
-	 * @return array The flagable states implementing `FlagableStateInterface` with max values.
-	 */
-	public function flagableStatesWithMaxValuesDataProvider(): array
-	{
-		return [
-			0 => [
-				'flagableState' => new FlagableState(),
-				'maxValue'      => 0
-			],
-			1 => [
-				'flagableState' => new FlagableState(),
-				'maxValue'      => 1
-			],
-			2 => [
-				'flagableState' => new FlagableState(),
-				'maxValue'      => 2
-			],
-			3 => [
-				'flagableState' => new FlagableState(),
-				'maxValue'      => 4
-			]
-		];
-	}
-
-	/**
-	 * Tests if the max value is stored and returned correctly.
+	 * Tests if the method `FlagableStateInterface::setMeximumValue()" sets the maximum value correctly.
 	 * @param FlagableStateInterface $flagableState The flagable state to test.
-	 * @param int $maxValue The max value to store.
-	 * @dataProvider flagableStatesWithMaxValuesDataProvider
+	 * @param int $maximumFlagValue The maximum flag value to set.
+	 * @param int $expectedMaximumFlagValue The expected maximum flag value.
 	 */
-	public function testMaxValueWillBeStoredAndReturnedCorrectly( FlagableStateInterface $flagableState, int $maxValue ): void
+	#[DataProviderExternal( FlagableStatesWithMaximumFlagValueAndExpectedMaximumFlagValueDataProvider::class, 'provideData' )]
+	public function testIfMethodSetMaximumValueSetsMaximumValueCorrectly( FlagableStateInterface $flagableState, int $maximumFlagValue, int $expectedMaximumFlagValue ): void
 	{
-		$flagableState->setMaxValue( $maxValue );
-		$resultedMaxValue = $flagableState->getMaxValue();
+		$flagableState->setMaximumValue( $maximumFlagValue );
+		$resultedMaximumFlagValue = $flagableState->getMaximumValue();
 
-		static::assertSame( $maxValue, $resultedMaxValue );
+		static::assertSame( $expectedMaximumFlagValue, $resultedMaximumFlagValue );
 	}
 
 	/**
-	 * Provides flagable states implementing `FlagableStateInterface` with max values.
-	 * @return array The flagable states implementing `FlagableStateInterface` with max values.
-	 */
-	public function flagableStatesWithValueValidatorsDataProvider(): array
-	{
-		return [
-			0 => [
-				'flagableState'  => new FlagableState(),
-				'valueValidator' => null
-			],
-			1 => [
-				'flagableState'  => new FlagableState(),
-				'valueValidator' => new ValueValidator()
-			],
-			2 => [
-				'flagableState'  => new FlagableState(),
-				'valueValidator' => new class() extends ValueValidator {
-				}
-			]
-		];
-	}
-
-	/**
-	 * Tests if the value validator is stored and returned correctly.
+	 * Tests if the method `FlagableStateInterface::setValueValidator()" sets the valueValidator correctly.
 	 * @param FlagableStateInterface $flagableState The flagable state to test.
-	 * @param null|ValueValidatorInterface $valueValidator The value validator to store.
-	 * @dataProvider flagableStatesWithValueValidatorsDataProvider
+	 * @param ?ValueValidatorInterface $valueValidator The value validator to set.
+	 * @param ?ValueValidatorInterface $expectedValueValidator The expected value validator.
 	 */
-	public function testValueValidatorWillBeStoredAndReturnedCorrectly( FlagableStateInterface $flagableState, ?ValueValidatorInterface $valueValidator ): void
+	#[DataProviderExternal( FlagableStatesWithValueValidatorAndExpectedValueValidatorDataProvider::class, 'provideData' )]
+	public function testIfMethodSetValueValidatorSetsValueValidatorCorrectly( FlagableStateInterface $flagableState, ?ValueValidatorInterface $valueValidator, ?ValueValidatorInterface $expectedValueValidator ): void
 	{
 		$flagableState->setValueValidator( $valueValidator );
 		$resultedValueValidator = $flagableState->getValueValidator();
 
-		static::assertSame( $valueValidator, $resultedValueValidator );
+		static::assertSame( $expectedValueValidator, $resultedValueValidator );
 	}
 }

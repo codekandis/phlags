@@ -1,28 +1,29 @@
-# CodeKandis / Phlags
+# codeKandis/phlags
 
 [![Version][xtlink-version-badge]][srclink-changelog]
 [![License][xtlink-license-badge]][srclink-license]
 [![Minimum PHP Version][xtlink-php-version-badge]][xtlink-php-net]
 ![Code Coverage][xtlink-code-coverage-badge]
 
-With Phlags you can declare flagable enums to provide types with varying and multiple states. While depending on binary operations Phlags provides high performance and reliabilty.
+`codekandis/phlags` introduces the possibility to use flagable enums in PHP.
 
 ## Index
 
 * [Installation](#installation)
+* [Testing](#testing)
 * [How to use](#how-to-use)
-    * [Declaration](#declaration)
-    * [General hints](#general-hints)
-    * [Instantiation](#instantiation)
-    * [Reading](#reading)
-    * [Determination](#determination)
-    * [Manipulation](#manipulation)
-    * [Fluent Manipulation](#fluent-manipulation)
-    * [String Representation](#string-representation)
-    * [Traitful Extensions](#traitful-extensions)
-        * [Conditional Manipulation](#conditional-manipulation)
+  * [Declaration](#declaration)
+  * [General hints](#general-hints)
+  * [Instantiation](#instantiation)
+  * [Reading](#reading)
+  * [Determination](#determination)
+  * [Manipulation](#manipulation)
+  * [Fluent Manipulation](#fluent-manipulation)
+  * [String Representation](#string-representation)
+  * [Traitful Extensions](#traitful-extensions)
+    * [Conditional Manipulation](#conditional-manipulation)
 * [Validation](#validation)
-    * [Flagables](#flagables)
+  * [Flagables](#flagables)
     * [Values](#values)
 
 ## Installation
@@ -31,6 +32,14 @@ Install the latest version with
 
 ```bash
 $ composer require codekandis/phlags
+```
+
+## Testing
+
+Test the code with
+
+```bash
+$ composer test
 ```
 
 ## How to use
@@ -44,9 +53,9 @@ Declare a class extending the flagable base class [`AbstractFlagable`][srclink-a
 ```php
 class Permissions extends AbstractFlagable
 {
-    public const READ    = 1;
-    public const WRITE   = 2;
-    public const EXECUTE = 4;
+    public const int READ    = 1;
+    public const int WRITE   = 2;
+    public const int EXECUTE = 4;
 }
 ```
 
@@ -168,9 +177,9 @@ class Permissions extends AbstractFlagable SomeTraitfulInterface
 {
     use SomeTraitfulExtension;
 
-    public const READ    = 1;
-    public const WRITE   = 2;
-    public const EXECUTE = 4;
+    public const int READ    = 1;
+    public const int WRITE   = 2;
+    public const int EXECUTE = 4;
 }
 ```
 
@@ -242,12 +251,13 @@ catch ( InvalidValueException $e )
 
 [xtlink-version-badge]: https://img.shields.io/badge/version-3.0.0-blue.svg
 [xtlink-license-badge]: https://img.shields.io/badge/license-MIT-yellow.svg
-[xtlink-php-version-badge]: https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg
+[xtlink-php-version-badge]: https://img.shields.io/badge/php-%3E%3D%208.3-8892BF.svg
 [xtlink-code-coverage-badge]: https://img.shields.io/badge/coverage-100%25-green.svg
 [xtlink-php-net]: https://php.net
 
 [srclink-changelog]: ./CHANGELOG.md
 [srclink-license]: ./LICENSE
+
 [srclink-abstract-flagable]: ./src/AbstractFlagable.php
 [srclink-invalid-flagable-exception]: src/Validation/InvalidFlagableException.php
 [srclink-invalid-value-exception]: src/Validation/InvalidValueException.php

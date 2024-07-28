@@ -1,27 +1,28 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\Phlags;
 
-use CodeKandis\Phlags\Validation\InvalidFlagableException;
+use CodeKandis\Phlags\Validation\InvalidFlagableExceptionInterface;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
+use CodeKandis\Types\BaseObject;
+use Override;
+use function asort;
 
 /**
  * Represents a flagable state.
  * @package codekandis/phlags
  * @author Christian Ramelow <info@codekandis.net>
  */
-class FlagableState implements FlagableStateInterface
+class FlagableState extends BaseObject implements FlagableStateInterface
 {
 	/**
 	 * Stores if the flagable has been validated.
-	 * @var bool
 	 */
 	private bool $hasBeenValidated = false;
 
 	/**
 	 * Stores the thrown exception of the validation of the flagable.
-	 * @var ?InvalidFlagableException
 	 */
-	private ?InvalidFlagableException $validationException = null;
+	private ?InvalidFlagableExceptionInterface $validationException = null;
 
 	/**
 	 * Stores the reflected flags of the flagable.
@@ -30,96 +31,105 @@ class FlagableState implements FlagableStateInterface
 	private ?array $reflectedFlags = [];
 
 	/**
-	 * Stores the maximum value of the flagable.
-	 * @var ?int
+	 * Stores the maximum flag value of the flagable.
 	 */
-	private ?int $maxValue = FlagableInterface::NONE;
+	private ?int $maximumValue = FlagableInterface::NONE;
 
 	/**
 	 * Stores the value validator of the flagable.
-	 * @var ?ValueValidatorInterface
 	 */
 	private ?ValueValidatorInterface $valueValidator = null;
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
+	#[Override]
 	public function getHasBeenValidated(): bool
 	{
 		return $this->hasBeenValidated;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
+	#[Override]
 	public function setHasBeenValidated( bool $hasBeenValidated ): void
 	{
 		$this->hasBeenValidated = $hasBeenValidated;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
-	public function getValidationException(): ?InvalidFlagableException
+	#[Override]
+	public function getValidationException(): ?InvalidFlagableExceptionInterface
 	{
 		return $this->validationException;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
-	public function setValidationException( ?InvalidFlagableException $validationException ): void
+	#[Override]
+	public function setValidationException( ?InvalidFlagableExceptionInterface $validationException ): void
 	{
 		$this->validationException = $validationException;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
+	#[Override]
 	public function getReflectedFlags(): ?array
 	{
 		return $this->reflectedFlags;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
+	#[Override]
 	public function setReflectedFlags( ?array $reflectedFlags ): void
 	{
 		if ( null !== $reflectedFlags )
 		{
 			asort( $reflectedFlags );
 		}
+
 		$this->reflectedFlags = $reflectedFlags;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
-	public function getMaxValue(): ?int
+	#[Override]
+	public function getMaximumValue(): ?int
 	{
-		return $this->maxValue;
+		return $this->maximumValue;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
-	public function setMaxValue( ?int $maxValue ): void
+	#[Override]
+	public function setMaximumValue( ?int $maximumValue ): void
 	{
-		$this->maxValue = $maxValue;
+		$this->maximumValue = $maximumValue;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
+	#[Override]
 	public function getValueValidator(): ?ValueValidatorInterface
 	{
 		return $this->valueValidator;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
+	#[Override]
 	public function setValueValidator( ?ValueValidatorInterface $valueValidator ): void
 	{
 		$this->valueValidator = $valueValidator;
