@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [keep a changelog][xtlink-keep-a-changelog]
 and this project adheres to [Semantic Versioning 2.0.0][xtlink-semantic-versioning].
 
+## [3.0.1] - 2025-10-21
 
+### Fixed
+
+* return type of `FlagableInterface::getIterator()`
+
+[3.0.1]: https://github.com/codekandis/phlags/compare/3.0.0...3.0.1
+
+---
 ## [3.0.0] - 2021-01-17
 
 ### Changed
