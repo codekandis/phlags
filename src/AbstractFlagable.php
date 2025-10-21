@@ -8,6 +8,7 @@ use CodeKandis\Phlags\Validation\InvalidValueException;
 use CodeKandis\Phlags\Validation\ValueValidator;
 use CodeKandis\Phlags\Validation\ValueValidatorInterface;
 use ReflectionClass;
+use Traversable;
 use function explode;
 use function implode;
 use function is_int;
@@ -327,7 +328,7 @@ abstract class AbstractFlagable implements FlagableInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	final public function getIterator(): iterable
+	final public function getIterator(): Traversable
 	{
 		if ( static::NONE === $this->value )
 		{

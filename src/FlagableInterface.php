@@ -3,6 +3,7 @@ namespace CodeKandis\Phlags;
 
 use CodeKandis\Phlags\Validation\InvalidValueException;
 use IteratorAggregate;
+use Traversable;
 
 /**
  * Represents the interface of all flagable classes.
@@ -70,7 +71,7 @@ interface FlagableInterface extends IteratorAggregate
 	/**
 	 * {@inheritdoc}
 	 * Generates a list of all flags set in the flagable, each as a new flagable.
-	 * @return iterable|FlagableInterface[] The list of all flags set in the flagable, each as a new flagable.
+	 * @return iterable|Traversable|FlagableInterface[] The list of all flags set in the flagable, each as a new flagable.
 	 */
-	public function getIterator(): iterable;
+	public function getIterator(): Traversable;
 }
